@@ -1232,11 +1232,8 @@ function renderProbBar() {
 }
 
 function renderTree() {
-  const W = 960, H = 400;
   const svg = document.getElementById('tree');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('width', '100%');
-  svg.style.maxWidth = W + 'px';
   svg.style.display = 'block';
   svg.removeAttribute('height');
 
@@ -1257,9 +1254,22 @@ function renderTree() {
     { id:'limbo',   x:405, y:382, w:128, h:0,  label:'LIMBO',     pct:'16%', color:'#f59e0b', terminal:true },
     { id:'conf',    x:755, y:382, w:205, h:0,  label:'COLLAPSE',  pct:'10%', color:'#ef4444', terminal:true }
   ];
-  // Compute terminal height from font: two text lines
+  // Terminal height: two text lines
   const TH = 36;
   nodes.forEach(n => { if (n.terminal) n.h = TH; });
+
+  // Compute viewBox tightly from actual node bounds + padding
+  // This ensures the window is exactly right regardless of layout changes
+  const PAD = 14;
+  const allX = nodes.flatMap(n => [n.x - n.w / 2, n.x + n.w / 2]);
+  const allY = nodes.flatMap(n => [n.y, n.y + n.h]);
+  const vbX = Math.floor(Math.min(...allX)) - PAD;
+  const vbY = Math.floor(Math.min(...allY)) - PAD;
+  const vbW = Math.ceil(Math.max(...allX)) - vbX + PAD;
+  const vbH = Math.ceil(Math.max(...allY)) - vbY + PAD;
+  svg.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
+  svg.style.aspectRatio  = `${vbW} / ${vbH}`;
+  svg.style.maxWidth     = '960px';
 
   const ns = 'http://www.w3.org/2000/svg';
   function mkEl(tag, attrs) {
