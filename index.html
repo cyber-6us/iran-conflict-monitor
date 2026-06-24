@@ -1176,138 +1176,105 @@ function renderProbBar() {
 }
 
 function renderTree() {
-  const W = 960, H = 340;
+  const W = 960, H = 400;
   const svg = document.getElementById('tree');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svg.setAttribute('width', W);
-  svg.setAttribute('height', H);
-  svg.style.maxWidth = '100%';
+  svg.setAttribute('width', '100%');
+  svg.style.maxWidth = W + 'px';
+  svg.style.display = 'block';
+  svg.removeAttribute('height');
 
+  // 3-level tree. All 4 terminals at the same y.
+  // Right branch: leb_no → COLLAPSE terminal directly (no intermediate node).
   const nodes = [
-    // [id, x, y, label, sublabel, color, pct]
-    { id:'root', x:480, y:30, w:200, h:44, label:'MOU Signed', sub:'Day '+DATA.meta.mouDay+'/60', color:'#6366f1', pct:null },
-    // Level 1
-    { id:'leb_yes', x:250, y:120, w:170, h:44, label:'Lebanon Holds', sub:'Ceasefire durability', color:'#10b981', pct:'70%' },
-    { id:'leb_no',  x:710, y:120, w:170, h:44, label:'Lebanon Collapses', sub:'Iran Clause 1 violated', color:'#ef4444', pct:'30%' },
-    // Level 2
-    { id:'iaea_ok', x:120, y:220, w:160, h:44, label:'IAEA Access', sub:'Inspection agreed', color:'#3b82f6', pct:'65%' },
-    { id:'iaea_no', x:370, y:220, w:160, h:44, label:'IAEA Disputed', sub:'Enrichment deadlock', color:'#f59e0b', pct:'35%' },
-    { id:'collapse', x:710, y:220, w:160, h:52, label:'COLLAPSE', sub:'Hormuz re-closed', color:'#ef4444', pct:'10%' },
-    // Level 3 (outcomes)
-    { id:'deal', x:50, y:300, w:105, h:32, label:'FULL DEAL', sub:'20%', color:'#10b981', terminal:true },
-    { id:'ext',  x:180, y:300, w:105, h:32, label:'EXTENDED', sub:'50%', color:'#3b82f6', terminal:true },
-    { id:'limbo',x:370, y:300, w:105, h:32, label:'LIMBO', sub:'16%', color:'#f59e0b', terminal:true },
-    { id:'lim2', x:490, y:300, w:80,  h:0,  label:'', sub:'', color:'transparent', terminal:true, hidden:true }
+    // Root
+    { id:'root',    x:480, y:18,  w:230, h:56, label:'MOU Active',        sub:'Day '+DATA.meta.mouDay+' / 60', color:'#6366f1', pct:null },
+    // Level 1 — Lebanon ceasefire gate
+    { id:'leb_yes', x:235, y:134, w:205, h:56, label:'Lebanon Holds',     sub:'Ceasefire durability',          color:'#10b981', pct:'70%' },
+    { id:'leb_no',  x:755, y:134, w:205, h:56, label:'Lebanon Collapses', sub:'Clause 1 violated',             color:'#ef4444', pct:'30%' },
+    // Level 2 — IAEA gate (left branch only)
+    { id:'iaea_ok', x:110, y:264, w:190, h:56, label:'IAEA Access',       sub:'Inspections agreed',            color:'#3b82f6', pct:'65%' },
+    { id:'iaea_no', x:365, y:264, w:190, h:56, label:'IAEA Deadlock',     sub:'Enrichment dispute',            color:'#f59e0b', pct:'35%' },
+    // Level 3 — terminal outcomes (all at same y)
+    { id:'deal',    x:65,  y:382, w:128, h:0,  label:'FULL DEAL', pct:'20%', color:'#10b981', terminal:true },
+    { id:'ext',     x:230, y:382, w:128, h:0,  label:'EXTENDED',  pct:'54%', color:'#3b82f6', terminal:true },
+    { id:'limbo',   x:405, y:382, w:128, h:0,  label:'LIMBO',     pct:'16%', color:'#f59e0b', terminal:true },
+    { id:'conf',    x:755, y:382, w:205, h:0,  label:'COLLAPSE',  pct:'10%', color:'#ef4444', terminal:true }
   ];
+  // Compute terminal height from font: two text lines
+  const TH = 36;
+  nodes.forEach(n => { if (n.terminal) n.h = TH; });
 
-  function getNode(id) { return nodes.find(n => n.id === id); }
+  const ns = 'http://www.w3.org/2000/svg';
+  function mkEl(tag, attrs) {
+    const e = document.createElementNS(ns, tag);
+    Object.entries(attrs).forEach(([k,v]) => e.setAttribute(k, String(v)));
+    return e;
+  }
+  function mkTxt(x, y, content, attrs) {
+    const t = mkEl('text', { x, y, 'text-anchor':'middle', ...attrs });
+    t.textContent = content;
+    svg.appendChild(t);
+  }
 
-  function drawEdge(x1,y1,x2,y2,label,color) {
-    const mx = (x1+x2)/2, my = (y1+y2)/2;
-    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    const d = `M${x1},${y1} C${x1},${(y1+y2)/2} ${x2},${(y1+y2)/2} ${x2},${y2}`;
-    path.setAttribute('d', d);
-    path.setAttribute('stroke', color);
-    path.setAttribute('stroke-width', '1.5');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('opacity', '0.6');
-    svg.appendChild(path);
+  function drawEdge(x1, y1, x2, y2, label, color) {
+    const cy = (y1 + y2) / 2;
+    svg.appendChild(mkEl('path', {
+      d: `M${x1},${y1} C${x1},${cy} ${x2},${cy} ${x2},${y2}`,
+      stroke: color, 'stroke-width':'1.8', fill:'none', opacity:'0.5'
+    }));
     if (label) {
-      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t.setAttribute('x', mx);
-      t.setAttribute('y', my);
-      t.setAttribute('fill', color);
-      t.setAttribute('font-size', '10');
-      t.setAttribute('font-family', 'JetBrains Mono, monospace');
-      t.setAttribute('text-anchor', 'middle');
-      t.setAttribute('dy', '-3');
-      t.textContent = label;
-      svg.appendChild(t);
+      const lx = Math.round((x1+x2)/2), ly = Math.round(cy - 7);
+      const pw = 38;
+      svg.appendChild(mkEl('rect', { x:lx-pw/2, y:ly-13, width:pw, height:16, rx:3,
+        fill:color+'22', stroke:color+'55', 'stroke-width':'0.8' }));
+      mkTxt(lx, ly, label, { fill:color, 'font-size':'11',
+        'font-family':'JetBrains Mono, monospace', 'font-weight':'700' });
     }
   }
 
   function drawNode(n) {
-    if (n.hidden) return;
     const rx = n.x - n.w/2, ry = n.y;
-    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('x', rx); rect.setAttribute('y', ry);
-    rect.setAttribute('width', n.w); rect.setAttribute('height', n.h);
-    rect.setAttribute('rx', n.terminal ? 5 : 8);
-    rect.setAttribute('fill', n.color + '18');
-    rect.setAttribute('stroke', n.color);
-    rect.setAttribute('stroke-width', n.terminal ? '1.2' : '1.5');
-    svg.appendChild(rect);
-
-    const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
-    t1.setAttribute('x', n.x); t1.setAttribute('y', ry + (n.terminal ? 12 : 14));
-    t1.setAttribute('fill', n.color); t1.setAttribute('font-size', n.terminal ? '9' : '11');
-    t1.setAttribute('font-family', 'JetBrains Mono, monospace');
-    t1.setAttribute('font-weight', '700');
-    t1.setAttribute('text-anchor', 'middle');
-    t1.textContent = n.label;
-    svg.appendChild(t1);
-
-    if (n.sub && !n.terminal) {
-      const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t2.setAttribute('x', n.x); t2.setAttribute('y', ry + 28);
-      t2.setAttribute('fill', '#8fa3c0'); t2.setAttribute('font-size', '9');
-      t2.setAttribute('font-family', 'Inter, sans-serif');
-      t2.setAttribute('text-anchor', 'middle');
-      t2.textContent = n.sub;
-      svg.appendChild(t2);
-    }
-    if (n.pct) {
-      const t3 = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t3.setAttribute('x', n.x); t3.setAttribute('y', ry + (n.sub ? 40 : 30));
-      t3.setAttribute('fill', n.color); t3.setAttribute('font-size', '10');
-      t3.setAttribute('font-family', 'JetBrains Mono, monospace');
-      t3.setAttribute('font-weight', '600');
-      t3.setAttribute('text-anchor', 'middle');
-      t3.textContent = n.pct;
-      svg.appendChild(t3);
-    }
-    if (n.terminal && n.sub) {
-      const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
-      t2.setAttribute('x', n.x); t2.setAttribute('y', ry + 23);
-      t2.setAttribute('fill', n.color); t2.setAttribute('font-size', '11');
-      t2.setAttribute('font-family', 'JetBrains Mono, monospace');
-      t2.setAttribute('font-weight', '700');
-      t2.setAttribute('text-anchor', 'middle');
-      t2.textContent = n.sub;
-      svg.appendChild(t2);
+    svg.appendChild(mkEl('rect', {
+      x:rx, y:ry, width:n.w, height:n.h,
+      rx: n.terminal ? 6 : 10,
+      fill: n.color + (n.terminal ? '18' : '15'),
+      stroke: n.color, 'stroke-width': n.terminal ? '1.5' : '1.8'
+    }));
+    if (n.terminal) {
+      mkTxt(n.x, ry+14, n.label, { fill:n.color, 'font-size':'11',
+        'font-family':'JetBrains Mono, monospace', 'font-weight':'700' });
+      mkTxt(n.x, ry+28, n.pct, { fill:n.color, 'font-size':'13',
+        'font-family':'JetBrains Mono, monospace', 'font-weight':'700' });
+    } else {
+      mkTxt(n.x, ry+18, n.label, { fill:n.color, 'font-size':'13',
+        'font-family':'JetBrains Mono, monospace', 'font-weight':'700' });
+      if (n.sub) mkTxt(n.x, ry+34, n.sub, { fill:'#7a95b8', 'font-size':'11',
+        'font-family':'Inter, sans-serif' });
+      if (n.pct) mkTxt(n.x, ry+50, n.pct, { fill:n.color, 'font-size':'12',
+        'font-family':'JetBrains Mono, monospace', 'font-weight':'600' });
     }
   }
 
-  // Draw edges first (behind nodes)
-  // root → leb_yes
-  const r = getNode('root'), ly = getNode('leb_yes'), ln = getNode('leb_no');
-  const iy = getNode('iaea_ok'), in2 = getNode('iaea_no');
-  const col = getNode('collapse');
-  const deal = getNode('deal'), ext = getNode('ext'), limbo = getNode('limbo');
+  function N(id) { return nodes.find(n => n.id === id); }
+  const R=N('root'), LY=N('leb_yes'), LN=N('leb_no');
+  const IY=N('iaea_ok'), ID=N('iaea_no');
+  const DL=N('deal'), EX=N('ext'), LB=N('limbo'), CF=N('conf');
 
-  drawEdge(r.x, r.y+44, ly.x, ly.y, '70%', '#10b981');
-  drawEdge(r.x, r.y+44, ln.x, ln.y, '30%', '#ef4444');
-  drawEdge(ly.x, ly.y+44, iy.x, iy.y, '65%', '#3b82f6');
-  drawEdge(ly.x, ly.y+44, in2.x, in2.y, '35%', '#f59e0b');
-  drawEdge(ln.x, ln.y+44, col.x, col.y, '', '#ef4444');
-  drawEdge(iy.x, iy.y+44, deal.x, deal.y, 'On time', '#10b981');
-  drawEdge(iy.x, iy.y+44, ext.x, ext.y, 'Ext.', '#3b82f6');
-  drawEdge(in2.x, in2.y+44, limbo.x, limbo.y, '', '#f59e0b');
-  // iaea_no also contributes to extended (4th branch — simplified, merged into ext visually)
-  drawEdge(in2.x, in2.y+44, ext.x, ext.y+16, '4%', '#3b82f6');
+  // Edges first (nodes drawn on top)
+  drawEdge(R.x,   R.y+R.h,   LY.x, LY.y,  '70%', '#10b981');
+  drawEdge(R.x,   R.y+R.h,   LN.x, LN.y,  '30%', '#ef4444');
+  drawEdge(LY.x,  LY.y+LY.h, IY.x, IY.y,  '65%', '#3b82f6');
+  drawEdge(LY.x,  LY.y+LY.h, ID.x, ID.y,  '35%', '#f59e0b');
+  // Right branch: Lebanon collapse → directly to COLLAPSE terminal (skips level 2)
+  drawEdge(LN.x,  LN.y+LN.h, CF.x, CF.y,  '',    '#ef4444');
+  // Left level 2 → terminals
+  drawEdge(IY.x,  IY.y+IY.h, DL.x, DL.y,  '',    '#10b981');
+  drawEdge(IY.x,  IY.y+IY.h, EX.x, EX.y,  '',    '#3b82f6');
+  drawEdge(ID.x,  ID.y+ID.h, EX.x+20, EX.y, '',  '#3b82f6');
+  drawEdge(ID.x,  ID.y+ID.h, LB.x, LB.y,  '',    '#f59e0b');
 
-  // Draw nodes
   nodes.forEach(drawNode);
-
-  // Collapse label with sub
-  const c = getNode('collapse');
-  const tC = document.createElementNS('http://www.w3.org/2000/svg','text');
-  tC.setAttribute('x', c.x); tC.setAttribute('y', c.y+45);
-  tC.setAttribute('fill', '#fca5a5'); tC.setAttribute('font-size', '9');
-  tC.setAttribute('font-family', 'Inter, sans-serif');
-  tC.setAttribute('text-anchor', 'middle');
-  tC.textContent = '→ conflict / max pressure';
-  svg.appendChild(tC);
 }
 
 function renderParties() {
