@@ -45,19 +45,38 @@
     .mou-tl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
     .mou-tl-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2)}
     .mou-tl-days{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2)}
-    .mou-bar-wrap{position:relative;height:20px;background:var(--bg4);border-radius:10px;overflow:visible;margin-bottom:14px;border:1px solid var(--bdr)}
+    .mou-bar-wrap{position:relative;height:20px;background:var(--bg4);border-radius:10px;overflow:visible;margin-bottom:0;border:1px solid var(--bdr)}
     .mou-bar-fill{height:100%;border-radius:10px 0 0 10px;background:linear-gradient(90deg,var(--grn),var(--amb2));transition:width .3s}
     .mou-now-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:var(--amb2);border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px var(--amb2);animation:pulse 2s infinite}
-    .mou-milestones{display:flex;justify-content:space-between;margin-top:2px}
-    .mou-ms{text-align:center;position:relative;flex:1}
-    .mou-ms-dot{width:8px;height:8px;border-radius:50%;margin:0 auto 4px;border:1px solid var(--bdr2)}
+    /* milestone track */
+    .mou-milestones{position:relative;min-height:84px;margin-top:0}
+    .mou-ms{position:absolute;top:0;display:flex;flex-direction:column;align-items:center;transform:translateX(-50%)}
+    .mou-ms.edge-start{transform:none}
+    .mou-ms.edge-end{transform:translateX(-100%)}
+    .mou-ms-stem{width:1px;height:8px;background:var(--bdr2);flex-shrink:0}
+    .mou-ms-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;border:2px solid var(--bdr2);background:var(--bg4)}
     .mou-ms-dot.done{background:var(--grn);border-color:var(--grn)}
-    .mou-ms-dot.now{background:var(--amb2);border-color:var(--amb2);box-shadow:0 0 5px var(--amb2)}
-    .mou-ms-dot.future{background:var(--bg4);border-color:var(--bdr2)}
-    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--txt3);margin-bottom:2px}
-    .mou-ms-lbl{font-size:8.5px;color:var(--txt2);line-height:1.3;text-align:center}
-    .mou-ms.done .mou-ms-lbl{color:var(--grn)}
-    .mou-ms.now .mou-ms-lbl{color:var(--amb2);font-weight:600}
+    .mou-ms-dot.active{background:var(--amb2);border-color:var(--amb2);box-shadow:0 0 5px var(--amb2)}
+    .mou-ms-dot.upcoming{background:var(--bg4);border-color:var(--bdr2)}
+    .mou-ms-dot.critical{background:var(--red);border-color:var(--red)}
+    .mou-ms-info{margin-top:4px;text-align:center;max-width:86px}
+    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--txt3);margin-bottom:1px;white-space:nowrap}
+    .mou-ms-lbl{font-size:8.5px;line-height:1.3;word-break:break-word}
+    .mou-ms-lbl.done{color:var(--grn)}
+    .mou-ms-lbl.active{color:var(--amb2);font-weight:600}
+    .mou-ms-lbl.upcoming{color:var(--txt2)}
+    .mou-ms-lbl.critical{color:var(--red2);font-weight:600}
+    .mou-ms-badge{font-size:7px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:3px;padding:1px 4px;border-radius:3px;display:inline-block}
+    .mou-ms-badge.done{background:rgba(16,185,129,.12);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
+    .mou-ms-badge.active{background:rgba(217,119,6,.12);color:var(--amb2);border:1px solid rgba(217,119,6,.28)}
+    .mou-ms-badge.upcoming{background:rgba(148,163,184,.08);color:var(--txt3);border:1px solid rgba(148,163,184,.18)}
+    .mou-ms-badge.critical{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
+    /* extension zone */
+    .mou-ext-zone{margin-top:10px;padding:6px 10px;background:rgba(99,102,241,.05);border:1px dashed rgba(99,102,241,.2);border-radius:6px;display:flex;gap:20px;align-items:flex-start}
+    .mou-ext-lbl{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ind2);white-space:nowrap;margin-top:1px;flex-shrink:0}
+    .mou-ext-items{display:flex;gap:24px;flex-wrap:wrap}
+    .mou-ext-item{display:flex;gap:6px;align-items:flex-start;font-size:10px;color:var(--txt3)}
+    .mou-ext-day{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--ind2);white-space:nowrap;flex-shrink:0;margin-top:1px}
 
     /* ── SUMMARY BOX ── */
     .sum-box{background:linear-gradient(135deg,#0a1c38,#0d1926);border:1px solid var(--bdr2);border-left:3px solid var(--amb2);border-radius:11px;padding:16px 20px;margin-bottom:16px}
@@ -236,7 +255,7 @@
       .parties-grid{grid-template-columns:1fr}
       .sum-grid{grid-template-columns:1fr}
       .party-strip-grid{grid-template-columns:1fr}
-      .mou-milestones{display:none}
+      .mou-milestones{min-height:60px}
       .main{padding:12px}
       .topic-parties{grid-template-columns:1fr}
     }
@@ -271,6 +290,10 @@
       <div class="mou-now-dot" id="mou-now-dot"></div>
     </div>
     <div class="mou-milestones" id="mou-milestones"></div>
+    <div class="mou-ext-zone" id="mou-ext-zone" style="display:none">
+      <div class="mou-ext-lbl">If Extended ⟶</div>
+      <div class="mou-ext-items" id="mou-ext-items"></div>
+    </div>
   </div>
 
   <!-- SUMMARY -->
@@ -719,24 +742,47 @@ function renderMouTimeline() {
   document.getElementById('mou-days-rem').textContent =
     (DATA.meta.mouDays - DATA.meta.mouDay) + ' days remaining · Deadline ' + DATA.meta.deadline60;
 
-  const milestones = [
-    { pct: 0,    label: 'MOU Signed', date: 'Jun 17', done: true },
-    { pct: (7/60)*100,  label: 'First Talks', date: 'Jun 22', done: true },
-    { pct: (30/60)*100, label: '30-Day\nMilestone', date: 'Jul 17', done: false },
-    { pct: (45/60)*100, label: 'Final Round', date: 'Aug 1', done: false },
-    { pct: 100,  label: 'Deadline', date: 'Aug 16', done: false }
-  ];
+  const badgeLabels = { done: '✓ done', active: '● now', upcoming: '○ upcoming', critical: '⚠ deadline' };
 
+  // Items within the 60-day window
   const wrap = document.getElementById('mou-milestones');
-  milestones.forEach(m => {
-    const el = document.createElement('div');
-    el.className = 'mou-ms' + (m.done ? ' done' : '') + (m.now ? ' now' : '');
-    el.innerHTML =
-      `<div class="mou-ms-dot ${m.now ? 'now' : m.done ? 'done' : 'future'}"></div>` +
-      `<div class="mou-ms-date">${m.date}</div>` +
-      `<div class="mou-ms-lbl">${m.label.replace('\n','<br>')}</div>`;
-    wrap.appendChild(el);
-  });
+  DATA.keyDates
+    .filter(kd => kd.day <= DATA.meta.mouDays)
+    .forEach(kd => {
+      const leftPct = (kd.day / DATA.meta.mouDays) * 100;
+      const el = document.createElement('div');
+      const edgeCls = kd.day === 0 ? ' edge-start' : kd.day === DATA.meta.mouDays ? ' edge-end' : '';
+      el.className = 'mou-ms' + edgeCls;
+      el.style.left = leftPct + '%';
+
+      // Shorten title: split on ' — ' and take first part, then clip
+      const shortTitle = kd.title.split(' — ')[0].replace(' (Contested)', '');
+
+      el.innerHTML =
+        `<div class="mou-ms-stem"></div>` +
+        `<div class="mou-ms-dot ${kd.status}"></div>` +
+        `<div class="mou-ms-info">` +
+          `<div class="mou-ms-date">${kd.date} · Day ${kd.day}</div>` +
+          `<div class="mou-ms-lbl ${kd.status}">${shortTitle}</div>` +
+          `<div class="mou-ms-badge ${kd.status}">${badgeLabels[kd.status] || ''}</div>` +
+        `</div>`;
+      wrap.appendChild(el);
+    });
+
+  // Extension zone: items beyond mouDays
+  const extended = DATA.keyDates.filter(kd => kd.day > DATA.meta.mouDays);
+  if (extended.length) {
+    document.getElementById('mou-ext-zone').style.display = 'flex';
+    const extWrap = document.getElementById('mou-ext-items');
+    extended.forEach(kd => {
+      const item = document.createElement('div');
+      item.className = 'mou-ext-item';
+      item.innerHTML =
+        `<span class="mou-ext-day">${kd.date} (Day ${kd.day})</span>` +
+        `<span>${kd.title}</span>`;
+      extWrap.appendChild(item);
+    });
+  }
 }
 
 function newBadge() {
