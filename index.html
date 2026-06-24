@@ -250,6 +250,22 @@
     .tp-walk{font-size:12.5px;color:var(--red2);line-height:1.5;background:rgba(239,68,68,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--red)}
     .tp-collapse{font-size:12.5px;color:var(--yel);line-height:1.5;background:rgba(245,158,11,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--yel)}
 
+    /* ── BANK SIGNAL STRIP ── */
+    .bank-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+    .bank-col{background:var(--bg4);border:1px solid var(--bdr);border-radius:7px;padding:10px 12px}
+    .bank-col-hd{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+    .bank-flag{font-size:15px;line-height:1}
+    .bank-lbl{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3);flex:1}
+    .bank-dir-tag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px}
+    .bank-view{font-size:12px;color:var(--txt2);margin-bottom:8px;line-height:1.4;font-weight:500}
+    .bank-names-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;flex-wrap:wrap}
+    .bank-side{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+    .bank-side-lbl{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt3);margin-right:2px;white-space:nowrap}
+    .btag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;padding:2px 7px;border-radius:3px}
+    .btag-long{background:rgba(16,185,129,.12);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
+    .btag-short{background:rgba(239,68,68,.12);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
+    .bank-rationale{font-size:11px;color:var(--txt3);line-height:1.5;font-style:italic;border-top:1px solid var(--bdr);padding-top:6px;margin-top:2px}
+
     /* ── MOU CLAUSE REVIEW ── */
     .clauses-sec{margin-bottom:24px}
     .clause-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin-bottom:10px}
@@ -560,7 +576,23 @@ const DATA = {
         { dir:"dn", asset:"RTX · LMT · NOC", detail:"Defense stocks -5-10%; Middle East engagement contracts reduced" },
         { dir:"up", asset:"EM EQUITIES", detail:"EM rally on oil stability and reduced conflict premium; MEPI ETF material upside" },
         { dir:"up", asset:"AIRLINES · SHIPPING", detail:"Hormuz fully open + lower jet fuel; GCC tourism/trade recovery" }
-      ]
+      ],
+      banks: {
+        us: {
+          dir: "up",
+          view: "Money center positive; energy-belt regionals negative on oil fall",
+          long: ["JPM", "GS", "C"],
+          short: ["BOKF", "CFR"],
+          rationale: "Lower oil removes energy sector credit stress from large-cap books. JPM and GS benefit from risk-on, EM advisory, and deal-related transaction flow. C gains from reopened international corridors. Texas/Oklahoma energy-focused regionals (BOKF, CFR) face NIM headwind as oil falls $15-25/bbl."
+        },
+        eu: {
+          dir: "up",
+          view: "Strongest positive globally — European banks have largest latent Iran trade exposure",
+          long: ["HSBC", "BNP", "ING"],
+          short: [],
+          rationale: "BNP paid $9B in 2014 for Iran sanctions violations — that exposure now becomes an asset. HSBC gains from EM/Asia rally and Hormuz normalization. ING and Standard Chartered benefit from trade finance revival. No significant short — all major European banks net positive under full deal."
+        }
+      }
     },
     {
       id: "deal_extended",
@@ -590,7 +622,23 @@ const DATA = {
         { dir:"neu", asset:"RTX · LMT", detail:"Defense broadly flat; no contract cancellations; Gulf security contracts maintained" },
         { dir:"mix", asset:"EM / MIDEAST", detail:"Mixed; Iran-adjacent trade corridor opens slowly; EM benefit partial; watch Turkey/UAE" },
         { dir:"up", asset:"GCC EQUITIES", detail:"Saudi, UAE benefit from Hormuz stability and Iran economic normalization signal" }
-      ]
+      ],
+      banks: {
+        us: {
+          dir: "neu",
+          view: "Broadly flat; no acute risk catalyst but no resolution either",
+          long: ["JPM", "GS"],
+          short: ["BOKF", "CFR"],
+          rationale: "Uncertainty persists but no acute stress event. JPM and GS capture market share and advisory mandates in ambiguity. Deal-related business delayed, not cancelled — large-cap banks best positioned to wait. Energy regionals (BOKF, CFR) remain in mild headwind from oil range-bound at $75-90; no relief on energy credit quality."
+        },
+        eu: {
+          dir: "mix",
+          view: "Selective positive — trade finance and MENA names outperform",
+          long: ["HSBC", "STAN"],
+          short: ["DBK", "SocGen"],
+          rationale: "HSBC and Standard Chartered benefit from Hormuz stability and partial EM recovery. Deutsche Bank and SocGen face continued uncertainty on MENA credit quality and Iran trade normalization timeline. BNP is neutral — latent Iran exposure directionally positive but not yet actionable."
+        }
+      }
     },
     {
       id: "limbo",
@@ -620,7 +668,23 @@ const DATA = {
         { dir:"neu", asset:"DEFENSE", detail:"Defense flat to modest positive; no contract drawdown; moderate ME engagement" },
         { dir:"dn", asset:"IRAN-LINKED", detail:"Iran-exposed assets discount further; rial remains weak; no capital inflows" },
         { dir:"mix", asset:"USD · RATES", detail:"Mixed: risk-on/off depends on whether limbo reads as fragile peace or prewar" }
-      ]
+      ],
+      banks: {
+        us: {
+          dir: "mix",
+          view: "Uncertainty discount on credit quality; advisory desks active",
+          long: ["GS", "MS"],
+          short: ["C", "BAC", "BOKF"],
+          rationale: "GS and MS benefit from elevated advisory activity in an uncertain macro environment. C suffers from EM exposure discount as Iran normalization fails to materialize. BAC faces consumer credit headwinds as higher oil ($85-95) compresses household spending. Regional energy banks (BOKF) stay range-bound — not a collapse, but no relief."
+        },
+        eu: {
+          dir: "dn",
+          view: "Worst-positioned globally — neither trade normalization nor clean sanctions clarity",
+          long: ["LLOY", "NDA"],
+          short: ["HSBC", "BNP", "ING"],
+          rationale: "Frozen limbo is the worst outcome for European banks: no Iran trade normalization, but sanctions ambiguity makes any MENA business legally risky. HSBC and BNP have latent Iran exposure that becomes a liability rather than an asset. Lloyds and Nordea outperform through low MENA exposure and domestic UK/Nordic focus."
+        }
+      }
     },
     {
       id: "collapse",
@@ -650,7 +714,23 @@ const DATA = {
         { dir:"up", asset:"RTX · LMT · NOC", detail:"Defense +15-25%; US re-engagement contracts; Israeli defense exports surge" },
         { dir:"dn", asset:"EM / SPX", detail:"EM selloff -10-20%; S&P 500 -5-8%; oil-importing EMs most exposed (India, Turkey)" },
         { dir:"dn", asset:"AIRLINES · GCC", detail:"Airspace closure + fuel spike; GCC tourism collapse; shipping cost surge" }
-      ]
+      ],
+      banks: {
+        us: {
+          dir: "dn",
+          view: "Risk-off across the board; consumer credit stress from oil shock",
+          long: ["GS"],
+          short: ["BAC", "C", "WFC", "BOKF"],
+          rationale: "Hormuz closure → oil spike to $100-130 → US consumer credit deterioration. BAC and WFC most exposed via consumer loan books. C hit by EM selloff across its international network. BOKF faces double-jeopardy: oil spike initially helps energy producers but credit quality of energy-belt consumers collapses. GS is the sole relative safe haven — crisis advisory, restructuring mandates."
+        },
+        eu: {
+          dir: "dn",
+          view: "Sharply negative — European energy supply disruption compounds MENA credit blow-up",
+          long: ["LLOY"],
+          short: ["DBK", "HSBC", "BNP", "SocGen"],
+          rationale: "Europe is the most exposed region to Hormuz closure: energy import crisis, GCC client credit stress, trade finance disruption. Deutsche Bank's corporate lending book is heavily exposed to manufacturing/energy nexus. HSBC suffers Asia EM selloff plus MENA trade collapse. BNP and SocGen face GCC credit quality collapse. Lloyds is the only major with predominantly domestic UK exposure, partially insulated."
+        }
+      }
     }
   ],
 
@@ -1273,6 +1353,26 @@ function renderCards() {
       </div>`
     ).join('');
 
+    function bankColHtml(flag, label, b) {
+      const dirTag = { up:'▲ UP', dn:'▼ DN', neu:'— NEU', mix:'± MIX' }[b.dir] || b.dir;
+      const dirCls = { up:'mt-up', dn:'mt-dn', neu:'mt-neu', mix:'mt-mix' }[b.dir] || 'mt-neu';
+      const longs  = b.long.map(n => `<span class="btag btag-long">${n}</span>`).join('');
+      const shorts = b.short.length ? b.short.map(n => `<span class="btag btag-short">${n}</span>`).join('') : '<span style="font-size:11px;color:var(--txt3)">—</span>';
+      return `<div class="bank-col">
+        <div class="bank-col-hd">
+          <span class="bank-flag">${flag}</span>
+          <span class="bank-lbl">${label}</span>
+          <span class="bank-dir-tag mkt-tag ${dirCls}">${dirTag}</span>
+        </div>
+        <div class="bank-view">${b.view}</div>
+        <div class="bank-names-row">
+          <div class="bank-side"><span class="bank-side-lbl">Long</span>${longs}</div>
+          <div class="bank-side"><span class="bank-side-lbl">Short</span>${shorts}</div>
+        </div>
+        <div class="bank-rationale">${b.rationale}</div>
+      </div>`;
+    }
+
     const preRows = s.pre.map(t => `<div class="sc-pt">${t}</div>`).join('');
     const riskRows = s.risks.map(t => `<div class="sc-pt">${t}</div>`).join('');
 
@@ -1307,6 +1407,10 @@ function renderCards() {
       <div class="sc-section">
         <div class="sc-sec-hd mkt">Market Signals</div>
         ${mktRows}
+        <div class="bank-strip">
+          ${bankColHtml('🇺🇸', 'US Banks', s.banks.us)}
+          ${bankColHtml('🇪🇺', 'European Banks', s.banks.eu)}
+        </div>
       </div>`;
     grid.appendChild(card);
   });
