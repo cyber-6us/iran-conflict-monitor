@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iran-Israel-US Conflict Monitor | MOU Phase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#06091a;--bg2:#0b1122;--bg3:#101828;--bg4:#161f33;
+      --bdr:#1c2a42;--bdr2:#243350;
+      --txt:#e1e7f0;--txt2:#8fa3c0;--txt3:#5a7090;
+      --red:#ef4444;--red2:#fca5a5;
+      --blue:#3b82f6;--blue2:#93c5fd;--dblue:#1d4ed8;
+      --grn:#10b981;--grn2:#6ee7b7;
+      --yel:#f59e0b;--yel2:#fcd34d;
+      --amb:#d97706;--amb2:#fbbf24;
+      --ind:#6366f1;--ind2:#a5b4fc;
+      --cyn:#38bdf8;--cyn2:#7dd3fc;
+      --orn:#f97316;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:13px;line-height:1.5}
+
+    /* ── HDR ── */
+    .hdr{background:linear-gradient(90deg,#090f1e,#0c1428);border-bottom:1px solid var(--bdr);padding:12px 26px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200}
+    .hdr-l{display:flex;align-items:center;gap:12px}
+    .badge{background:linear-gradient(135deg,#1a2e5a,#c05621);border-radius:7px;padding:6px 10px;font-size:8px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#fff;line-height:1.5;text-align:center}
+    .hdr-title{font-size:15px;font-weight:600}
+    .hdr-sub{font-size:10.5px;color:var(--txt3);margin-top:1px}
+    .hdr-r{display:flex;align-items:center;gap:16px}
+    .mou-badge{background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.3);border-radius:20px;padding:3px 11px;font-size:9px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--amb2)}
+    .upd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)}
+    .upd .v{color:var(--grn)}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+    .live{width:6px;height:6px;border-radius:50%;background:var(--grn);display:inline-block;margin-left:5px;animation:pulse 2.2s infinite}
+
+    /* ── LAYOUT ── */
+    .main{max-width:1400px;margin:0 auto;padding:18px 26px}
+    .sec-hd{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:12px}
+
+    /* ── MOU TIMELINE ── */
+    .mou-tl{background:linear-gradient(135deg,#09152e,#0d1c32);border:1px solid var(--bdr2);border-left:3px solid var(--amb2);border-radius:11px;padding:14px 20px;margin-bottom:14px}
+    .mou-tl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+    .mou-tl-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2)}
+    .mou-tl-days{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2)}
+    .mou-bar-wrap{position:relative;height:20px;background:var(--bg4);border-radius:10px;overflow:visible;margin-bottom:14px;border:1px solid var(--bdr)}
+    .mou-bar-fill{height:100%;border-radius:10px 0 0 10px;background:linear-gradient(90deg,var(--grn),var(--amb2));transition:width .3s}
+    .mou-now-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:var(--amb2);border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px var(--amb2);animation:pulse 2s infinite}
+    .mou-milestones{display:flex;justify-content:space-between;margin-top:2px}
+    .mou-ms{text-align:center;position:relative;flex:1}
+    .mou-ms-dot{width:8px;height:8px;border-radius:50%;margin:0 auto 4px;border:1px solid var(--bdr2)}
+    .mou-ms-dot.done{background:var(--grn);border-color:var(--grn)}
+    .mou-ms-dot.now{background:var(--amb2);border-color:var(--amb2);box-shadow:0 0 5px var(--amb2)}
+    .mou-ms-dot.future{background:var(--bg4);border-color:var(--bdr2)}
+    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--txt3);margin-bottom:2px}
+    .mou-ms-lbl{font-size:8.5px;color:var(--txt2);line-height:1.3;text-align:center}
+    .mou-ms.done .mou-ms-lbl{color:var(--grn)}
+    .mou-ms.now .mou-ms-lbl{color:var(--amb2);font-weight:600}
+
+    /* ── SUMMARY BOX ── */
+    .sum-box{background:linear-gradient(135deg,#0a1c38,#0d1926);border:1px solid var(--bdr2);border-left:3px solid var(--amb2);border-radius:11px;padding:16px 20px;margin-bottom:16px}
+    .sum-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2);margin-bottom:4px}
+    .sum-hl{font-size:12.5px;font-weight:500;color:var(--txt);line-height:1.6;margin-bottom:13px}
+    .sum-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+    .sum-col-hd{font-size:8.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--bdr)}
+    .chg{display:flex;gap:7px;margin-bottom:6px;font-size:11px;color:var(--txt2);align-items:flex-start}
+    .chg-dot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0}
+    .div-item{border-radius:6px;padding:7px 9px;margin-bottom:6px}
+    .div-item.warn{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22)}
+    .div-item.info{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2)}
+    .div-item.ok{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)}
+    .div-lbl{font-size:8px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:2px}
+    .div-item.warn .div-lbl{color:var(--yel)}
+    .div-item.info .div-lbl{color:var(--cyn)}
+    .div-item.ok .div-lbl{color:var(--grn)}
+    .div-txt{font-size:10.5px;color:var(--txt2);line-height:1.5}
+
+    /* ── PARTY STRIP ── */
+    .party-strip{background:rgba(217,119,6,.04);border:1px solid rgba(217,119,6,.16);border-radius:8px;padding:11px 14px}
+    .party-strip-hd{font-size:8.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amb2);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+    .party-strip-hd::after{content:'';flex:1;height:1px;background:rgba(217,119,6,.18)}
+    .party-strip-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .party-cell{background:var(--bg3);border-radius:6px;padding:8px 10px;border:1px solid var(--bdr)}
+    .party-cell-name{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+    .party-cell-pos{font-size:10.5px;color:var(--txt);font-weight:500;margin-bottom:4px}
+    .party-cell-comp{font-size:10px;color:var(--txt2);line-height:1.45}
+
+    /* ── PARTIES SECTION ── */
+    .parties-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+    .pcard{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;overflow:hidden}
+    .pcard-hdr{padding:11px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px}
+    .pcard-icon{font-size:18px;line-height:1}
+    .pcard-name{font-size:13px;font-weight:600}
+    .pcard-sub{font-size:9.5px;color:var(--txt3);margin-top:1px}
+    .pcard-body{padding:11px 14px}
+    .pcard-section{margin-bottom:9px}
+    .pcard-sec-lbl{font-size:8px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px}
+    .pcard-sec-lbl.pos{color:var(--blue2)}
+    .pcard-sec-lbl.red{color:var(--red2)}
+    .pcard-sec-lbl.lev{color:var(--grn2)}
+    .pcard-sec-lbl.comp{color:var(--amb2)}
+    .pcard-pt{display:flex;gap:5px;font-size:10.5px;color:var(--txt2);margin-bottom:3px;line-height:1.4}
+    .pcard-pt::before{content:"›";flex-shrink:0;color:var(--txt3);font-weight:700}
+    .pcard-comp{font-size:11px;color:var(--txt);line-height:1.5;background:var(--bg2);border-radius:5px;padding:6px 8px;border:1px solid var(--bdr2);margin-top:2px}
+
+    /* ── PROB BAR ── */
+    .prob-sec{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:16px}
+    .pbar{display:flex;height:28px;border-radius:7px;overflow:hidden;gap:2px;margin-bottom:10px}
+    .pseg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:filter .2s}
+    .pseg:hover{filter:brightness(1.3)}
+    .pleg{display:flex;flex-wrap:wrap;gap:16px}
+    .pleg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--txt2)}
+    .pleg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+    .pleg-pct{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px}
+    .pleg-chg{font-family:'JetBrains Mono',monospace;font-size:9px}
+    .pleg-src{font-size:9px;color:var(--txt3);margin-left:1px}
+
+    /* ── TREE ── */
+    .tree-wrap{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:16px;overflow-x:auto}
+
+    /* ── SCENARIO CARDS ── */
+    .cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+    .scard{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+    .scard:hover{border-color:var(--bdr2);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+    .sc-hdr{padding:13px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+    .sc-l{display:flex;align-items:center;gap:10px}
+    .sc-bar{width:3px;border-radius:2px;height:42px;flex-shrink:0}
+    .sc-lbl{font-size:12.5px;font-weight:600;margin-bottom:3px}
+    .sc-sub{font-size:9.5px;color:var(--txt3)}
+    .sc-r{text-align:right}
+    .sc-pct{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;line-height:1;margin-bottom:2px}
+    .sc-src{font-size:9px;color:var(--txt3);margin-bottom:2px}
+    .sc-trend{font-size:10px;font-family:'JetBrains Mono',monospace;display:flex;gap:6px;justify-content:flex-end}
+    .t-up{color:var(--grn)}.t-dn{color:var(--red)}.t-fl{color:var(--txt3)}
+    .sc-body{padding:13px 16px}
+    .sig{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+    .sig-deal{background:rgba(16,185,129,.1);color:var(--grn);border:1px solid rgba(16,185,129,.22)}
+    .sig-ext{background:rgba(59,130,246,.1);color:var(--blue2);border:1px solid rgba(59,130,246,.22)}
+    .sig-limbo{background:rgba(245,158,11,.1);color:var(--yel);border:1px solid rgba(245,158,11,.22)}
+    .sig-coll{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.22)}
+    .sig-sub{font-size:10px;color:var(--txt3);margin-bottom:10px;line-height:1.5}
+    .mini-bar{height:3px;border-radius:2px;background:var(--bdr);overflow:hidden;margin-bottom:12px}
+    .mini-fill{height:100%;border-radius:2px}
+
+    /* card inner sections */
+    .sc-section{padding:9px 12px;border-bottom:1px solid var(--bdr);background:var(--bg2)}
+    .sc-section:last-child{border-bottom:none}
+    .sc-sec-hd{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+    .sc-sec-hd::after{content:'';flex:1;height:1px;background:var(--bdr)}
+    .sc-sec-hd.pre{color:var(--grn2)}
+    .sc-sec-hd.risk{color:var(--red2)}
+    .sc-sec-hd.mkt{color:var(--amb2)}
+    .sc-pt{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;font-size:10.5px;color:var(--txt2)}
+    .sc-pt::before{content:"→";flex-shrink:0;color:var(--txt3)}
+    .mkt-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:10.5px}
+    .mkt-tag{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;flex-shrink:0;min-width:44px;text-align:center}
+    .mt-up{background:rgba(239,68,68,.15);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
+    .mt-dn{background:rgba(16,185,129,.15);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
+    .mt-neu{background:rgba(148,163,184,.1);color:var(--txt2);border:1px solid rgba(148,163,184,.18)}
+    .mt-mix{background:rgba(245,158,11,.12);color:var(--yel);border:1px solid rgba(245,158,11,.22)}
+    .mkt-asset{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--txt);flex-shrink:0;min-width:80px}
+    .mkt-detail{font-size:10px;color:var(--txt3);line-height:1.3}
+
+    /* ── KEY DATES ── */
+    .dates-sec{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:16px}
+    .dates-list{display:flex;flex-direction:column;gap:0}
+    .date-row{display:flex;gap:14px;position:relative;padding-bottom:14px}
+    .date-row:last-child{padding-bottom:0}
+    .date-row:not(:last-child)::before{content:'';position:absolute;left:19px;top:26px;bottom:0;width:1px;background:var(--bdr2)}
+    .date-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:2px solid var(--bdr2)}
+    .date-icon.done{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.4)}
+    .date-icon.active{background:rgba(217,119,6,.12);border-color:rgba(217,119,6,.4);box-shadow:0 0 8px rgba(217,119,6,.3)}
+    .date-icon.upcoming{background:var(--bg4);border-color:var(--bdr)}
+    .date-icon.critical{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3)}
+    .date-meta{flex:1;padding-top:4px}
+    .date-label{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+    .date-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600}
+    .date-tag.done{color:var(--grn)}
+    .date-tag.active{color:var(--amb2)}
+    .date-tag.upcoming{color:var(--txt2)}
+    .date-tag.critical{color:var(--red2)}
+    .date-pill{font-size:7.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:1px 6px;border-radius:10px}
+    .dp-done{background:rgba(16,185,129,.1);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
+    .dp-active{background:rgba(217,119,6,.12);color:var(--amb2);border:1px solid rgba(217,119,6,.3)}
+    .dp-upcoming{background:rgba(148,163,184,.08);color:var(--txt3);border:1px solid rgba(148,163,184,.18)}
+    .dp-critical{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
+    .date-title{font-size:11.5px;font-weight:600;color:var(--txt);margin-bottom:2px}
+    .date-desc{font-size:10.5px;color:var(--txt2);line-height:1.5}
+    .date-stake{font-size:10px;color:var(--txt3);margin-top:3px;font-style:italic}
+
+    /* ── HISTORY ── */
+    .hist-sec{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:18px}
+    .hist-entry{border-left:2px solid var(--bdr2);padding:8px 0 8px 15px;margin-bottom:8px;position:relative}
+    .hist-entry::before{content:"";width:7px;height:7px;background:var(--bdr2);border-radius:50%;position:absolute;left:-5px;top:12px}
+    .hist-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amb2);margin-bottom:3px}
+    .hist-probs{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:3px}
+    .hist-pct{font-family:'JetBrains Mono',monospace;font-size:10.5px}
+    .hist-note{font-size:10.5px;color:var(--txt3);line-height:1.5}
+    .hist-mkt{font-size:10.5px;color:var(--amb2);margin-top:3px;opacity:.8}
+
+    .footer{font-size:9.5px;color:var(--txt3);padding:11px 0;border-top:1px solid var(--bdr);line-height:1.7}
+
+    @media(max-width:960px){
+      .cards-grid{grid-template-columns:1fr}
+      .parties-grid{grid-template-columns:1fr}
+      .sum-grid{grid-template-columns:1fr}
+      .party-strip-grid{grid-template-columns:1fr}
+      .mou-milestones{display:none}
+      .main{padding:12px}
+    }
+  </style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="badge">GEO<br>INTEL</div>
+    <div>
+      <div class="hdr-title">Iran · Israel · US — Conflict Monitor</div>
+      <div class="hdr-sub">MOU Phase · 60-day negotiation window · Updated daily 06:00 CET · Sources: all sides</div>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <div class="mou-badge">MOU Day <span id="mou-day-num"></span>/60 · Deadline <span id="mou-deadline"></span></div>
+    <div class="upd">Updated: <span class="v" id="upd"></span><span class="live"></span></div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- MOU TIMELINE -->
+  <div class="mou-tl">
+    <div class="mou-tl-hd">
+      <div class="mou-tl-lbl">MOU Timeline — 60-Day Negotiation Window</div>
+      <div class="mou-tl-days" id="mou-days-rem"></div>
+    </div>
+    <div class="mou-bar-wrap" id="mou-bar-wrap">
+      <div class="mou-bar-fill" id="mou-bar-fill"></div>
+      <div class="mou-now-dot" id="mou-now-dot"></div>
+    </div>
+    <div class="mou-milestones" id="mou-milestones"></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="sum-box">
+    <div class="sum-lbl">Intelligence Summary &amp; Divergence Monitor</div>
+    <div class="sum-hl" id="s-hl"></div>
+    <div class="sum-grid">
+      <div><div class="sum-col-hd">Past 24h Changes</div><div id="s-daily"></div></div>
+      <div><div class="sum-col-hd">Key Disputes &amp; Flags</div><div id="s-div"></div></div>
+      <div><div class="sum-col-hd">What Drives the Outcome</div><div id="s-drivers"></div></div>
+    </div>
+    <div class="party-strip">
+      <div class="party-strip-hd">Party Positions — Current Stance</div>
+      <div class="party-strip-grid" id="s-parties"></div>
+    </div>
+  </div>
+
+  <!-- PROB BAR -->
+  <div class="prob-sec">
+    <div class="sec-hd">Probability Distribution — All Scenarios</div>
+    <div class="pbar" id="pbar"></div>
+    <div class="pleg" id="pleg"></div>
+  </div>
+
+  <!-- TREE -->
+  <div class="tree-wrap">
+    <div class="sec-hd">Probability Tree — MOU Outcome Pathways · Calibrated vs Polymarket / Kalshi</div>
+    <svg id="tree" style="display:block;margin:0 auto"></svg>
+  </div>
+
+  <!-- PARTY DEEP DIVE -->
+  <div class="sec-hd" style="margin-top:4px">Party Position Deep Dive — Incentives · Red Lines · Leverage · Likely Compromise</div>
+  <div class="parties-grid" id="parties-grid"></div>
+
+  <!-- SCENARIO CARDS -->
+  <div class="sec-hd">Scenario Deep Dive — Preconditions · Tripwires · Market Signals</div>
+  <div class="cards-grid" id="cards"></div>
+
+  <!-- KEY DATES -->
+  <div class="dates-sec">
+    <div class="sec-hd">Key Dates — MOU Timeline &amp; Upcoming Negotiating Milestones</div>
+    <div class="dates-list" id="dates"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="hist-sec">
+    <div class="sec-hd">Historical Log — Probability Tracking</div>
+    <div id="hist"></div>
+  </div>
+
+  <div class="footer" id="footer"></div>
+</div>
+
+<script>
+/* ================================================================
+   DATA — updated daily 06:00 CET by cloud agent
+   ================================================================
+   DAILY UPDATE CHECKLIST:
+   1. meta.lastUpdated + meta.mouDay (recalculate: June 17 = Day 0)
+   2. scenarios[*].prob (current), .prev (yesterday)
+   3. summary.headline — 1-sentence state of play
+   4. summary.daily[] — bullets for past 24h changes only
+   5. summary.divergences[] — live disputes and flags
+   6. Append to history[] (NEVER delete old entries)
+   ================================================================ */
+
+const DATA = {
+
+  meta: {
+    lastUpdated:  "2026-06-24",
+    mouSigned:    "2026-06-17",
+    mouDay:       7,
+    mouDays:      60,
+    deadline30:   "2026-07-17",
+    deadline60:   "2026-08-16",
+    dataSource:   "Polymarket · Kalshi · Al Jazeera · CNN · NPR · NBC · Times of Israel · Arms Control Association · IAEA"
+  },
+
+  summary: {
+    headline: "Day 7 of the 60-day MOU window. The conflict began when the US and Israel jointly struck Iranian military and nuclear sites in February 2026; the MOU signed June 17 is a ceasefire-and-negotiation framework, not a peace deal. Two active flashpoints: (1) Israel has struck Beirut repeatedly since the MOU's signing, violating Clause 1's all-fronts ceasefire — Iran threatened to close Hormuz in response and a mini-ceasefire has nominally restored compliance; (2) the US (Vance) and Iran give contradictory accounts of IAEA inspection commitments in the MOU text, partially resolved by IAEA chief Grossi saying inspections will happen per the written agreement. Permanent deal odds: 74% by Dec 31 (Polymarket), but the path to an on-time Aug 16 agreement is narrow at ~20%, with Israel's Lebanon operations the single highest-probability deal-breaker.",
+
+    daily: [
+      { dot: "#f59e0b", text: "IAEA dispute: Vance stated Iran agreed to IAEA access 'this week'; Iran FM flatly denied any such commitment; IAEA chief Grossi stated inspections will proceed per MOU text. The US and Iran are working from different interpretations of the same clause." },
+      { dot: "#ef4444", text: "Lebanon: IDF struck southern Beirut after MOU signing, directly violating Clause 1. Netanyahu stated publicly that Israel is not bound by the agreement and retains freedom of operation in Lebanon. Iran invoked this as grounds for Hormuz closure; a US-brokered mini-ceasefire nominally restored compliance. IDF operations in Lebanon have continued at a reduced tempo." },
+      { dot: "#10b981", text: "Hormuz: Strait reopened to commercial traffic after Iran closed it in response to the US naval blockade imposed in early 2026. MOU commits US to full blockade removal within 30 days. Iran is now selling oil freely as of Day 0 — this was a primary Iranian incentive for signing." },
+      { dot: "#3b82f6", text: "IAEA: Director-General Grossi stated inspections 'will happen' per the written MOU text, bypassing the Vance/Iran FM dispute. A private US-IAEA-Iran coordination channel is reportedly active. The specific question is whether inspections cover bombed nuclear sites or only declared active facilities." }
+    ],
+
+    divergences: [
+      { type: "warn", label: "LEBANON: ACTIVE VIOLATION", text: "MOU Clause 1 requires all-fronts ceasefire including Lebanon. Israel has struck Lebanon since the MOU was signed, stated publicly it is not bound by the agreement, and continues operations. This is not a future risk — it is the current operational reality. Iran has already invoked it once for Hormuz closure. The US has not publicly pressured Israel to stop. Every IDF strike in Lebanon is a potential deal-termination event." },
+      { type: "warn", label: "IAEA: TEXT DISPUTE", text: "Vance publicly stated Iran agreed to IAEA access 'this week.' Iran's FM denied any such commitment the next day. The IAEA chief says the text is clear and inspections will happen. The underlying dispute: the MOU uses the word 'supervise' re: IAEA and downblending — but whether that covers immediate access to bombed/damaged enrichment sites is genuinely ambiguous. Neither side is lying; they agreed to different things." },
+      { type: "info", label: "ENRICHMENT: LEGAL AND POLITICAL GAP", text: "Iran's right to enrich uranium for civilian purposes is protected under NPT Article IV, which Iran has ratified (unlike Israel, which has not signed the NPT and is believed to hold 80-400 nuclear warheads). The US demand for zero enrichment exceeds what the JCPOA required, and Iran's enrichment escalated to 60% directly after the US unilaterally withdrew from the JCPOA in 2018. Iran's 'max 10 years' position partly reflects credibility concerns: the US already broke the last deal." },
+      { type: "info", label: "MARKET vs DIPLOMATIC COMPLEXITY", text: "Polymarket prices 74% permanent deal by Dec 31. This likely under-prices collapse risk from Lebanon (active Israeli operations) and over-prices Iranian flexibility on enrichment duration. The 'deal-by-July-31' market at 18% is the most useful leading indicator — watch for any move above 30% (fast progress) or below 10% (serious trouble). The gap between market optimism and diplomatic complexity is the key divergence to track." }
+    ],
+
+    drivers: [
+      { text: "Lebanon ceasefire: IDF has continued strikes since MOU signing. Iran will close Hormuz and void the deal if strikes reach a threshold — that threshold is unclear and Israel is probing it." },
+      { text: "US treaty credibility: Iran agreed to the JCPOA in 2015, the US withdrew unilaterally in 2018. Iran's reluctance on 20-year commitments is grounded in demonstrated US behavior, not irrationality." },
+      { text: "IAEA scope: 'declared active sites only' vs 'all sites including bombed ones' — Iran's sovereignty argument on US/Israel-struck sites has legal weight; the US/IAEA position that the MOU text overrides this is contested." },
+      { text: "Enrichment duration compromise — 10 vs 20 years; likely meeting point 12-15 years with staged verification. Iran's NPT Article IV right to civilian enrichment is the underlying legal anchor." },
+      { text: "Frozen assets — $7B+ release mechanism must be agreed by Day 30 (Jul 17) or Iran's economic incentive for deal compliance weakens." }
+    ],
+
+    parties: [
+      { name: "United States", flag: "🇺🇸", color: "#3b82f6", pos: "Zero enrichment · 20-year freeze · Full IAEA access", comp: "Will likely accept enrichment cap at JCPOA level (3.67%) for 12-15 years; phased sanctions relief" },
+      { name: "Iran", flag: "🇮🇷", color: "#10b981", pos: "NPT Article IV enrichment right preserved · Max 10-yr pause · Lebanon must cease first", comp: "Will accept 10-yr enrichment cap below weapons grade; IAEA access to active declared sites only" },
+      { name: "Israel", flag: "🇮🇱", color: "#f59e0b", pos: "Not a signatory · Actively striking Lebanon post-MOU · Demands program ended not paused", comp: "Reluctant acceptance only if enrichment is genuinely eliminated + US snapback guarantee" }
+    ]
+  },
+
+  parties: [
+    {
+      id: "us",
+      flag: "🇺🇸",
+      name: "United States",
+      sub: "Co-initiated Feb 2026 strikes · Imposed naval blockade · Seeks negotiated exit",
+      color: "#3b82f6",
+      pos: [
+        "Zero enrichment — US position goes beyond JCPOA, which permitted 3.67% enrichment; Iran met that standard until US withdrew in 2018",
+        "IAEA full access including bombed/damaged nuclear sites — Iran contests this given the US struck those sites",
+        "20-year freeze on enrichment — Iran points to US JCPOA withdrawal as evidence US doesn't honor long-term commitments",
+        "HEU stockpile downblended and verified under IAEA; US wants this to be irreversible"
+      ],
+      redlines: ["Any verified path to a nuclear weapon is unacceptable", "IAEA access is stated as non-negotiable by Vance and Bessent", "Iran-backed forces cannot continue attacking US personnel in Iraq/Syria"],
+      leverage: ["Naval presence in Gulf — can restore blockade", "Sanctions architecture — broadest economic weapon available", "Ability to constrain or release Israel's Lebanon operations diplomatically"],
+      comp: "Will accept enrichment cap at 3.67-20% for 12-15 years with IAEA monitoring; phased sanctions relief; IAEA access to active (not US/Israel-destroyed) sites; HEU downblend verified."
+    },
+    {
+      id: "iran",
+      flag: "🇮🇷",
+      name: "Iran",
+      sub: "Responded to US-Israeli strikes · NPT Article IV enrichment rights · Seeks sanctions end",
+      color: "#10b981",
+      pos: [
+        "Right to enrich uranium for civilian purposes is protected under NPT Article IV, which Iran has signed — Israel has not signed the NPT",
+        "Maximum 10-year pause: Iran argues the US broke the last deal (2018 JCPOA withdrawal), so a 20-year commitment to a party with demonstrated non-compliance is not credible",
+        "Lebanon ceasefire must hold — Clause 1 of the MOU commits the US to stopping all-fronts fighting; Israel's continued strikes are a direct violation Iran can invoke",
+        "IAEA cannot inspect bombed/damaged sites — the US and Israel struck these sites; inspecting destroyed infrastructure for 'compliance' is a sovereignty violation Iran views as rewarding the strikes"
+      ],
+      redlines: ["Permanent elimination of enrichment capability = permanent surrender of NPT Article IV rights; Iran will not sign this", "Lebanon: deal cannot be purchased at the cost of abandoning Hezbollah to ongoing IDF operations", "No deal that reads domestically as capitulation to US military coercion"],
+      leverage: ["Hormuz closure — immediate global oil supply shock of ~20%; Iran already invoked this once since MOU signing", "90% enrichment restart within weeks — nuclear breakout threat", "Proxy network in Lebanon, Iraq, Yemen — escalation options across multiple fronts"],
+      comp: "Accept 10-year cap below weapons-grade (likely 20% ceiling), IAEA access to active declared facilities only (not bombed sites), HEU downblend in-country under IAEA supervision."
+    },
+    {
+      id: "israel",
+      flag: "🇮🇱",
+      name: "Israel",
+      sub: "Not a signatory · Striking Lebanon post-MOU · Separate agenda from US",
+      color: "#f59e0b",
+      pos: [
+        "Not a signatory to the MOU and has publicly stated it is not bound by it — Netanyahu stated this explicitly",
+        "Iran's nuclear program must be permanently eliminated, not paused — any deal leaving enrichment capability is unacceptable regardless of duration",
+        "IDF operations in Lebanon continue post-MOU; Netanyahu states he retains 'freedom of operation' — these operations directly violate MOU Clause 1",
+        "Israel is not a signatory to the NPT and is widely believed to hold 80-400 nuclear warheads; it opposes Iranian enrichment while maintaining its own undeclared nuclear arsenal"
+      ],
+      redlines: ["Any deal leaving Iran with enrichment capability — Netanyahu's 'life mission' is preventing Iranian nuclear weapons, not pausing the program", "IDF will not halt Lebanon operations as a price of a US-Iran deal it did not sign", "Will conduct unilateral strikes on Iranian nuclear sites if deal fails and enrichment resumes"],
+      leverage: ["Active military operations in Lebanon directly threaten the MOU's Clause 1 and give Israel de facto veto power over deal survival", "US-Israel intelligence and basing relationship — US needs Israeli acquiescence for regional architecture", "Public opposition from Netanyahu creates political cost for Trump domestically"],
+      comp: "Reluctant acceptance only if: enrichment capability verifiably eliminated; private US commitment to automatic military response if Iran violates; Hezbollah disarmed and IDF retains right to operate in Lebanon."
+    }
+  ],
+
+  scenarios: [
+    {
+      id: "deal_ontime",
+      label: "Full Deal — On Time",
+      short: "Permanent agreement by Aug 16",
+      prob: 20, prev: 22,
+      color: "#10b981",
+      sig: "deal", sigLabel: "DEAL / RISK-OFF SHORT TERM",
+      invSignal: "Brent crude collapses · War premium exits · Oil oversupply risk · Defense stocks down · EM rally",
+      source: "Derived: Poly deal-by-July-31 18% → Aug 16 ~20%",
+
+      pre: [
+        "Israel halts Beirut strikes through August — this requires either US pressure on Netanyahu or Israeli domestic political shift; neither is currently underway",
+        "IAEA scope compromise within 2 weeks: US and Iran agree IAEA covers active declared facilities; bombed sites deferred to separate verification mechanism",
+        "Enrichment compromise: ~15-year freeze at ≤20% with JCPOA-style monitoring; Iran requires this to be time-limited and reversible (NPT Article IV)",
+        "Frozen asset first tranche agreed by July 17 — Iran's primary economic incentive for deal compliance"
+      ],
+      risks: [
+        "Any IDF Beirut strike can trigger Iranian Hormuz closure and MOU void — Netanyahu has stated he is not bound and will continue operations",
+        "Iranian hardliner bloc (IRGC, conservative parliament) blocks Pezeshkian; IRGC has operational independence from civilian government",
+        "US Senate (Cotton, Graham) passes resolution against deal — Trump faces domestic Republican opposition from Iran hawks"
+      ],
+      mkt: [
+        { dir:"dn", asset:"BRENT CRUDE", detail:"War premium exits; -$15-25 from pre-MOU highs; oversupply risk as Iran oil fully integrated" },
+        { dir:"dn", asset:"GOLD", detail:"-3-5%; risk-off bid dissipates; USD strengthens as geopolitical uncertainty falls" },
+        { dir:"dn", asset:"RTX · LMT · NOC", detail:"Defense stocks -5-10%; Middle East engagement contracts reduced" },
+        { dir:"up", asset:"EM EQUITIES", detail:"EM rally on oil stability and reduced conflict premium; MEPI ETF material upside" },
+        { dir:"up", asset:"AIRLINES · SHIPPING", detail:"Hormuz fully open + lower jet fuel; GCC tourism/trade recovery" }
+      ]
+    },
+    {
+      id: "deal_extended",
+      label: "Extended Talks",
+      short: "Deal via extension · Aug–Dec 2026",
+      prob: 54, prev: 52,
+      color: "#3b82f6",
+      sig: "ext", sigLabel: "BASE CASE / EXTENDED UNCERTAINTY",
+      invSignal: "Moderate war premium persists · Brent range-bound · Uncertainty premium on Iran assets",
+      source: "Polymarket permanent deal Dec 31 74% minus on-time 20%",
+
+      pre: [
+        "Both parties invoke extension clause — mutual agreement to extend 60-day window",
+        "Lebanon simmers but doesn't fully explode — mini-ceasefires hold between flare-ups",
+        "IAEA visits begin, creating facts on ground even without full formal agreement",
+        "US unfreezes first asset tranche as goodwill gesture at Day 30 (July 17)"
+      ],
+      risks: [
+        "Extension fatigue — domestic politics in Iran become increasingly hostile to extension; IRGC and conservative parliament use delay as evidence Pezeshkian is weak",
+        "US political calendar: Congress returns Sept 8; Republican Senate hawks (Cotton, Graham) may pass resolutions that increase Trump's political cost for concessions",
+        "UNGA September — public posturing by all parties hardens stated positions; private compromise space narrows when leaders speak for domestic audiences",
+        "Israel escalates Lebanon during extension period, triggering Iranian walkout after the 60-day protection has already expired"
+      ],
+      mkt: [
+        { dir:"neu", asset:"BRENT CRUDE", detail:"Range-bound $75-90; partial war premium maintained; uncertainty on Iran supply integration timeline" },
+        { dir:"neu", asset:"GOLD", detail:"Mild bid as uncertainty persists; $2,800-3,200 range; safe haven demand moderate" },
+        { dir:"neu", asset:"RTX · LMT", detail:"Defense broadly flat; no contract cancellations; Gulf security contracts maintained" },
+        { dir:"mix", asset:"EM / MIDEAST", detail:"Mixed; Iran-adjacent trade corridor opens slowly; EM benefit partial; watch Turkey/UAE" },
+        { dir:"up", asset:"GCC EQUITIES", detail:"Saudi, UAE benefit from Hormuz stability and Iran economic normalization signal" }
+      ]
+    },
+    {
+      id: "limbo",
+      label: "Frozen Limbo",
+      short: "No deal · Nuclear freeze status quo",
+      prob: 16, prev: 16,
+      color: "#f59e0b",
+      sig: "limbo", sigLabel: "FROZEN STATUS QUO",
+      invSignal: "Partial war premium re-enters · Oil supply uncertainty · Iran sanctions stay · Defense stable",
+      source: "Polymarket residual: 1 − 74% deal − 10% collapse ≈ 16%",
+
+      pre: [
+        "60-day window and any extensions expire without final agreement; both parties choose to live with ambiguity rather than risk collapsing the ceasefire",
+        "Nuclear program frozen at current 60% enrichment status — Iran does not advance toward 90% weapons-grade, Israel does not strike",
+        "Partial sanctions relief and oil sales continue from MOU goodwill measures; both sides maintain the economic gains without a formal deal",
+        "Lebanon: IDF reduces (not halts) operations; Iran tolerates this as below Hormuz-closure threshold"
+      ],
+      risks: [
+        "Iran restarts enrichment toward 90% — crosses Israeli red line and triggers unilateral Israeli strike or US pressure campaign",
+        "Israel escalates Lebanon, Iran closes Hormuz; limbo transitions to collapse scenario",
+        "US midterm election results (Nov 3, 2026) shift Trump's domestic political calculus — may push for either deal or confrontation",
+        "Iran's economic situation deteriorates without full sanctions relief; domestic pressure on Pezeshkian from both hardliners and reformists"
+      ],
+      mkt: [
+        { dir:"up", asset:"BRENT CRUDE", detail:"$85-95 range; moderate uncertainty premium re-enters; no full Iran supply normalization" },
+        { dir:"up", asset:"GOLD", detail:"Mild safe haven bid; $3,000-3,300 range; geopolitical risk premium maintained" },
+        { dir:"neu", asset:"DEFENSE", detail:"Defense flat to modest positive; no contract drawdown; moderate ME engagement" },
+        { dir:"dn", asset:"IRAN-LINKED", detail:"Iran-exposed assets discount further; rial remains weak; no capital inflows" },
+        { dir:"mix", asset:"USD · RATES", detail:"Mixed: risk-on/off depends on whether limbo reads as fragile peace or prewar" }
+      ]
+    },
+    {
+      id: "collapse",
+      label: "Collapse — Return to Conflict",
+      short: "MOU void · Hormuz re-closed · Strikes resume",
+      prob: 10, prev: 10,
+      color: "#ef4444",
+      sig: "coll", sigLabel: "CONFLICT RESUMES",
+      invSignal: "Brent spike $100+ · Gold +8% · Defense +15% · EM selloff · Safe haven bid",
+      source: "Polymarket residual; implied by Lebanon tripwire risk at 30% collapse odds",
+
+      pre: [
+        "Israel escalates Lebanon strikes past Iran's stated Hormuz threshold — this is already an ongoing process; the question is scale, not initiation",
+        "Iran formally invokes Clause 1 violation, declares MOU void, and closes Hormuz Strait — Iran has already done this once (June 20) before the mini-ceasefire restored it",
+        "US re-engages militarily: restores naval blockade; likely further strikes on remaining Iranian nuclear and missile infrastructure",
+        "IAEA access void — Iran expels IAEA monitors, restarts 90% enrichment; Israel and/or US conduct additional nuclear site strikes"
+      ],
+      risks: [
+        "Israel is the most likely trigger — IDF is conducting ongoing Lebanon operations that directly violate MOU Clause 1; escalation does not require a new decision, only continuation of current operations at higher intensity",
+        "Iran has already used the Hormuz closure threat once (June 20, 8 days before today); the next use will likely be the permanent trigger",
+        "Hormuz closure alone = ~$20-30/barrel immediate oil spike; if sustained >2 weeks = global recession probability spikes",
+        "US re-entry into active combat with Iran after collapsing its own MOU would be a strategic credibility crisis for the administration regardless of domestic framing"
+      ],
+      mkt: [
+        { dir:"up", asset:"BRENT CRUDE", detail:"$100-130+ spike; Hormuz closure risks 20-25% global oil supply; 1973-style shock" },
+        { dir:"up", asset:"GOLD", detail:"+8-15%; maximum safe haven bid; USD flight to quality; VIX spike" },
+        { dir:"up", asset:"RTX · LMT · NOC", detail:"Defense +15-25%; US re-engagement contracts; Israeli defense exports surge" },
+        { dir:"dn", asset:"EM / SPX", detail:"EM selloff -10-20%; S&P 500 -5-8%; oil-importing EMs most exposed (India, Turkey)" },
+        { dir:"dn", asset:"AIRLINES · GCC", detail:"Airspace closure + fuel spike; GCC tourism collapse; shipping cost surge" }
+      ]
+    }
+  ],
+
+  keyDates: [
+    {
+      date: "Jun 17",
+      day: 0,
+      status: "done",
+      icon: "✍️",
+      title: "MOU Signed — Versailles",
+      desc: "Trump signs 14-point MOU at Palace of Versailles; Pezeshkian signs separately. The agreement ends the armed conflict that began when the US and Israel jointly struck Iranian military and nuclear sites in February 2026. Hormuz reopens. US naval blockade begins lifting. Iran authorized to sell oil freely. 60-day negotiation clock starts. Israel is not a signatory.",
+      stake: "Clause 1 commits all parties to all-fronts ceasefire including Lebanon — Israel's non-signatory status makes this the agreement's structural weak point from Day 0"
+    },
+    {
+      date: "Jun 22–24",
+      day: 7,
+      status: "active",
+      icon: "🤝",
+      title: "First Formal Talks — Switzerland",
+      desc: "US and Iran delegations meet. IAEA dispute erupts: Vance says Iran agreed to inspections 'this week'; Iran FM says no such commitment was made. IDF strikes Beirut; Iran threatens Hormuz; mini-ceasefire restored. IAEA chief Grossi states inspections will proceed per MOU text. TODAY: Day 7.",
+      stake: "IAEA scope must be clarified and Lebanon must be de-escalated — both simultaneously — or the 60-day window loses traction in its first week"
+    },
+    {
+      date: "~Jul 1–5",
+      day: 14,
+      status: "upcoming",
+      icon: "🔬",
+      title: "IAEA First Visit (Contested)",
+      desc: "Vance committed IAEA would visit 'this week' of June 22. Iran disputed this. IAEA chief says visits will happen per MOU text. Likely compromise: IAEA visits active declared enrichment sites; bombed/damaged sites deferred to formal deal.",
+      stake: "If IAEA visits happen → deal confidence rises sharply. If Iran blocks → Polymarket odds drop"
+    },
+    {
+      date: "Jul 17",
+      day: 30,
+      status: "upcoming",
+      icon: "⚓",
+      title: "Day 30 Milestone — Hormuz & Blockade",
+      desc: "MOU-committed deadline: US naval blockade fully lifted (100% capacity). Iran Hormuz fully back to pre-war commercial numbers. Expected: first frozen asset tranche agreement. Midpoint review of negotiations — is deal on track?",
+      stake: "If asset release mechanism not agreed by Jul 17, Iran signals unhappiness and deal timeline slips"
+    },
+    {
+      date: "Aug 1",
+      day: 45,
+      status: "upcoming",
+      icon: "📋",
+      title: "Final Negotiating Round Opens",
+      desc: "All outstanding issues must be on the table: enrichment level/duration, IAEA full access, HEU downblend timeline, frozen assets full release, Lebanon/Hezbollah framework, US Gulf force posture. Expected 2-3 week intensive negotiating sprint.",
+      stake: "Position of parties at Aug 1 will determine if Aug 16 deal is feasible or extension is needed"
+    },
+    {
+      date: "Aug 16",
+      day: 60,
+      status: "critical",
+      icon: "⏰",
+      title: "60-Day Deadline — Deal or Extend",
+      desc: "Formal end of MOU negotiation window. Either: (A) Permanent deal signed (~20% odds), or (B) Both parties invoke extension clause (~54% odds), or (C) MOU collapses (~26% total for limbo + conflict). Extension requires mutual agreement — Iran has more leverage here.",
+      stake: "If no deal and no extension agreement reached, MOU void. Markets will price collapse risk immediately"
+    },
+    {
+      date: "Sep 22–26",
+      day: 98,
+      status: "upcoming",
+      icon: "🌐",
+      title: "UN General Assembly — Side Meetings",
+      desc: "Annual UNGA in New York. If extension triggered, expect US-Iran ministerial sideline meetings. Pezeshkian and Trump may meet directly. Israel will lobby hard against any enrichment compromise. Qatar and Pakistan mediation intensifies.",
+      stake: "UNGA historically a deal-accelerant — public commitment creates accountability. Watch for direct leader meeting"
+    },
+    {
+      date: "~Oct 16",
+      day: 120,
+      status: "upcoming",
+      icon: "🗓️",
+      title: "Day 120 — Second Extension (If Triggered)",
+      desc: "If first extension reached and deal not yet closed, parties may agree to second 30-60 day extension. Iran's domestic political calendar becomes a constraint (hardliner pressure mounts). US November midterms (Nov 3, 2026) create political urgency for Trump to close a deal.",
+      stake: "Beyond Day 120 the deal becomes politically very difficult to sustain. This is effectively the outer limit"
+    }
+  ],
+
+  history: [
+    {
+      date: "2026-06-24",
+      probs: { deal_ontime: 20, deal_extended: 54, limbo: 16, collapse: 10 },
+      notes: "Launch day. MOU Day 7. First talks underway in Switzerland. IAEA dispute erupts and partially defused by IAEA chief Grossi. Lebanon mini-ceasefire restored. Polymarket permanent deal Dec 31 at 74%. Israel cut out of MOU, Netanyahu not bound. Inspections and enrichment duration remain the two biggest unresolved issues.",
+      mkt: "Polymarket: Permanent deal Dec 31 = 74%, by July 31 = 18%. Kalshi: US-Iran nuclear deal = 58% by 2027. Brent crude: moderate post-MOU decline. Gold: war premium partial exit. Defense stocks: modestly lower. Iran-linked EM: small positive."
+    }
+  ]
+
+};
+
+/* ================================================================
+   RENDER ENGINE
+   ================================================================ */
+
+function daysBetween(d1, d2) {
+  return Math.round((new Date(d2) - new Date(d1)) / 86400000);
+}
+function daysUntil(d) {
+  return Math.max(0, Math.ceil((new Date(d) - new Date()) / 86400000));
+}
+function diffHtml(c, r) {
+  const d = c - r;
+  if (!d) return '<span class="t-fl">—</span>';
+  return d > 0 ? `<span class="t-up">▲${d}pp</span>` : `<span class="t-dn">▼${Math.abs(d)}pp</span>`;
+}
+
+function init() {
+  document.getElementById('upd').textContent = DATA.meta.lastUpdated;
+  document.getElementById('mou-day-num').textContent = DATA.meta.mouDay;
+  document.getElementById('mou-deadline').textContent = DATA.meta.deadline60;
+  renderMouTimeline();
+  renderSummary();
+  renderProbBar();
+  renderTree();
+  renderParties();
+  renderCards();
+  renderDates();
+  renderHistory();
+  document.getElementById('footer').textContent =
+    'Sources: ' + DATA.meta.dataSource +
+    '. Probabilities calibrated from Polymarket/Kalshi prediction markets adjusted for epistemic analysis. Not financial advice. Updated daily 06:00 CET.';
+}
+
+function renderMouTimeline() {
+  const pct = (DATA.meta.mouDay / DATA.meta.mouDays) * 100;
+  document.getElementById('mou-bar-fill').style.width = pct + '%';
+  document.getElementById('mou-now-dot').style.left = pct + '%';
+  document.getElementById('mou-days-rem').textContent =
+    (DATA.meta.mouDays - DATA.meta.mouDay) + ' days remaining · Deadline ' + DATA.meta.deadline60;
+
+  const milestones = [
+    { pct: 0,    label: 'MOU Signed', date: 'Jun 17', done: true },
+    { pct: (7/60)*100,  label: 'First Talks', date: 'Jun 22', done: true, now: true },
+    { pct: (30/60)*100, label: '30-Day\nMilestone', date: 'Jul 17', done: false },
+    { pct: (45/60)*100, label: 'Final Round', date: 'Aug 1', done: false },
+    { pct: 100,  label: 'Deadline', date: 'Aug 16', done: false }
+  ];
+
+  const wrap = document.getElementById('mou-milestones');
+  milestones.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'mou-ms' + (m.done ? ' done' : '') + (m.now ? ' now' : '');
+    el.innerHTML =
+      `<div class="mou-ms-dot ${m.now ? 'now' : m.done ? 'done' : 'future'}"></div>` +
+      `<div class="mou-ms-date">${m.date}</div>` +
+      `<div class="mou-ms-lbl">${m.label.replace('\n','<br>')}</div>`;
+    wrap.appendChild(el);
+  });
+}
+
+function renderSummary() {
+  document.getElementById('s-hl').textContent = DATA.summary.headline;
+
+  // daily changes
+  const dl = document.getElementById('s-daily');
+  DATA.summary.daily.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'chg';
+    d.innerHTML = `<span class="chg-dot" style="background:${c.dot};flex-shrink:0"></span><span>${c.text}</span>`;
+    dl.appendChild(d);
+  });
+
+  // divergences / flags
+  const dv = document.getElementById('s-div');
+  DATA.summary.divergences.forEach(div => {
+    const d = document.createElement('div');
+    d.className = `div-item ${div.type}`;
+    d.innerHTML = `<div class="div-lbl">${div.label}</div><div class="div-txt">${div.text}</div>`;
+    dv.appendChild(d);
+  });
+
+  // key drivers
+  const dr = document.getElementById('s-drivers');
+  DATA.summary.drivers.forEach(item => {
+    const d = document.createElement('div');
+    d.className = 'chg';
+    d.innerHTML = `<span class="chg-dot" style="background:#6366f1;flex-shrink:0"></span><span>${item.text}</span>`;
+    dr.appendChild(d);
+  });
+
+  // party strip
+  const ps = document.getElementById('s-parties');
+  DATA.summary.parties.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'party-cell';
+    d.style.borderLeft = `3px solid ${p.color}`;
+    d.innerHTML =
+      `<div class="party-cell-name" style="color:${p.color}">${p.flag} ${p.name}</div>` +
+      `<div class="party-cell-pos">${p.pos}</div>` +
+      `<div class="party-cell-comp">Compromise: ${p.comp}</div>`;
+    ps.appendChild(d);
+  });
+}
+
+function renderProbBar() {
+  const bar = document.getElementById('pbar');
+  const leg = document.getElementById('pleg');
+  DATA.scenarios.forEach(s => {
+    const seg = document.createElement('div');
+    seg.className = 'pseg';
+    seg.style.cssText = `width:${s.prob}%;background:${s.color};color:#fff`;
+    if (s.prob >= 12) seg.textContent = s.prob + '%';
+    bar.appendChild(seg);
+
+    const li = document.createElement('div');
+    li.className = 'pleg-item';
+    li.innerHTML =
+      `<span class="pleg-dot" style="background:${s.color}"></span>` +
+      `<span>${s.label}</span>` +
+      `<span class="pleg-pct" style="color:${s.color}">${s.prob}%</span>` +
+      `${diffHtml(s.prob, s.prev)}` +
+      `<span class="pleg-src">${s.source}</span>`;
+    leg.appendChild(li);
+  });
+}
+
+function renderTree() {
+  const W = 960, H = 340;
+  const svg = document.getElementById('tree');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  svg.style.maxWidth = '100%';
+
+  const nodes = [
+    // [id, x, y, label, sublabel, color, pct]
+    { id:'root', x:480, y:30, w:200, h:44, label:'MOU Signed', sub:'Day '+DATA.meta.mouDay+'/60', color:'#6366f1', pct:null },
+    // Level 1
+    { id:'leb_yes', x:250, y:120, w:170, h:44, label:'Lebanon Holds', sub:'Ceasefire durability', color:'#10b981', pct:'70%' },
+    { id:'leb_no',  x:710, y:120, w:170, h:44, label:'Lebanon Collapses', sub:'Iran Clause 1 violated', color:'#ef4444', pct:'30%' },
+    // Level 2
+    { id:'iaea_ok', x:120, y:220, w:160, h:44, label:'IAEA Access', sub:'Inspection agreed', color:'#3b82f6', pct:'65%' },
+    { id:'iaea_no', x:370, y:220, w:160, h:44, label:'IAEA Disputed', sub:'Enrichment deadlock', color:'#f59e0b', pct:'35%' },
+    { id:'collapse', x:710, y:220, w:160, h:52, label:'COLLAPSE', sub:'Hormuz re-closed', color:'#ef4444', pct:'10%' },
+    // Level 3 (outcomes)
+    { id:'deal', x:50, y:300, w:105, h:32, label:'FULL DEAL', sub:'20%', color:'#10b981', terminal:true },
+    { id:'ext',  x:180, y:300, w:105, h:32, label:'EXTENDED', sub:'50%', color:'#3b82f6', terminal:true },
+    { id:'limbo',x:370, y:300, w:105, h:32, label:'LIMBO', sub:'16%', color:'#f59e0b', terminal:true },
+    { id:'lim2', x:490, y:300, w:80,  h:0,  label:'', sub:'', color:'transparent', terminal:true, hidden:true }
+  ];
+
+  function getNode(id) { return nodes.find(n => n.id === id); }
+
+  function drawEdge(x1,y1,x2,y2,label,color) {
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+    const d = `M${x1},${y1} C${x1},${(y1+y2)/2} ${x2},${(y1+y2)/2} ${x2},${y2}`;
+    path.setAttribute('d', d);
+    path.setAttribute('stroke', color);
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('opacity', '0.6');
+    svg.appendChild(path);
+    if (label) {
+      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x', mx);
+      t.setAttribute('y', my);
+      t.setAttribute('fill', color);
+      t.setAttribute('font-size', '10');
+      t.setAttribute('font-family', 'JetBrains Mono, monospace');
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('dy', '-3');
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+  }
+
+  function drawNode(n) {
+    if (n.hidden) return;
+    const rx = n.x - n.w/2, ry = n.y;
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', rx); rect.setAttribute('y', ry);
+    rect.setAttribute('width', n.w); rect.setAttribute('height', n.h);
+    rect.setAttribute('rx', n.terminal ? 5 : 8);
+    rect.setAttribute('fill', n.color + '18');
+    rect.setAttribute('stroke', n.color);
+    rect.setAttribute('stroke-width', n.terminal ? '1.2' : '1.5');
+    svg.appendChild(rect);
+
+    const t1 = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t1.setAttribute('x', n.x); t1.setAttribute('y', ry + (n.terminal ? 12 : 14));
+    t1.setAttribute('fill', n.color); t1.setAttribute('font-size', n.terminal ? '9' : '11');
+    t1.setAttribute('font-family', 'JetBrains Mono, monospace');
+    t1.setAttribute('font-weight', '700');
+    t1.setAttribute('text-anchor', 'middle');
+    t1.textContent = n.label;
+    svg.appendChild(t1);
+
+    if (n.sub && !n.terminal) {
+      const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t2.setAttribute('x', n.x); t2.setAttribute('y', ry + 28);
+      t2.setAttribute('fill', '#8fa3c0'); t2.setAttribute('font-size', '9');
+      t2.setAttribute('font-family', 'Inter, sans-serif');
+      t2.setAttribute('text-anchor', 'middle');
+      t2.textContent = n.sub;
+      svg.appendChild(t2);
+    }
+    if (n.pct) {
+      const t3 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t3.setAttribute('x', n.x); t3.setAttribute('y', ry + (n.sub ? 40 : 30));
+      t3.setAttribute('fill', n.color); t3.setAttribute('font-size', '10');
+      t3.setAttribute('font-family', 'JetBrains Mono, monospace');
+      t3.setAttribute('font-weight', '600');
+      t3.setAttribute('text-anchor', 'middle');
+      t3.textContent = n.pct;
+      svg.appendChild(t3);
+    }
+    if (n.terminal && n.sub) {
+      const t2 = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t2.setAttribute('x', n.x); t2.setAttribute('y', ry + 23);
+      t2.setAttribute('fill', n.color); t2.setAttribute('font-size', '11');
+      t2.setAttribute('font-family', 'JetBrains Mono, monospace');
+      t2.setAttribute('font-weight', '700');
+      t2.setAttribute('text-anchor', 'middle');
+      t2.textContent = n.sub;
+      svg.appendChild(t2);
+    }
+  }
+
+  // Draw edges first (behind nodes)
+  // root → leb_yes
+  const r = getNode('root'), ly = getNode('leb_yes'), ln = getNode('leb_no');
+  const iy = getNode('iaea_ok'), in2 = getNode('iaea_no');
+  const col = getNode('collapse');
+  const deal = getNode('deal'), ext = getNode('ext'), limbo = getNode('limbo');
+
+  drawEdge(r.x, r.y+44, ly.x, ly.y, '70%', '#10b981');
+  drawEdge(r.x, r.y+44, ln.x, ln.y, '30%', '#ef4444');
+  drawEdge(ly.x, ly.y+44, iy.x, iy.y, '65%', '#3b82f6');
+  drawEdge(ly.x, ly.y+44, in2.x, in2.y, '35%', '#f59e0b');
+  drawEdge(ln.x, ln.y+44, col.x, col.y, '', '#ef4444');
+  drawEdge(iy.x, iy.y+44, deal.x, deal.y, 'On time', '#10b981');
+  drawEdge(iy.x, iy.y+44, ext.x, ext.y, 'Ext.', '#3b82f6');
+  drawEdge(in2.x, in2.y+44, limbo.x, limbo.y, '', '#f59e0b');
+  // iaea_no also contributes to extended (4th branch — simplified, merged into ext visually)
+  drawEdge(in2.x, in2.y+44, ext.x, ext.y+16, '4%', '#3b82f6');
+
+  // Draw nodes
+  nodes.forEach(drawNode);
+
+  // Collapse label with sub
+  const c = getNode('collapse');
+  const tC = document.createElementNS('http://www.w3.org/2000/svg','text');
+  tC.setAttribute('x', c.x); tC.setAttribute('y', c.y+45);
+  tC.setAttribute('fill', '#fca5a5'); tC.setAttribute('font-size', '9');
+  tC.setAttribute('font-family', 'Inter, sans-serif');
+  tC.setAttribute('text-anchor', 'middle');
+  tC.textContent = '→ conflict / max pressure';
+  svg.appendChild(tC);
+}
+
+function renderParties() {
+  const grid = document.getElementById('parties-grid');
+  DATA.parties.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'pcard';
+    card.style.borderTop = `3px solid ${p.color}`;
+
+    const pts = (arr, cls, lbl) =>
+      `<div class="pcard-section"><div class="pcard-sec-lbl ${cls}">${lbl}</div>` +
+      arr.map(t => `<div class="pcard-pt">${t}</div>`).join('') + '</div>';
+
+    card.innerHTML =
+      `<div class="pcard-hdr">
+        <span class="pcard-icon">${p.flag}</span>
+        <div><div class="pcard-name" style="color:${p.color}">${p.name}</div><div class="pcard-sub">${p.sub}</div></div>
+      </div>
+      <div class="pcard-body">
+        ${pts(p.pos,'pos','Current Position')}
+        ${pts(p.redlines,'red','Red Lines')}
+        ${pts(p.leverage,'lev','Leverage')}
+        <div class="pcard-section">
+          <div class="pcard-sec-lbl comp">Likely Compromise</div>
+          <div class="pcard-comp">${p.comp}</div>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderCards() {
+  const grid = document.getElementById('cards');
+  DATA.scenarios.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'scard';
+
+    const mktRows = s.mkt.map(m =>
+      `<div class="mkt-row">
+        <span class="mkt-tag mt-${m.dir}">${m.dir === 'up' ? '▲ UP' : m.dir === 'dn' ? '▼ DN' : m.dir === 'mix' ? '± MIX' : '— NEU'}</span>
+        <span class="mkt-asset">${m.asset}</span>
+        <span class="mkt-detail">${m.detail}</span>
+      </div>`
+    ).join('');
+
+    const preRows = s.pre.map(t => `<div class="sc-pt">${t}</div>`).join('');
+    const riskRows = s.risks.map(t => `<div class="sc-pt">${t}</div>`).join('');
+
+    card.innerHTML =
+      `<div class="sc-hdr">
+        <div class="sc-l">
+          <div class="sc-bar" style="background:${s.color}"></div>
+          <div>
+            <div class="sc-lbl">${s.label}</div>
+            <div class="sc-sub">${s.short}</div>
+          </div>
+        </div>
+        <div class="sc-r">
+          <div class="sc-pct" style="color:${s.color}">${s.prob}%</div>
+          <div class="sc-src">${s.source}</div>
+          <div class="sc-trend">${diffHtml(s.prob, s.prev)}</div>
+        </div>
+      </div>
+      <div class="sc-body">
+        <span class="sig sig-${s.sig}">${s.sigLabel}</span>
+        <div class="sig-sub">${s.invSignal}</div>
+        <div class="mini-bar"><div class="mini-fill" style="width:${s.prob}%;background:${s.color}"></div></div>
+      </div>
+      <div class="sc-section">
+        <div class="sc-sec-hd pre">Preconditions</div>
+        ${preRows}
+      </div>
+      <div class="sc-section">
+        <div class="sc-sec-hd risk">Tripwires &amp; Risks</div>
+        ${riskRows}
+      </div>
+      <div class="sc-section">
+        <div class="sc-sec-hd mkt">Market Signals</div>
+        ${mktRows}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function renderDates() {
+  const list = document.getElementById('dates');
+  DATA.keyDates.forEach(kd => {
+    const row = document.createElement('div');
+    row.className = 'date-row';
+    const pillClass = { done:'dp-done', active:'dp-active', upcoming:'dp-upcoming', critical:'dp-critical' }[kd.status];
+    const pillLabel = { done:'COMPLETED', active:'ACTIVE NOW', upcoming:'UPCOMING', critical:'KEY DEADLINE' }[kd.status];
+    row.innerHTML =
+      `<div class="date-icon ${kd.status}">${kd.icon}</div>
+      <div class="date-meta">
+        <div class="date-label">
+          <span class="date-tag ${kd.status}">${kd.date} · Day ${kd.day}</span>
+          <span class="date-pill ${pillClass}">${pillLabel}</span>
+        </div>
+        <div class="date-title">${kd.title}</div>
+        <div class="date-desc">${kd.desc}</div>
+        <div class="date-stake">↳ Stake: ${kd.stake}</div>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function renderHistory() {
+  const hist = document.getElementById('hist');
+  [...DATA.history].reverse().forEach(h => {
+    const el = document.createElement('div');
+    el.className = 'hist-entry';
+    const probs = Object.entries(h.probs).map(([k, v]) => {
+      const s = DATA.scenarios.find(x => x.id === k);
+      return `<span class="hist-pct" style="color:${s ? s.color : '#8fa3c0'}">${s ? s.short || s.label : k}: ${v}%</span>`;
+    }).join('');
+    el.innerHTML =
+      `<div class="hist-date">${h.date} · MOU Day ${DATA.meta.mouDay}</div>` +
+      `<div class="hist-probs">${probs}</div>` +
+      `<div class="hist-note">${h.notes}</div>` +
+      `<div class="hist-mkt">${h.mkt}</div>`;
+    hist.appendChild(el);
+  });
+}
+
+window.onload = init;
+</script>
+</body>
+</html>
