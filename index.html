@@ -266,6 +266,22 @@
     .btag-short{background:rgba(239,68,68,.12);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
     .bank-rationale{font-size:11px;color:var(--txt3);line-height:1.5;font-style:italic;border-top:1px solid var(--bdr);padding-top:6px;margin-top:2px}
 
+    /* ── TRADE RECOMMENDATIONS ── */
+    .trade-recs{margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)}
+    .trade-recs-hd{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:10px}
+    .trade-region{margin-bottom:12px}
+    .trade-region:last-child{margin-bottom:0}
+    .trade-region-hd{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--txt2);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+    .trade-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .trade-side-hd{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid}
+    .trade-side-hd.long{color:var(--grn);border-color:rgba(16,185,129,.25)}
+    .trade-side-hd.short{color:var(--red2);border-color:rgba(239,68,68,.25)}
+    .trade-row{display:flex;gap:6px;margin-bottom:5px;align-items:baseline;line-height:1.35}
+    .trade-tkr{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;white-space:nowrap;min-width:38px}
+    .trade-tkr.long{color:var(--grn)}
+    .trade-tkr.short{color:var(--red2)}
+    .trade-why{font-size:11px;color:var(--txt3)}
+
     /* ── MOU CLAUSE REVIEW ── */
     .clauses-sec{margin-bottom:24px}
     .clause-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin-bottom:10px}
@@ -592,6 +608,16 @@ const DATA = {
           short: [],
           rationale: "BNP paid $9B in 2014 for Iran sanctions violations — that exposure now becomes an asset. HSBC gains from EM/Asia rally and Hormuz normalization. ING and Standard Chartered benefit from trade finance revival. No significant short — all major European banks net positive under full deal."
         }
+      },
+      trades: {
+        us: {
+          long:  ["JPM — trade finance & letter-of-credit volume surge; deal advisory #1", "GS — M&A revival; EM desk; deal-related transaction flow", "C — largest int'l network; Iran corridor reopening lifts trade book directly", "MS — capital markets re-open; IPO wave from Iran-linked corporates", "BAC — broad risk-on; consumer credit improves as oil falls $15-25"],
+          short: ["WFC — domestic-heavy; misses international trade finance revival", "COF — consumer credit card only; no sanctions benefit", "USB — regional; limited exposure to global deal flow", "PNC — Midwest focus; no material Iran trade benefit", "TFC — Southeast regional; energy sector headwinds from oil drop"]
+        },
+        eu: {
+          long:  ["BNP — 2014 $9B Iran fine exposure reverses; largest direct beneficiary", "HSBC — MENA reopening + Asia EM rally; trade finance franchise", "ING — strong trade finance platform; MENA corridor reopens", "STAN — heaviest MENA/Asia weighting; maximum upside from sanctions lift", "UCG — European risk-on; EM appetite returns to Italy's largest bank"],
+          short: ["LLOY — pure UK domestic; zero MENA upside; underperforms in risk-on", "NWG — UK domestic; no trade finance benefit", "ABN — Dutch domestic; minimal MENA exposure", "KBC — Belgian domestic; limited benefit", "NDA — Nordic defensive; already risk-off priced; lags in risk-on rally"]
+        }
       }
     },
     {
@@ -637,6 +663,16 @@ const DATA = {
           long: ["HSBC", "STAN"],
           short: ["DBK", "SocGen"],
           rationale: "HSBC and Standard Chartered benefit from Hormuz stability and partial EM recovery. Deutsche Bank and SocGen face continued uncertainty on MENA credit quality and Iran trade normalization timeline. BNP is neutral — latent Iran exposure directionally positive but not yet actionable."
+        }
+      },
+      trades: {
+        us: {
+          long:  ["GS — advisory mandates most active in prolonged uncertainty; trading desk benefits", "JPM — broad market share gains; fortress balance sheet commands premium", "MS — wealth management resilient; advisory fees accrue through ambiguity", "BAC — domestic stability; consumer credit steady with oil at $75-90", "C — EM ambiguity manageable; transaction banking maintains volumes"],
+          short: ["COF — consumer credit uncertainty; higher oil at $75-90 a structural drag", "WFC — domestic focus misses deal flow; regulatory overhang persists", "USB — regional; no upside catalysts in an extended-uncertainty environment", "PNC — Midwest corporate credit uncertain under prolonged ambiguity", "TFC — Southeast; energy belt headwinds; NIM compression risk"]
+        },
+        eu: {
+          long:  ["HSBC — MENA partial stability; trade finance franchise active", "STAN — EM resilience; partial sanctions benefit priced in", "UCG — European fundamental improvement; EM appetite partial recovery", "BARC — markets division active; advisory fees accumulate in ambiguity", "NDA — Nordic defensive quality outperforms in prolonged uncertainty"],
+          short: ["SocGen — MENA credit quality uncertain; GCC loan book exposure", "DBK — corporate lending book exposed to prolonged ambiguity", "BNP — Iran normalization timeline discount keeps Iran exposure liability", "ING — trade finance only partially active; incomplete revenue recovery", "RBI — Eastern Europe + residual MENA exposure; ambiguity discount"]
         }
       }
     },
@@ -684,6 +720,16 @@ const DATA = {
           short: ["HSBC", "BNP", "ING"],
           rationale: "Frozen limbo is the worst outcome for European banks: no Iran trade normalization, but sanctions ambiguity makes any MENA business legally risky. HSBC and BNP have latent Iran exposure that becomes a liability rather than an asset. Lloyds and Nordea outperform through low MENA exposure and domestic UK/Nordic focus."
         }
+      },
+      trades: {
+        us: {
+          long:  ["GS — restructuring mandates + crisis advisory peak; oil trading desk most active", "MS — alternatives/volatility desk; flight to hard assets advisory", "JPM — flight-to-quality bid; fortress balance sheet most valued in risk-off", "WFC — pure domestic consumer; most insulated from international credit stress", "BAC — domestic consumer book; oil at $85-95 neutral for core loan quality"],
+          short: ["C — EM exposure most impaired as global normalization fails; worst large-cap", "COF — consumer credit headwinds from $85-95 oil compressing household spending", "USB — credit ambiguity creates NIM and credit quality uncertainty", "PNC — corporate credit exposed to energy sector ambiguity and rate uncertainty", "TFC — energy belt consumer stress; NIM headwinds from prolonged uncertainty"]
+        },
+        eu: {
+          long:  ["LLOY — pure UK domestic; maximum insulation from MENA sanctions ambiguity", "NWG — UK domestic; resilient retail banking unaffected by Iran exposure", "NDA — Nordic safe haven; minimal MENA; benefits from flight-to-quality bid", "KBC — Belgian domestic-heavy; conservative balance sheet; insulated", "ABN — Dutch domestic; limited international credit exposure"],
+          short: ["HSBC — Iran exposure becomes active liability; sanctions ambiguity = legal risk", "BNP — prior $9B Iran fine history creates legal exposure in ambiguity environment", "ING — trade finance frozen; MENA revenues evaporate; Iran ambiguity discount", "SocGen — MENA credit quality worst-case discount; GCC client stress", "DBK — corporate book; manufacturing/energy nexus stress in uncertainty"]
+        }
       }
     },
     {
@@ -729,6 +775,16 @@ const DATA = {
           long: ["LLOY"],
           short: ["DBK", "HSBC", "BNP", "SocGen"],
           rationale: "Europe is the most exposed region to Hormuz closure: energy import crisis, GCC client credit stress, trade finance disruption. Deutsche Bank's corporate lending book is heavily exposed to manufacturing/energy nexus. HSBC suffers Asia EM selloff plus MENA trade collapse. BNP and SocGen face GCC credit quality collapse. Lloyds is the only major with predominantly domestic UK exposure, partially insulated."
+        }
+      },
+      trades: {
+        us: {
+          long:  ["GS — restructuring mandates surge; crisis advisory at peak; oil trading desk", "MS — crisis advisory + alternatives rally; flight to restructuring mandates", "JPM — fortress balance sheet; treasury management demand surge; flight-to-quality", "WFC — pure domestic consumer; most insulated from EM and oil shock transmission", "USB — regional defensive; limited international credit exposure; safe-haven domestic"],
+          short: ["BAC — consumer credit blow-up as oil spikes $100-130; household stress largest", "C — worst EM selloff exposure; Turkey, India, MENA credit book craters simultaneously", "COF — consumer credit card blow-up; oil spike drives payment delinquencies", "PNC — corporate credit book; manufacturing/energy supply chain stress", "TFC — energy belt consumer credit; double hit from oil shock + recession risk"]
+        },
+        eu: {
+          long:  ["LLOY — pure UK domestic; insulated from MENA, no energy corridor exposure", "NWG — UK domestic defensive; retail book unaffected by Hormuz closure", "NDA — Nordic safe haven; energy exporter partially hedged against oil spike", "KBC — Belgian domestic; conservative balance sheet; minimal MENA exposure", "ABN — Dutch domestic; limited international credit; low Hormuz transmission"],
+          short: ["DBK — corporate manufacturing/energy nexus blow-up; worst-positioned European book", "HSBC — Asia EM selloff + MENA trade complete collapse; double exposure", "BNP — GCC credit collapse + French corporate exposure to European energy crisis", "SocGen — GCC client stress + European energy import crisis; double hit", "STAN — MENA/Asia double exposure; maximum downside of any listed European bank"]
         }
       }
     }
@@ -1340,6 +1396,28 @@ function renderCards() {
       </div>`;
     }
 
+    function tradeRecsHtml(tr) {
+      const sideHtml = (arr, dir) => arr.map(item => {
+        const dash = item.indexOf(' — ');
+        const tkr  = dash > -1 ? item.slice(0, dash) : item;
+        const why  = dash > -1 ? item.slice(dash + 3) : '';
+        return `<div class="trade-row"><span class="trade-tkr ${dir}">${tkr}</span><span class="trade-why">${why}</span></div>`;
+      }).join('');
+      const regHtml = (flag, lbl, t) =>
+        `<div class="trade-region">
+          <div class="trade-region-hd">${flag} ${lbl}</div>
+          <div class="trade-cols">
+            <div><div class="trade-side-hd long">▲ Long</div>${sideHtml(t.long,'long')}</div>
+            <div><div class="trade-side-hd short">▼ Short</div>${sideHtml(t.short,'short')}</div>
+          </div>
+        </div>`;
+      return `<div class="trade-recs">
+        <div class="trade-recs-hd">Bank Trade Recommendations</div>
+        ${regHtml('🇺🇸','US Large Cap',tr.us)}
+        ${regHtml('🇪🇺','European Listed',tr.eu)}
+      </div>`;
+    }
+
     const preRows = s.pre.map(t => `<div class="sc-pt">${t}</div>`).join('');
     const riskRows = s.risks.map(t => `<div class="sc-pt">${t}</div>`).join('');
 
@@ -1378,6 +1456,7 @@ function renderCards() {
           ${bankColHtml('🇺🇸', 'US Banks', s.banks.us)}
           ${bankColHtml('🇪🇺', 'European Banks', s.banks.eu)}
         </div>
+        ${s.trades ? tradeRecsHtml(s.trades) : ''}
       </div>`;
     grid.appendChild(card);
   });
