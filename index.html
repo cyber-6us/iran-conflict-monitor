@@ -202,6 +202,35 @@
 
     .footer{font-size:9.5px;color:var(--txt3);padding:11px 0;border-top:1px solid var(--bdr);line-height:1.7}
 
+    /* ── NEW BADGE ── */
+    .new-badge{display:inline-flex;align-items:center;font-size:7px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;background:rgba(239,68,68,.15);color:var(--red2);border:1px solid rgba(239,68,68,.3);border-radius:3px;padding:1px 5px;margin-right:5px;flex-shrink:0;position:relative;top:-1px}
+
+    /* ── INTEL BULLETS ── */
+    .intel-bullet{display:flex;gap:8px;margin-bottom:8px;font-size:11.5px;color:var(--txt);line-height:1.55;align-items:flex-start}
+    .intel-bullet-marker{color:var(--amb2);font-weight:700;flex-shrink:0;font-size:13px;line-height:1.3}
+    .intel-bullet:last-child{margin-bottom:13px}
+
+    /* ── CURRENT DISCUSSION TOPIC ── */
+    .topic-box{background:linear-gradient(135deg,#091a2e,#0e1d2e);border:1px solid var(--bdr2);border-left:3px solid var(--ind);border-radius:11px;padding:16px 20px;margin-bottom:16px}
+    .topic-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--ind2);margin-bottom:3px}
+    .topic-hd-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .topic-title{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:4px}
+    .topic-clause{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ind2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:4px;padding:2px 7px}
+    .topic-next-lbl{font-size:10px;color:var(--txt3);white-space:nowrap;margin-top:2px;font-family:'JetBrains Mono',monospace}
+    .topic-overview{font-size:11px;color:var(--txt2);line-height:1.65;margin-bottom:14px;padding:10px 12px;background:rgba(99,102,241,.04);border-radius:7px;border:1px solid rgba(99,102,241,.12)}
+    .topic-parties{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .topic-party{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;overflow:hidden}
+    .tp-hdr{padding:8px 11px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:7px}
+    .tp-flag{font-size:15px;line-height:1}
+    .tp-name{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+    .tp-tag{font-size:8px;color:var(--txt3);margin-left:auto;font-style:italic}
+    .tp-body{padding:9px 11px}
+    .tp-sec{font-size:7.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:4px;margin-top:9px}
+    .tp-sec:first-child{margin-top:0}
+    .tp-pos{font-size:10.5px;color:var(--txt2);line-height:1.5}
+    .tp-walk{font-size:10.5px;color:var(--red2);line-height:1.5;background:rgba(239,68,68,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--red)}
+    .tp-collapse{font-size:10.5px;color:var(--yel);line-height:1.5;background:rgba(245,158,11,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--yel)}
+
     @media(max-width:960px){
       .cards-grid{grid-template-columns:1fr}
       .parties-grid{grid-template-columns:1fr}
@@ -209,6 +238,7 @@
       .party-strip-grid{grid-template-columns:1fr}
       .mou-milestones{display:none}
       .main{padding:12px}
+      .topic-parties{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -246,16 +276,30 @@
   <!-- SUMMARY -->
   <div class="sum-box">
     <div class="sum-lbl">Intelligence Summary &amp; Divergence Monitor</div>
-    <div class="sum-hl" id="s-hl"></div>
+    <div id="s-bullets"></div>
     <div class="sum-grid">
-      <div><div class="sum-col-hd">Past 24h Changes</div><div id="s-daily"></div></div>
-      <div><div class="sum-col-hd">Key Disputes &amp; Flags</div><div id="s-div"></div></div>
+      <div><div class="sum-col-hd">Past 24h · Key Developments</div><div id="s-daily"></div></div>
+      <div><div class="sum-col-hd">Active Disputes &amp; Flags</div><div id="s-div"></div></div>
       <div><div class="sum-col-hd">What Drives the Outcome</div><div id="s-drivers"></div></div>
     </div>
     <div class="party-strip">
       <div class="party-strip-hd">Party Positions — Current Stance</div>
       <div class="party-strip-grid" id="s-parties"></div>
     </div>
+  </div>
+
+  <!-- CURRENT DISCUSSION TOPIC -->
+  <div class="topic-box">
+    <div class="topic-lbl">Current / Next Discussion Point — MOU Negotiation</div>
+    <div class="topic-hd-row">
+      <div>
+        <div class="topic-title" id="topic-title"></div>
+        <div class="topic-clause" id="topic-clause"></div>
+      </div>
+      <div class="topic-next-lbl" id="topic-next"></div>
+    </div>
+    <div class="topic-overview" id="topic-overview"></div>
+    <div class="topic-parties" id="topic-parties"></div>
   </div>
 
   <!-- PROB BAR -->
@@ -320,20 +364,44 @@ const DATA = {
   },
 
   summary: {
-    headline: "Day 7 of the 60-day MOU window. The conflict began when the US and Israel jointly struck Iranian military and nuclear sites in February 2026; the MOU signed June 17 is a ceasefire-and-negotiation framework, not a peace deal. Two active flashpoints: (1) Israel has struck Beirut repeatedly since the MOU's signing, violating Clause 1's all-fronts ceasefire — Iran threatened to close Hormuz in response and a mini-ceasefire has nominally restored compliance; (2) the US (Vance) and Iran give contradictory accounts of IAEA inspection commitments in the MOU text, partially resolved by IAEA chief Grossi saying inspections will happen per the written agreement. Permanent deal odds: 74% by Dec 31 (Polymarket), but the path to an on-time Aug 16 agreement is narrow at ~20%, with Israel's Lebanon operations the single highest-probability deal-breaker.",
+    bullets: [
+      { text: "Day 7 of the 60-day MOU window. The MOU signed Jun 17 at Versailles is a ceasefire-and-negotiation framework, not a permanent deal. Deadline Aug 16 (extendable by mutual consent). Israel is not a signatory.", isNew: false },
+      { text: "Lebanon — active violation: Israel has struck Beirut multiple times since the MOU was signed, directly violating Clause 1's all-fronts ceasefire. Netanyahu publicly stated Israel is not bound by the agreement. Iran closed Hormuz on Jun 20 in response; a US-brokered mini-ceasefire nominally restored compliance.", isNew: true },
+      { text: "IAEA access — unresolved: Vance stated Iran agreed to inspections 'this week'; Iran FM denied any such commitment. IAEA chief Grossi confirmed inspections will proceed per MOU text, but the scope dispute (active declared sites vs bombed sites) was not resolved in Round 1.", isNew: true },
+      { text: "Permanent deal odds: 74% by Dec 31 (Polymarket). On-time deal by Aug 16 is narrow at ~20% — requires Israel to halt Lebanon operations and IAEA scope to be agreed within 2 weeks, neither of which is currently underway.", isNew: false }
+    ],
+
+    currentTopic: {
+      title: "Round 2 Agenda — IAEA Access Scope & Lebanon Ceasefire",
+      mou_clauses: "Clause 1 (All-Fronts Ceasefire) · Clause 4 (IAEA Supervision)",
+      overview: "Round 1 (Jun 22–24) closed without resolving two linked issues that together determine whether the 60-day window survives. First: what 'IAEA supervision' in Clause 4 covers — the US/IAEA position is full site access including conflict-damaged facilities; Iran's position is that inspecting infrastructure destroyed by US/Israeli strikes is both a sovereignty violation and a reward for those strikes. Second: Lebanon. Clause 1 requires an all-fronts ceasefire; Israel is striking Lebanon and has publicly refused to stop. Iran cannot enter Round 2 substantive talks while its Clause 1 red line is being crossed daily. Both issues must make visible progress in Round 2 or the extension scenario becomes significantly more likely.",
+      next: "~Jul 1–5 · Round 2, Geneva",
+      us: {
+        position: "IAEA must access all sites including those struck in the February 2026 joint US-Israeli campaign. The MOU text ('supervise downblending') is interpreted as full facility access. The US also wants Iran to reaffirm a zero-enrichment principle in Round 2 as a statement of direction, even without a final number agreed.",
+        walkaway: "Any outcome where Iran retains IAEA-unmonitored enrichment capacity, or where a first IAEA visit has not been scheduled by Day 30 (Jul 17). A second Hormuz closure would trigger US re-engagement and effective MOU collapse from the US side."
+      },
+      iran: {
+        position: "IAEA can inspect active, declared enrichment facilities. Bombed sites are destroyed infrastructure — demanding inspection of rubble is a sovereignty violation and politically rewards the strikes. Lebanon ceasefire must be enforced before Iran can enter substantive Clause 4 discussions. These two issues are explicitly linked by Iran's negotiating team.",
+        walkaway: "Any IDF escalation in Lebanon during or immediately before Round 2. Also: any US demand that IAEA access precede Lebanon ceasefire enforcement. Iran will not sequence it that way — and has already demonstrated willingness to close Hormuz as a signaling mechanism."
+      },
+      israel: {
+        position: "Not a party to Round 2. Netanyahu has stated Israel is not bound by the MOU and will continue Lebanon operations. No Israeli official has endorsed the MOU framework. Israel's public position is that any deal leaving Iran with enrichment capacity — paused or permanent — is unacceptable regardless of duration or monitoring.",
+        collapse: "Israel can collapse the deal without sitting at the table. Continuation of IDF Lebanon strikes at or above current tempo will push Iran past its Hormuz threshold. If Israel escalates — either because it calculates the deal is anyway inadequate, or to create facts before any agreement is reached — the MOU fails regardless of US-Iran progress on IAEA terms."
+      }
+    },
 
     daily: [
-      { dot: "#f59e0b", text: "IAEA dispute: Vance stated Iran agreed to IAEA access 'this week'; Iran FM flatly denied any such commitment; IAEA chief Grossi stated inspections will proceed per MOU text. The US and Iran are working from different interpretations of the same clause." },
-      { dot: "#ef4444", text: "Lebanon: IDF struck southern Beirut after MOU signing, directly violating Clause 1. Netanyahu stated publicly that Israel is not bound by the agreement and retains freedom of operation in Lebanon. Iran invoked this as grounds for Hormuz closure; a US-brokered mini-ceasefire nominally restored compliance. IDF operations in Lebanon have continued at a reduced tempo." },
-      { dot: "#10b981", text: "Hormuz: Strait reopened to commercial traffic after Iran closed it in response to the US naval blockade imposed in early 2026. MOU commits US to full blockade removal within 30 days. Iran is now selling oil freely as of Day 0 — this was a primary Iranian incentive for signing." },
-      { dot: "#3b82f6", text: "IAEA: Director-General Grossi stated inspections 'will happen' per the written MOU text, bypassing the Vance/Iran FM dispute. A private US-IAEA-Iran coordination channel is reportedly active. The specific question is whether inspections cover bombed nuclear sites or only declared active facilities." }
+      { dot: "#f59e0b", text: "IAEA dispute: Vance stated Iran agreed to IAEA access 'this week'; Iran FM flatly denied any such commitment; IAEA chief Grossi stated inspections will proceed per MOU text. The US and Iran are working from different interpretations of the same clause.", isNew: true },
+      { dot: "#ef4444", text: "Lebanon: IDF struck southern Beirut after MOU signing, directly violating Clause 1. Netanyahu stated publicly that Israel is not bound by the agreement and retains freedom of operation in Lebanon. Iran invoked this as grounds for Hormuz closure; a US-brokered mini-ceasefire nominally restored compliance. IDF operations in Lebanon have continued at a reduced tempo.", isNew: true },
+      { dot: "#10b981", text: "Hormuz: Strait reopened to commercial traffic after Iran closed it on Jun 20. MOU commits US to full blockade removal within 30 days. Iran is now selling oil freely as of Day 0.", isNew: false },
+      { dot: "#3b82f6", text: "IAEA chief Grossi stated inspections 'will happen' per the written MOU text, bypassing the Vance/Iran FM dispute. The specific question — whether inspections cover bombed nuclear sites or only declared active facilities — remains unresolved entering Round 2.", isNew: true }
     ],
 
     divergences: [
-      { type: "warn", label: "LEBANON: ACTIVE VIOLATION", text: "MOU Clause 1 requires all-fronts ceasefire including Lebanon. Israel has struck Lebanon since the MOU was signed, stated publicly it is not bound by the agreement, and continues operations. This is not a future risk — it is the current operational reality. Iran has already invoked it once for Hormuz closure. The US has not publicly pressured Israel to stop. Every IDF strike in Lebanon is a potential deal-termination event." },
-      { type: "warn", label: "IAEA: TEXT DISPUTE", text: "Vance publicly stated Iran agreed to IAEA access 'this week.' Iran's FM denied any such commitment the next day. The IAEA chief says the text is clear and inspections will happen. The underlying dispute: the MOU uses the word 'supervise' re: IAEA and downblending — but whether that covers immediate access to bombed/damaged enrichment sites is genuinely ambiguous. Neither side is lying; they agreed to different things." },
-      { type: "info", label: "ENRICHMENT: LEGAL AND POLITICAL GAP", text: "Iran's right to enrich uranium for civilian purposes is protected under NPT Article IV, which Iran has ratified (unlike Israel, which has not signed the NPT and is believed to hold 80-400 nuclear warheads). The US demand for zero enrichment exceeds what the JCPOA required, and Iran's enrichment escalated to 60% directly after the US unilaterally withdrew from the JCPOA in 2018. Iran's 'max 10 years' position partly reflects credibility concerns: the US already broke the last deal." },
-      { type: "info", label: "MARKET vs DIPLOMATIC COMPLEXITY", text: "Polymarket prices 74% permanent deal by Dec 31. This likely under-prices collapse risk from Lebanon (active Israeli operations) and over-prices Iranian flexibility on enrichment duration. The 'deal-by-July-31' market at 18% is the most useful leading indicator — watch for any move above 30% (fast progress) or below 10% (serious trouble). The gap between market optimism and diplomatic complexity is the key divergence to track." }
+      { type: "warn", label: "LEBANON: ACTIVE VIOLATION", text: "MOU Clause 1 requires all-fronts ceasefire including Lebanon. Israel has struck Lebanon since the MOU was signed, stated publicly it is not bound by the agreement, and continues operations. Iran has already invoked this for Hormuz closure once. The US has not publicly pressured Israel to stop. Every IDF strike in Lebanon is a potential deal-termination event.", isNew: true },
+      { type: "warn", label: "IAEA: SCOPE UNRESOLVED", text: "The Round 1 IAEA dispute was partially stabilized by Grossi's statement but not resolved. The core question — whether 'supervision' in Clause 4 covers conflict-damaged sites — remains open. Iran will not grant access to sites the US and Israel bombed without this being contested. Round 2 must clarify this or verification breaks down.", isNew: true },
+      { type: "info", label: "ENRICHMENT: NPT LEGAL GAP", text: "Iran's right to enrich for civilian purposes is protected under NPT Article IV (Iran is a signatory; Israel is not and is believed to hold 80-400 warheads). The US demand for zero enrichment exceeds JCPOA terms. Iran's enrichment escalated to 60% directly after the US unilaterally withdrew from the JCPOA in 2018 — Iran's resistance on duration is a credibility response to demonstrated US behavior.", isNew: false },
+      { type: "info", label: "MARKET vs DIPLOMATIC COMPLEXITY", text: "Polymarket 74% permanent deal by Dec 31 likely under-prices collapse risk from Lebanon (active Israeli operations) and over-prices Iranian flexibility on enrichment duration. The deal-by-Jul-31 market at 18% is the most useful leading indicator — watch for any move above 30% (fast Round 2 progress) or below 10% (serious breakdown).", isNew: false }
     ],
 
     drivers: [
@@ -632,6 +700,7 @@ function init() {
   document.getElementById('mou-deadline').textContent = DATA.meta.deadline60;
   renderMouTimeline();
   renderSummary();
+  renderTopic();
   renderProbBar();
   renderTree();
   renderParties();
@@ -670,15 +739,30 @@ function renderMouTimeline() {
   });
 }
 
+function newBadge() {
+  return '<span class="new-badge">NEW</span>';
+}
+
 function renderSummary() {
-  document.getElementById('s-hl').textContent = DATA.summary.headline;
+  // intel bullets
+  const bl = document.getElementById('s-bullets');
+  DATA.summary.bullets.forEach(b => {
+    const d = document.createElement('div');
+    d.className = 'intel-bullet';
+    d.innerHTML =
+      `<span class="intel-bullet-marker">›</span>` +
+      `<span>${b.isNew ? newBadge() : ''}${b.text}</span>`;
+    bl.appendChild(d);
+  });
 
   // daily changes
   const dl = document.getElementById('s-daily');
   DATA.summary.daily.forEach(c => {
     const d = document.createElement('div');
     d.className = 'chg';
-    d.innerHTML = `<span class="chg-dot" style="background:${c.dot};flex-shrink:0"></span><span>${c.text}</span>`;
+    d.innerHTML =
+      `<span class="chg-dot" style="background:${c.dot};flex-shrink:0;margin-top:6px"></span>` +
+      `<span>${c.isNew ? newBadge() : ''}${c.text}</span>`;
     dl.appendChild(d);
   });
 
@@ -687,7 +771,9 @@ function renderSummary() {
   DATA.summary.divergences.forEach(div => {
     const d = document.createElement('div');
     d.className = `div-item ${div.type}`;
-    d.innerHTML = `<div class="div-lbl">${div.label}</div><div class="div-txt">${div.text}</div>`;
+    d.innerHTML =
+      `<div class="div-lbl">${div.isNew ? newBadge() : ''}${div.label}</div>` +
+      `<div class="div-txt">${div.text}</div>`;
     dv.appendChild(d);
   });
 
@@ -696,7 +782,9 @@ function renderSummary() {
   DATA.summary.drivers.forEach(item => {
     const d = document.createElement('div');
     d.className = 'chg';
-    d.innerHTML = `<span class="chg-dot" style="background:#6366f1;flex-shrink:0"></span><span>${item.text}</span>`;
+    d.innerHTML =
+      `<span class="chg-dot" style="background:#6366f1;flex-shrink:0;margin-top:6px"></span>` +
+      `<span>${item.text}</span>`;
     dr.appendChild(d);
   });
 
@@ -711,6 +799,40 @@ function renderSummary() {
       `<div class="party-cell-pos">${p.pos}</div>` +
       `<div class="party-cell-comp">Compromise: ${p.comp}</div>`;
     ps.appendChild(d);
+  });
+}
+
+function renderTopic() {
+  const t = DATA.summary.currentTopic;
+  document.getElementById('topic-title').textContent = t.title;
+  document.getElementById('topic-clause').textContent = t.mou_clauses;
+  document.getElementById('topic-next').textContent = '⟶ Next round: ' + t.next;
+  document.getElementById('topic-overview').textContent = t.overview;
+
+  const parties = [
+    { flag: '🇺🇸', name: 'United States', color: '#3b82f6', tag: 'signatory', data: t.us, walkKey: 'walkaway', walkClass: 'tp-walk', walkLabel: 'Walk-away condition' },
+    { flag: '🇮🇷', name: 'Iran', color: '#10b981', tag: 'signatory', data: t.iran, walkKey: 'walkaway', walkClass: 'tp-walk', walkLabel: 'Walk-away condition' },
+    { flag: '🇮🇱', name: 'Israel', color: '#f59e0b', tag: 'non-signatory · external veto', data: t.israel, walkKey: 'collapse', walkClass: 'tp-collapse', walkLabel: 'How Israel collapses the deal' }
+  ];
+
+  const container = document.getElementById('topic-parties');
+  parties.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'topic-party';
+    card.style.borderTop = `2px solid ${p.color}`;
+    card.innerHTML =
+      `<div class="tp-hdr">` +
+        `<span class="tp-flag">${p.flag}</span>` +
+        `<span class="tp-name" style="color:${p.color}">${p.name}</span>` +
+        `<span class="tp-tag">${p.tag}</span>` +
+      `</div>` +
+      `<div class="tp-body">` +
+        `<div class="tp-sec" style="color:${p.color}">Current Position</div>` +
+        `<div class="tp-pos">${p.data.position}</div>` +
+        `<div class="tp-sec" style="color:${p.walkClass === 'tp-collapse' ? '#f59e0b' : '#ef4444'}">${p.walkLabel}</div>` +
+        `<div class="${p.walkClass}">${p.data[p.walkKey]}</div>` +
+      `</div>`;
+    container.appendChild(card);
   });
 }
 
