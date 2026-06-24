@@ -228,6 +228,9 @@
     .intel-bullet{display:flex;gap:8px;margin-bottom:8px;font-size:13.5px;color:var(--txt);line-height:1.55;align-items:flex-start}
     .intel-bullet-marker{color:var(--amb2);font-weight:700;flex-shrink:0;font-size:15px;line-height:1.3}
     .intel-bullet:last-child{margin-bottom:13px}
+    .src-links{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+    .src-link{font-size:9px;font-weight:600;letter-spacing:.3px;padding:2px 6px;border-radius:3px;color:var(--txt3);background:var(--bg2);border:1px solid var(--bdr);text-decoration:none;white-space:nowrap;line-height:1.5;transition:color .15s,border-color .15s}
+    .src-link:hover{color:#a5b4fc;border-color:#6366f1}
 
     /* ── CURRENT DISCUSSION TOPIC ── */
     .topic-box{background:linear-gradient(135deg,#091a2e,#0e1d2e);border:1px solid var(--bdr2);border-left:3px solid var(--ind);border-radius:11px;padding:16px 20px;margin-bottom:16px}
@@ -459,10 +462,10 @@ const DATA = {
 
   summary: {
     bullets: [
-      { text: "Day 7 of the 60-day MOU window. The MOU signed Jun 17 at Versailles is a ceasefire-and-negotiation framework, not a permanent deal. Deadline Aug 16 (extendable by mutual consent). Israel is not a signatory.", isNew: false },
-      { text: "Lebanon — active violation: Israel has struck Beirut multiple times since the MOU was signed, directly violating Clause 1's all-fronts ceasefire. Netanyahu publicly stated Israel is not bound by the agreement. Iran closed Hormuz on Jun 20 in response; a US-brokered mini-ceasefire nominally restored compliance.", isNew: true },
-      { text: "IAEA access — unresolved: Vance stated Iran agreed to inspections 'this week'; Iran FM denied any such commitment. IAEA chief Grossi confirmed inspections will proceed per MOU text, but the scope dispute (active declared sites vs bombed sites) was not resolved in Round 1.", isNew: true },
-      { text: "Permanent deal odds: 74% by Dec 31 (Polymarket). On-time deal by Aug 16 is narrow at ~20% — requires Israel to halt Lebanon operations and IAEA scope to be agreed within 2 weeks, neither of which is currently underway.", isNew: false }
+      { text: "Day 7 of the 60-day MOU window. The MOU signed Jun 17 at Versailles is a ceasefire-and-negotiation framework, not a permanent deal. Deadline Aug 16 (extendable by mutual consent). Israel is not a signatory.", isNew: false, src: [{label:"Reuters", url:"https://www.reuters.com"}, {label:"White House", url:"https://www.whitehouse.gov"}] },
+      { text: "Lebanon — active violation: Israel has struck Beirut multiple times since the MOU was signed, directly violating Clause 1's all-fronts ceasefire. Netanyahu publicly stated Israel is not bound by the agreement. Iran closed Hormuz on Jun 20 in response; a US-brokered mini-ceasefire nominally restored compliance.", isNew: true, src: [{label:"Times of Israel", url:"https://www.timesofisrael.com"}, {label:"Al Jazeera", url:"https://www.aljazeera.com"}, {label:"Reuters", url:"https://www.reuters.com"}] },
+      { text: "IAEA access — unresolved: Vance stated Iran agreed to inspections 'this week'; Iran FM denied any such commitment. IAEA chief Grossi confirmed inspections will proceed per MOU text, but the scope dispute (active declared sites vs bombed sites) was not resolved in Round 1.", isNew: true, src: [{label:"Reuters", url:"https://www.reuters.com"}, {label:"IAEA", url:"https://www.iaea.org"}, {label:"Al Jazeera", url:"https://www.aljazeera.com"}] },
+      { text: "Permanent deal odds: 74% by Dec 31 (Polymarket). On-time deal by Aug 16 is narrow at ~20% — requires Israel to halt Lebanon operations and IAEA scope to be agreed within 2 weeks, neither of which is currently underway.", isNew: false, src: [{label:"Polymarket", url:"https://polymarket.com"}, {label:"Kalshi", url:"https://kalshi.com"}] }
     ],
 
     currentTopic: {
@@ -485,17 +488,17 @@ const DATA = {
     },
 
     daily: [
-      { dot: "#f59e0b", text: "IAEA dispute: Vance stated Iran agreed to IAEA access 'this week'; Iran FM flatly denied any such commitment; IAEA chief Grossi stated inspections will proceed per MOU text. The US and Iran are working from different interpretations of the same clause.", isNew: true },
-      { dot: "#ef4444", text: "Lebanon: IDF struck southern Beirut after MOU signing, directly violating Clause 1. Netanyahu stated publicly that Israel is not bound by the agreement and retains freedom of operation in Lebanon. Iran invoked this as grounds for Hormuz closure; a US-brokered mini-ceasefire nominally restored compliance. IDF operations in Lebanon have continued at a reduced tempo.", isNew: true },
-      { dot: "#10b981", text: "Hormuz: Strait reopened to commercial traffic after Iran closed it on Jun 20. MOU commits US to full blockade removal within 30 days. Iran is now selling oil freely as of Day 0.", isNew: false },
-      { dot: "#3b82f6", text: "IAEA chief Grossi stated inspections 'will happen' per the written MOU text, bypassing the Vance/Iran FM dispute. The specific question — whether inspections cover bombed nuclear sites or only declared active facilities — remains unresolved entering Round 2.", isNew: true }
+      { dot: "#f59e0b", text: "IAEA dispute: Vance stated Iran agreed to IAEA access 'this week'; Iran FM flatly denied any such commitment; IAEA chief Grossi stated inspections will proceed per MOU text. The US and Iran are working from different interpretations of the same clause.", isNew: true, src: [{label:"Reuters", url:"https://www.reuters.com"}, {label:"Al Jazeera", url:"https://www.aljazeera.com"}] },
+      { dot: "#ef4444", text: "Lebanon: IDF struck southern Beirut after MOU signing, directly violating Clause 1. Netanyahu stated publicly that Israel is not bound by the agreement and retains freedom of operation in Lebanon. Iran invoked this as grounds for Hormuz closure; a US-brokered mini-ceasefire nominally restored compliance. IDF operations in Lebanon have continued at a reduced tempo.", isNew: true, src: [{label:"Times of Israel", url:"https://www.timesofisrael.com"}, {label:"AP", url:"https://apnews.com"}, {label:"Al Jazeera", url:"https://www.aljazeera.com"}] },
+      { dot: "#10b981", text: "Hormuz: Strait reopened to commercial traffic after Iran closed it on Jun 20. MOU commits US to full blockade removal within 30 days. Iran is now selling oil freely as of Day 0.", isNew: false, src: [{label:"Reuters", url:"https://www.reuters.com"}, {label:"Bloomberg", url:"https://www.bloomberg.com"}] },
+      { dot: "#3b82f6", text: "IAEA chief Grossi stated inspections 'will happen' per the written MOU text, bypassing the Vance/Iran FM dispute. The specific question — whether inspections cover bombed nuclear sites or only declared active facilities — remains unresolved entering Round 2.", isNew: true, src: [{label:"IAEA", url:"https://www.iaea.org"}, {label:"Reuters", url:"https://www.reuters.com"}] }
     ],
 
     divergences: [
-      { type: "warn", label: "LEBANON: ACTIVE VIOLATION", text: "MOU Clause 1 requires all-fronts ceasefire including Lebanon. Israel has struck Lebanon since the MOU was signed, stated publicly it is not bound by the agreement, and continues operations. Iran has already invoked this for Hormuz closure once. The US has not publicly pressured Israel to stop. Every IDF strike in Lebanon is a potential deal-termination event.", isNew: true },
-      { type: "warn", label: "IAEA: SCOPE UNRESOLVED", text: "The Round 1 IAEA dispute was partially stabilized by Grossi's statement but not resolved. The core question — whether 'supervision' in Clause 4 covers conflict-damaged sites — remains open. Iran will not grant access to sites the US and Israel bombed without this being contested. Round 2 must clarify this or verification breaks down.", isNew: true },
-      { type: "info", label: "ENRICHMENT: NPT LEGAL GAP", text: "Iran's right to enrich for civilian purposes is protected under NPT Article IV (Iran is a signatory; Israel is not and is believed to hold 80-400 warheads). The US demand for zero enrichment exceeds JCPOA terms. Iran's enrichment escalated to 60% directly after the US unilaterally withdrew from the JCPOA in 2018 — Iran's resistance on duration is a credibility response to demonstrated US behavior.", isNew: false },
-      { type: "info", label: "MARKET vs DIPLOMATIC COMPLEXITY", text: "Polymarket 74% permanent deal by Dec 31 likely under-prices collapse risk from Lebanon (active Israeli operations) and over-prices Iranian flexibility on enrichment duration. The deal-by-Jul-31 market at 18% is the most useful leading indicator — watch for any move above 30% (fast Round 2 progress) or below 10% (serious breakdown).", isNew: false }
+      { type: "warn", label: "LEBANON: ACTIVE VIOLATION", text: "MOU Clause 1 requires all-fronts ceasefire including Lebanon. Israel has struck Lebanon since the MOU was signed, stated publicly it is not bound by the agreement, and continues operations. Iran has already invoked this for Hormuz closure once. The US has not publicly pressured Israel to stop. Every IDF strike in Lebanon is a potential deal-termination event.", isNew: true, src: [{label:"Times of Israel", url:"https://www.timesofisrael.com"}, {label:"Al Jazeera", url:"https://www.aljazeera.com"}, {label:"Reuters", url:"https://www.reuters.com"}] },
+      { type: "warn", label: "IAEA: SCOPE UNRESOLVED", text: "The Round 1 IAEA dispute was partially stabilized by Grossi's statement but not resolved. The core question — whether 'supervision' in Clause 4 covers conflict-damaged sites — remains open. Iran will not grant access to sites the US and Israel bombed without this being contested. Round 2 must clarify this or verification breaks down.", isNew: true, src: [{label:"IAEA", url:"https://www.iaea.org"}, {label:"Reuters", url:"https://www.reuters.com"}, {label:"Arms Control Assoc.", url:"https://www.armscontrol.org"}] },
+      { type: "info", label: "ENRICHMENT: NPT LEGAL GAP", text: "Iran's right to enrich for civilian purposes is protected under NPT Article IV (Iran is a signatory; Israel is not and is believed to hold 80-400 warheads). The US demand for zero enrichment exceeds JCPOA terms. Iran's enrichment escalated to 60% directly after the US unilaterally withdrew from the JCPOA in 2018 — Iran's resistance on duration is a credibility response to demonstrated US behavior.", isNew: false, src: [{label:"IAEA", url:"https://www.iaea.org"}, {label:"Arms Control Assoc.", url:"https://www.armscontrol.org"}, {label:"UN NPT Text", url:"https://www.un.org/disarmament/wmd/nuclear/npt/"}] },
+      { type: "info", label: "MARKET vs DIPLOMATIC COMPLEXITY", text: "Polymarket 74% permanent deal by Dec 31 likely under-prices collapse risk from Lebanon (active Israeli operations) and over-prices Iranian flexibility on enrichment duration. The deal-by-Jul-31 market at 18% is the most useful leading indicator — watch for any move above 30% (fast Round 2 progress) or below 10% (serious breakdown).", isNew: false, src: [{label:"Polymarket", url:"https://polymarket.com"}, {label:"Kalshi", url:"https://kalshi.com"}] }
     ],
 
     drivers: [
@@ -1116,6 +1119,14 @@ function newBadge() {
   return '<span class="new-badge">NEW</span>';
 }
 
+function srcLinks(src) {
+  if (!src || !src.length) return '';
+  const tags = src.map(s =>
+    `<a class="src-link" href="${s.url}" target="_blank" rel="noopener noreferrer">${s.label}</a>`
+  ).join('');
+  return `<div class="src-links">${tags}</div>`;
+}
+
 function renderSummary() {
   // intel bullets
   const bl = document.getElementById('s-bullets');
@@ -1124,7 +1135,7 @@ function renderSummary() {
     d.className = 'intel-bullet';
     d.innerHTML =
       `<span class="intel-bullet-marker">›</span>` +
-      `<span>${b.isNew ? newBadge() : ''}${b.text}</span>`;
+      `<span>${b.isNew ? newBadge() : ''}${b.text}${srcLinks(b.src)}</span>`;
     bl.appendChild(d);
   });
 
@@ -1135,7 +1146,7 @@ function renderSummary() {
     d.className = 'chg';
     d.innerHTML =
       `<span class="chg-dot" style="background:${c.dot};flex-shrink:0;margin-top:6px"></span>` +
-      `<span>${c.isNew ? newBadge() : ''}${c.text}</span>`;
+      `<span>${c.isNew ? newBadge() : ''}${c.text}${srcLinks(c.src)}</span>`;
     dl.appendChild(d);
   });
 
@@ -1146,7 +1157,7 @@ function renderSummary() {
     d.className = `div-item ${div.type}`;
     d.innerHTML =
       `<div class="div-lbl">${div.isNew ? newBadge() : ''}${div.label}</div>` +
-      `<div class="div-txt">${div.text}</div>`;
+      `<div class="div-txt">${div.text}${srcLinks(div.src)}</div>`;
     dv.appendChild(d);
   });
 
