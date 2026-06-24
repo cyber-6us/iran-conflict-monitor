@@ -537,11 +537,11 @@ const DATA = {
     {
       date: "Jun 22–24",
       day: 7,
-      status: "active",
+      status: "done",
       icon: "🤝",
       title: "First Formal Talks — Switzerland",
-      desc: "US and Iran delegations meet. IAEA dispute erupts: Vance says Iran agreed to inspections 'this week'; Iran FM says no such commitment was made. IDF strikes Beirut; Iran threatens Hormuz; mini-ceasefire restored. IAEA chief Grossi states inspections will proceed per MOU text. TODAY: Day 7.",
-      stake: "IAEA scope must be clarified and Lebanon must be de-escalated — both simultaneously — or the 60-day window loses traction in its first week"
+      desc: "US and Iran delegations met in Geneva. IAEA dispute erupted: Vance stated Iran had agreed to inspections 'this week'; Iran FM denied any such commitment. IDF struck Beirut; Iran threatened Hormuz closure; a US-brokered mini-ceasefire restored nominal compliance by Day 7. IAEA chief Grossi confirmed inspections will proceed per MOU text.",
+      stake: "IAEA scope and Lebanon de-escalation both remained live flashpoints leaving Day 7 — neither fully resolved entering the second week"
     },
     {
       date: "~Jul 1–5",
@@ -652,7 +652,7 @@ function renderMouTimeline() {
 
   const milestones = [
     { pct: 0,    label: 'MOU Signed', date: 'Jun 17', done: true },
-    { pct: (7/60)*100,  label: 'First Talks', date: 'Jun 22', done: true, now: true },
+    { pct: (7/60)*100,  label: 'First Talks', date: 'Jun 22', done: true },
     { pct: (30/60)*100, label: '30-Day\nMilestone', date: 'Jul 17', done: false },
     { pct: (45/60)*100, label: 'Final Round', date: 'Aug 1', done: false },
     { pct: 100,  label: 'Deadline', date: 'Aug 16', done: false }
