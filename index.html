@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -21,30 +21,30 @@
       --orn:#f97316;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:13px;line-height:1.5}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;font-size:15px;line-height:1.5}
 
     /* ── HDR ── */
     .hdr{background:linear-gradient(90deg,#090f1e,#0c1428);border-bottom:1px solid var(--bdr);padding:12px 26px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200}
     .hdr-l{display:flex;align-items:center;gap:12px}
-    .badge{background:linear-gradient(135deg,#1a2e5a,#c05621);border-radius:7px;padding:6px 10px;font-size:8px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#fff;line-height:1.5;text-align:center}
-    .hdr-title{font-size:15px;font-weight:600}
-    .hdr-sub{font-size:10.5px;color:var(--txt3);margin-top:1px}
+    .badge{background:linear-gradient(135deg,#1a2e5a,#c05621);border-radius:7px;padding:6px 10px;font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#fff;line-height:1.5;text-align:center}
+    .hdr-title{font-size:17px;font-weight:600}
+    .hdr-sub{font-size:12.5px;color:var(--txt3);margin-top:1px}
     .hdr-r{display:flex;align-items:center;gap:16px}
-    .mou-badge{background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.3);border-radius:20px;padding:3px 11px;font-size:9px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--amb2)}
-    .upd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3)}
+    .mou-badge{background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.3);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:var(--amb2)}
+    .upd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3)}
     .upd .v{color:var(--grn)}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
     .live{width:6px;height:6px;border-radius:50%;background:var(--grn);display:inline-block;margin-left:5px;animation:pulse 2.2s infinite}
 
     /* ── LAYOUT ── */
     .main{max-width:1400px;margin:0 auto;padding:18px 26px}
-    .sec-hd{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:12px}
+    .sec-hd{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--txt3);margin-bottom:12px}
 
     /* ── MOU TIMELINE ── */
     .mou-tl{background:linear-gradient(135deg,#09152e,#0d1c32);border:1px solid var(--bdr2);border-left:3px solid var(--amb2);border-radius:11px;padding:14px 20px;margin-bottom:14px}
     .mou-tl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-    .mou-tl-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2)}
-    .mou-tl-days{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt2)}
+    .mou-tl-lbl{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2)}
+    .mou-tl-days{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--txt2)}
     .mou-bar-wrap{position:relative;height:20px;background:var(--bg4);border-radius:10px;overflow:visible;margin-bottom:0;border:1px solid var(--bdr)}
     .mou-bar-fill{height:100%;border-radius:10px 0 0 10px;background:linear-gradient(90deg,var(--grn),var(--amb2));transition:width .3s}
     .mou-now-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:var(--amb2);border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px var(--amb2);animation:pulse 2s infinite}
@@ -60,81 +60,81 @@
     .mou-ms-dot.upcoming{background:var(--bg4);border-color:var(--bdr2)}
     .mou-ms-dot.critical{background:var(--red);border-color:var(--red)}
     .mou-ms-info{margin-top:4px;text-align:center;max-width:86px}
-    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:7.5px;color:var(--txt3);margin-bottom:1px;white-space:nowrap}
-    .mou-ms-lbl{font-size:8.5px;line-height:1.3;word-break:break-word}
+    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--txt3);margin-bottom:1px;white-space:nowrap}
+    .mou-ms-lbl{font-size:10.5px;line-height:1.3;word-break:break-word}
     .mou-ms-lbl.done{color:var(--grn)}
     .mou-ms-lbl.active{color:var(--amb2);font-weight:600}
     .mou-ms-lbl.upcoming{color:var(--txt2)}
     .mou-ms-lbl.critical{color:var(--red2);font-weight:600}
-    .mou-ms-badge{font-size:7px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:3px;padding:1px 4px;border-radius:3px;display:inline-block}
+    .mou-ms-badge{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-top:3px;padding:1px 4px;border-radius:3px;display:inline-block}
     .mou-ms-badge.done{background:rgba(16,185,129,.12);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
     .mou-ms-badge.active{background:rgba(217,119,6,.12);color:var(--amb2);border:1px solid rgba(217,119,6,.28)}
     .mou-ms-badge.upcoming{background:rgba(148,163,184,.08);color:var(--txt3);border:1px solid rgba(148,163,184,.18)}
     .mou-ms-badge.critical{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
     /* extension zone */
     .mou-ext-zone{margin-top:10px;padding:6px 10px;background:rgba(99,102,241,.05);border:1px dashed rgba(99,102,241,.2);border-radius:6px;display:flex;gap:20px;align-items:flex-start}
-    .mou-ext-lbl{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ind2);white-space:nowrap;margin-top:1px;flex-shrink:0}
+    .mou-ext-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ind2);white-space:nowrap;margin-top:1px;flex-shrink:0}
     .mou-ext-items{display:flex;gap:24px;flex-wrap:wrap}
-    .mou-ext-item{display:flex;gap:6px;align-items:flex-start;font-size:10px;color:var(--txt3)}
-    .mou-ext-day{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--ind2);white-space:nowrap;flex-shrink:0;margin-top:1px}
+    .mou-ext-item{display:flex;gap:6px;align-items:flex-start;font-size:12px;color:var(--txt3)}
+    .mou-ext-day{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ind2);white-space:nowrap;flex-shrink:0;margin-top:1px}
 
     /* ── SUMMARY BOX ── */
     .sum-box{background:linear-gradient(135deg,#0a1c38,#0d1926);border:1px solid var(--bdr2);border-left:3px solid var(--amb2);border-radius:11px;padding:16px 20px;margin-bottom:16px}
-    .sum-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2);margin-bottom:4px}
-    .sum-hl{font-size:12.5px;font-weight:500;color:var(--txt);line-height:1.6;margin-bottom:13px}
+    .sum-lbl{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--amb2);margin-bottom:4px}
+    .sum-hl{font-size:14.5px;font-weight:500;color:var(--txt);line-height:1.6;margin-bottom:13px}
     .sum-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
-    .sum-col-hd{font-size:8.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--bdr)}
-    .chg{display:flex;gap:7px;margin-bottom:6px;font-size:11px;color:var(--txt2);align-items:flex-start}
+    .sum-col-hd{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--txt3);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--bdr)}
+    .chg{display:flex;gap:7px;margin-bottom:6px;font-size:13px;color:var(--txt2);align-items:flex-start}
     .chg-dot{width:5px;height:5px;border-radius:50%;margin-top:5px;flex-shrink:0}
     .div-item{border-radius:6px;padding:7px 9px;margin-bottom:6px}
     .div-item.warn{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22)}
     .div-item.info{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2)}
     .div-item.ok{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2)}
-    .div-lbl{font-size:8px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:2px}
+    .div-lbl{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:2px}
     .div-item.warn .div-lbl{color:var(--yel)}
     .div-item.info .div-lbl{color:var(--cyn)}
     .div-item.ok .div-lbl{color:var(--grn)}
-    .div-txt{font-size:10.5px;color:var(--txt2);line-height:1.5}
+    .div-txt{font-size:12.5px;color:var(--txt2);line-height:1.5}
 
     /* ── PARTY STRIP ── */
     .party-strip{background:rgba(217,119,6,.04);border:1px solid rgba(217,119,6,.16);border-radius:8px;padding:11px 14px}
-    .party-strip-hd{font-size:8.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amb2);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+    .party-strip-hd{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amb2);margin-bottom:9px;display:flex;align-items:center;gap:6px}
     .party-strip-hd::after{content:'';flex:1;height:1px;background:rgba(217,119,6,.18)}
     .party-strip-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     .party-cell{background:var(--bg3);border-radius:6px;padding:8px 10px;border:1px solid var(--bdr)}
-    .party-cell-name{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
-    .party-cell-pos{font-size:10.5px;color:var(--txt);font-weight:500;margin-bottom:4px}
-    .party-cell-comp{font-size:10px;color:var(--txt2);line-height:1.45}
+    .party-cell-name{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px}
+    .party-cell-pos{font-size:12.5px;color:var(--txt);font-weight:500;margin-bottom:4px}
+    .party-cell-comp{font-size:12px;color:var(--txt2);line-height:1.45}
 
     /* ── PARTIES SECTION ── */
     .parties-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
     .pcard{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;overflow:hidden}
     .pcard-hdr{padding:11px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px}
-    .pcard-icon{font-size:18px;line-height:1}
-    .pcard-name{font-size:13px;font-weight:600}
-    .pcard-sub{font-size:9.5px;color:var(--txt3);margin-top:1px}
+    .pcard-icon{font-size:20px;line-height:1}
+    .pcard-name{font-size:15px;font-weight:600}
+    .pcard-sub{font-size:11.5px;color:var(--txt3);margin-top:1px}
     .pcard-body{padding:11px 14px}
     .pcard-section{margin-bottom:9px}
-    .pcard-sec-lbl{font-size:8px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px}
+    .pcard-sec-lbl{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:4px}
     .pcard-sec-lbl.pos{color:var(--blue2)}
     .pcard-sec-lbl.red{color:var(--red2)}
     .pcard-sec-lbl.lev{color:var(--grn2)}
     .pcard-sec-lbl.comp{color:var(--amb2)}
-    .pcard-pt{display:flex;gap:5px;font-size:10.5px;color:var(--txt2);margin-bottom:3px;line-height:1.4}
+    .pcard-pt{display:flex;gap:5px;font-size:12.5px;color:var(--txt2);margin-bottom:3px;line-height:1.4}
     .pcard-pt::before{content:"›";flex-shrink:0;color:var(--txt3);font-weight:700}
-    .pcard-comp{font-size:11px;color:var(--txt);line-height:1.5;background:var(--bg2);border-radius:5px;padding:6px 8px;border:1px solid var(--bdr2);margin-top:2px}
+    .pcard-comp{font-size:13px;color:var(--txt);line-height:1.5;background:var(--bg2);border-radius:5px;padding:6px 8px;border:1px solid var(--bdr2);margin-top:2px}
 
     /* ── PROB BAR ── */
     .prob-sec{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:16px}
     .pbar{display:flex;height:28px;border-radius:7px;overflow:hidden;gap:2px;margin-bottom:10px}
-    .pseg{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:filter .2s}
+    .pseg{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:filter .2s}
     .pseg:hover{filter:brightness(1.3)}
     .pleg{display:flex;flex-wrap:wrap;gap:16px}
-    .pleg-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--txt2)}
+    .pleg-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--txt2)}
     .pleg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
-    .pleg-pct{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px}
-    .pleg-chg{font-family:'JetBrains Mono',monospace;font-size:9px}
-    .pleg-src{font-size:9px;color:var(--txt3);margin-left:1px}
+    .pleg-pct{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px}
+    .pleg-chg{font-family:'JetBrains Mono',monospace;font-size:11px}
+    .pleg-src{font-size:11px;color:var(--txt3);margin-left:1px}
 
     /* ── TREE ── */
     .tree-wrap{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:16px;overflow-x:auto}
@@ -146,41 +146,41 @@
     .sc-hdr{padding:13px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
     .sc-l{display:flex;align-items:center;gap:10px}
     .sc-bar{width:3px;border-radius:2px;height:42px;flex-shrink:0}
-    .sc-lbl{font-size:12.5px;font-weight:600;margin-bottom:3px}
-    .sc-sub{font-size:9.5px;color:var(--txt3)}
+    .sc-lbl{font-size:14.5px;font-weight:600;margin-bottom:3px}
+    .sc-sub{font-size:11.5px;color:var(--txt3)}
     .sc-r{text-align:right}
-    .sc-pct{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;line-height:1;margin-bottom:2px}
-    .sc-src{font-size:9px;color:var(--txt3);margin-bottom:2px}
-    .sc-trend{font-size:10px;font-family:'JetBrains Mono',monospace;display:flex;gap:6px;justify-content:flex-end}
+    .sc-pct{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;line-height:1;margin-bottom:2px}
+    .sc-src{font-size:11px;color:var(--txt3);margin-bottom:2px}
+    .sc-trend{font-size:12px;font-family:'JetBrains Mono',monospace;display:flex;gap:6px;justify-content:flex-end}
     .t-up{color:var(--grn)}.t-dn{color:var(--red)}.t-fl{color:var(--txt3)}
     .sc-body{padding:13px 16px}
-    .sig{display:inline-block;padding:3px 8px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+    .sig{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
     .sig-deal{background:rgba(16,185,129,.1);color:var(--grn);border:1px solid rgba(16,185,129,.22)}
     .sig-ext{background:rgba(59,130,246,.1);color:var(--blue2);border:1px solid rgba(59,130,246,.22)}
     .sig-limbo{background:rgba(245,158,11,.1);color:var(--yel);border:1px solid rgba(245,158,11,.22)}
     .sig-coll{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.22)}
-    .sig-sub{font-size:10px;color:var(--txt3);margin-bottom:10px;line-height:1.5}
+    .sig-sub{font-size:12px;color:var(--txt3);margin-bottom:10px;line-height:1.5}
     .mini-bar{height:3px;border-radius:2px;background:var(--bdr);overflow:hidden;margin-bottom:12px}
     .mini-fill{height:100%;border-radius:2px}
 
     /* card inner sections */
     .sc-section{padding:9px 12px;border-bottom:1px solid var(--bdr);background:var(--bg2)}
     .sc-section:last-child{border-bottom:none}
-    .sc-sec-hd{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+    .sc-sec-hd{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
     .sc-sec-hd::after{content:'';flex:1;height:1px;background:var(--bdr)}
     .sc-sec-hd.pre{color:var(--grn2)}
     .sc-sec-hd.risk{color:var(--red2)}
     .sc-sec-hd.mkt{color:var(--amb2)}
-    .sc-pt{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;font-size:10.5px;color:var(--txt2)}
+    .sc-pt{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;font-size:12.5px;color:var(--txt2)}
     .sc-pt::before{content:"→";flex-shrink:0;color:var(--txt3)}
-    .mkt-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:10.5px}
-    .mkt-tag{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;flex-shrink:0;min-width:44px;text-align:center}
+    .mkt-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12.5px}
+    .mkt-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:2px 5px;border-radius:3px;flex-shrink:0;min-width:44px;text-align:center}
     .mt-up{background:rgba(239,68,68,.15);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
     .mt-dn{background:rgba(16,185,129,.15);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
     .mt-neu{background:rgba(148,163,184,.1);color:var(--txt2);border:1px solid rgba(148,163,184,.18)}
     .mt-mix{background:rgba(245,158,11,.12);color:var(--yel);border:1px solid rgba(245,158,11,.22)}
-    .mkt-asset{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--txt);flex-shrink:0;min-width:80px}
-    .mkt-detail{font-size:10px;color:var(--txt3);line-height:1.3}
+    .mkt-asset{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--txt);flex-shrink:0;min-width:80px}
+    .mkt-detail{font-size:12px;color:var(--txt3);line-height:1.3}
 
     /* ── KEY DATES ── */
     .dates-sec{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:16px}
@@ -188,67 +188,102 @@
     .date-row{display:flex;gap:14px;position:relative;padding-bottom:14px}
     .date-row:last-child{padding-bottom:0}
     .date-row:not(:last-child)::before{content:'';position:absolute;left:19px;top:26px;bottom:0;width:1px;background:var(--bdr2)}
-    .date-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:2px solid var(--bdr2)}
+    .date-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;border:2px solid var(--bdr2)}
     .date-icon.done{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.4)}
     .date-icon.active{background:rgba(217,119,6,.12);border-color:rgba(217,119,6,.4);box-shadow:0 0 8px rgba(217,119,6,.3)}
     .date-icon.upcoming{background:var(--bg4);border-color:var(--bdr)}
     .date-icon.critical{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3)}
     .date-meta{flex:1;padding-top:4px}
     .date-label{display:flex;align-items:center;gap:8px;margin-bottom:3px}
-    .date-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600}
+    .date-tag{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
     .date-tag.done{color:var(--grn)}
     .date-tag.active{color:var(--amb2)}
     .date-tag.upcoming{color:var(--txt2)}
     .date-tag.critical{color:var(--red2)}
-    .date-pill{font-size:7.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:1px 6px;border-radius:10px}
+    .date-pill{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:1px 6px;border-radius:10px}
     .dp-done{background:rgba(16,185,129,.1);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
     .dp-active{background:rgba(217,119,6,.12);color:var(--amb2);border:1px solid rgba(217,119,6,.3)}
     .dp-upcoming{background:rgba(148,163,184,.08);color:var(--txt3);border:1px solid rgba(148,163,184,.18)}
     .dp-critical{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
-    .date-title{font-size:11.5px;font-weight:600;color:var(--txt);margin-bottom:2px}
-    .date-desc{font-size:10.5px;color:var(--txt2);line-height:1.5}
-    .date-stake{font-size:10px;color:var(--txt3);margin-top:3px;font-style:italic}
+    .date-title{font-size:13.5px;font-weight:600;color:var(--txt);margin-bottom:2px}
+    .date-desc{font-size:12.5px;color:var(--txt2);line-height:1.5}
+    .date-stake{font-size:12px;color:var(--txt3);margin-top:3px;font-style:italic}
 
     /* ── HISTORY ── */
     .hist-sec{background:var(--bg3);border:1px solid var(--bdr);border-radius:11px;padding:16px 20px;margin-bottom:18px}
     .hist-entry{border-left:2px solid var(--bdr2);padding:8px 0 8px 15px;margin-bottom:8px;position:relative}
     .hist-entry::before{content:"";width:7px;height:7px;background:var(--bdr2);border-radius:50%;position:absolute;left:-5px;top:12px}
-    .hist-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amb2);margin-bottom:3px}
+    .hist-date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amb2);margin-bottom:3px}
     .hist-probs{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:3px}
-    .hist-pct{font-family:'JetBrains Mono',monospace;font-size:10.5px}
-    .hist-note{font-size:10.5px;color:var(--txt3);line-height:1.5}
-    .hist-mkt{font-size:10.5px;color:var(--amb2);margin-top:3px;opacity:.8}
+    .hist-pct{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+    .hist-note{font-size:12.5px;color:var(--txt3);line-height:1.5}
+    .hist-mkt{font-size:12.5px;color:var(--amb2);margin-top:3px;opacity:.8}
 
-    .footer{font-size:9.5px;color:var(--txt3);padding:11px 0;border-top:1px solid var(--bdr);line-height:1.7}
+    .footer{font-size:11.5px;color:var(--txt3);padding:11px 0;border-top:1px solid var(--bdr);line-height:1.7}
 
     /* ── NEW BADGE ── */
-    .new-badge{display:inline-flex;align-items:center;font-size:7px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;background:rgba(239,68,68,.15);color:var(--red2);border:1px solid rgba(239,68,68,.3);border-radius:3px;padding:1px 5px;margin-right:5px;flex-shrink:0;position:relative;top:-1px}
+    .new-badge{display:inline-flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;background:rgba(239,68,68,.15);color:var(--red2);border:1px solid rgba(239,68,68,.3);border-radius:3px;padding:1px 5px;margin-right:5px;flex-shrink:0;position:relative;top:-1px}
 
     /* ── INTEL BULLETS ── */
-    .intel-bullet{display:flex;gap:8px;margin-bottom:8px;font-size:11.5px;color:var(--txt);line-height:1.55;align-items:flex-start}
-    .intel-bullet-marker{color:var(--amb2);font-weight:700;flex-shrink:0;font-size:13px;line-height:1.3}
+    .intel-bullet{display:flex;gap:8px;margin-bottom:8px;font-size:13.5px;color:var(--txt);line-height:1.55;align-items:flex-start}
+    .intel-bullet-marker{color:var(--amb2);font-weight:700;flex-shrink:0;font-size:15px;line-height:1.3}
     .intel-bullet:last-child{margin-bottom:13px}
 
     /* ── CURRENT DISCUSSION TOPIC ── */
     .topic-box{background:linear-gradient(135deg,#091a2e,#0e1d2e);border:1px solid var(--bdr2);border-left:3px solid var(--ind);border-radius:11px;padding:16px 20px;margin-bottom:16px}
-    .topic-lbl{font-size:9px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--ind2);margin-bottom:3px}
+    .topic-lbl{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--ind2);margin-bottom:3px}
     .topic-hd-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .topic-title{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:4px}
-    .topic-clause{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ind2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:4px;padding:2px 7px}
-    .topic-next-lbl{font-size:10px;color:var(--txt3);white-space:nowrap;margin-top:2px;font-family:'JetBrains Mono',monospace}
-    .topic-overview{font-size:11px;color:var(--txt2);line-height:1.65;margin-bottom:14px;padding:10px 12px;background:rgba(99,102,241,.04);border-radius:7px;border:1px solid rgba(99,102,241,.12)}
+    .topic-title{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:4px}
+    .topic-clause{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ind2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:4px;padding:2px 7px}
+    .topic-next-lbl{font-size:12px;color:var(--txt3);white-space:nowrap;margin-top:2px;font-family:'JetBrains Mono',monospace}
+    .topic-overview{font-size:13px;color:var(--txt2);line-height:1.65;margin-bottom:14px;padding:10px 12px;background:rgba(99,102,241,.04);border-radius:7px;border:1px solid rgba(99,102,241,.12)}
     .topic-parties{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
     .topic-party{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;overflow:hidden}
     .tp-hdr{padding:8px 11px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:7px}
-    .tp-flag{font-size:15px;line-height:1}
-    .tp-name{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-    .tp-tag{font-size:8px;color:var(--txt3);margin-left:auto;font-style:italic}
+    .tp-flag{font-size:17px;line-height:1}
+    .tp-name{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+    .tp-tag{font-size:10px;color:var(--txt3);margin-left:auto;font-style:italic}
     .tp-body{padding:9px 11px}
-    .tp-sec{font-size:7.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:4px;margin-top:9px}
+    .tp-sec{font-size:9.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:4px;margin-top:9px}
     .tp-sec:first-child{margin-top:0}
-    .tp-pos{font-size:10.5px;color:var(--txt2);line-height:1.5}
-    .tp-walk{font-size:10.5px;color:var(--red2);line-height:1.5;background:rgba(239,68,68,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--red)}
-    .tp-collapse{font-size:10.5px;color:var(--yel);line-height:1.5;background:rgba(245,158,11,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--yel)}
+    .tp-pos{font-size:12.5px;color:var(--txt2);line-height:1.5}
+    .tp-walk{font-size:12.5px;color:var(--red2);line-height:1.5;background:rgba(239,68,68,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--red)}
+    .tp-collapse{font-size:12.5px;color:var(--yel);line-height:1.5;background:rgba(245,158,11,.06);border-radius:5px;padding:6px 9px;border-left:2px solid var(--yel)}
+
+    /* ── MOU CLAUSE REVIEW ── */
+    .clauses-sec{margin-bottom:24px}
+    .clause-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin-bottom:10px}
+    .clause-hdr{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--bdr);cursor:pointer;user-select:none}
+    .clause-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--txt3);flex-shrink:0;min-width:26px}
+    .clause-title{font-size:14px;font-weight:600;color:var(--txt);flex:1}
+    .clause-ref{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);flex-shrink:0}
+    .clause-status{font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:2px 8px;border-radius:4px;flex-shrink:0}
+    .cs-done{background:rgba(16,185,129,.12);color:var(--grn);border:1px solid rgba(16,185,129,.25)}
+    .cs-active{background:rgba(59,130,246,.12);color:var(--blue2);border:1px solid rgba(59,130,246,.25)}
+    .cs-partial{background:rgba(217,119,6,.12);color:var(--amb2);border:1px solid rgba(217,119,6,.25)}
+    .cs-disputed{background:rgba(245,158,11,.12);color:var(--yel);border:1px solid rgba(245,158,11,.25)}
+    .cs-violated{background:rgba(239,68,68,.15);color:var(--red2);border:1px solid rgba(239,68,68,.3)}
+    .cs-pending{background:rgba(148,163,184,.08);color:var(--txt3);border:1px solid rgba(148,163,184,.18)}
+    .clause-body{padding:14px 16px;display:none}
+    .clause-body.open{display:block}
+    .clause-summary{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:14px;padding:9px 12px;background:var(--bg2);border-radius:7px;border-left:3px solid var(--bdr2)}
+    .clause-parties{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+    .clause-party{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden}
+    .cp-hdr{display:flex;align-items:center;gap:7px;padding:8px 11px;border-bottom:1px solid var(--bdr)}
+    .cp-flag{font-size:16px;line-height:1}
+    .cp-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+    .cp-tag{font-size:9px;color:var(--txt3);margin-left:auto}
+    .cp-body{padding:9px 11px}
+    .cp-interp{font-size:12px;color:var(--txt2);line-height:1.55;margin-bottom:8px}
+    .cp-verdict{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:4px;margin-bottom:5px}
+    .cv-redline{background:rgba(239,68,68,.12);color:var(--red2);border:1px solid rgba(239,68,68,.28)}
+    .cv-leverage{background:rgba(245,158,11,.1);color:var(--yel2);border:1px solid rgba(245,158,11,.24)}
+    .cv-active{background:rgba(59,130,246,.1);color:var(--blue2);border:1px solid rgba(59,130,246,.22)}
+    .cp-note{font-size:11.5px;color:var(--txt3);line-height:1.5;font-style:italic}
+    .cp-action{font-size:12px;color:var(--yel);line-height:1.5;margin-top:5px}
+    .cp-pos{font-size:12px;color:var(--txt2);line-height:1.55;margin-bottom:5px}
+    .clause-chevron{font-size:12px;color:var(--txt3);transition:transform .2s;flex-shrink:0}
+    .clause-card.open .clause-chevron{transform:rotate(180deg)}
 
     @media(max-width:960px){
       .cards-grid{grid-template-columns:1fr}
@@ -351,6 +386,10 @@
     <div class="sec-hd">Key Dates — MOU Timeline &amp; Upcoming Negotiating Milestones</div>
     <div class="dates-list" id="dates"></div>
   </div>
+
+  <!-- MOU CLAUSE REVIEW -->
+  <div class="sec-hd" style="margin-top:4px">MOU Clause-by-Clause Review — Implementation Status · Party Interpretations · Red Lines vs Leverage</div>
+  <div class="clauses-sec" id="clauses-sec"></div>
 
   <!-- HISTORY -->
   <div class="hist-sec">
@@ -639,18 +678,45 @@ const DATA = {
       day: 14,
       status: "upcoming",
       icon: "🔬",
-      title: "IAEA First Visit (Contested)",
-      desc: "Vance committed IAEA would visit 'this week' of June 22. Iran disputed this. IAEA chief says visits will happen per MOU text. Likely compromise: IAEA visits active declared enrichment sites; bombed/damaged sites deferred to formal deal.",
-      stake: "If IAEA visits happen → deal confidence rises sharply. If Iran blocks → Polymarket odds drop"
+      title: "IAEA First Visit — Active Sites",
+      desc: "First IAEA inspection of active declared enrichment facilities. Access scope dispute (active sites only vs bombed sites) must be clarified before or during the visit. IAEA-Iran technical team to agree sampling and monitoring procedures.",
+      stake: "If visit proceeds smoothly → deal confidence rises sharply. If Iran restricts scope → US flags breach, Polymarket odds drop"
+    },
+    {
+      date: "~Jul 8–10",
+      day: 21,
+      status: "upcoming",
+      icon: "⚗️",
+      title: "IAEA-Iran Technical Working Group",
+      desc: "Post-visit technical session: IAEA reports preliminary findings to US and Iran delegations. Working group on HEU downblend procedures, chain-of-custody protocols, and enrichment monitoring modalities. First formal discussion of enrichment level and duration parameters.",
+      stake: "Technical agreement here is a precondition for enrichment compromise in the final round. Failure to agree monitoring → entire clause tree stalls"
+    },
+    {
+      date: "~Jul 14–16",
+      day: 28,
+      status: "upcoming",
+      icon: "🛡️",
+      title: "Lebanon Ceasefire Review — Pre-Day 30",
+      desc: "Formal diplomatic review of Clause 1 compliance in the 48 hours before the Day 30 milestone. Iran expected to raise Lebanon violations formally. US expected to present private communications from Israel on operational tempo. IDF compliance assessed against MOU Clause 1 text.",
+      stake: "If IDF has maintained or escalated Lebanon operations through Day 28, Iran may refuse to sign the Day 30 asset mechanism — effectively suspending the deal track"
     },
     {
       date: "Jul 17",
       day: 30,
       status: "upcoming",
       icon: "⚓",
-      title: "Day 30 Milestone — Hormuz & Blockade",
-      desc: "MOU-committed deadline: US naval blockade fully lifted (100% capacity). Iran Hormuz fully back to pre-war commercial numbers. Expected: first frozen asset tranche agreement. Midpoint review of negotiations — is deal on track?",
-      stake: "If asset release mechanism not agreed by Jul 17, Iran signals unhappiness and deal timeline slips"
+      title: "Day 30 — Blockade Lifted + Asset Tranche",
+      desc: "MOU hard deadline: US naval blockade 100% lifted. Hormuz fully normalized. First frozen asset release tranche mechanism agreed (~$3.5B of $7B+ total). Midpoint deal review: are enrichment talks on track for Aug 16?",
+      stake: "If asset mechanism not agreed by Jul 17, Iran formally signals bad faith. If blockade not 100% lifted, Iran invokes Clause 3 violation — parallel to Clause 1 Lebanon track"
+    },
+    {
+      date: "~Jul 22–25",
+      day: 35,
+      status: "upcoming",
+      icon: "💬",
+      title: "Enrichment Parameters Round — Technical",
+      desc: "Dedicated negotiating round on enrichment level (0% vs 3.67% vs 20%) and duration (US: 20 years; Iran: 10 years). Qatar and Oman mediating directly. NPT Article IV legal framework debated. Expected: both sides table formal positions.",
+      stake: "No enrichment compromise by ~Day 35 means Aug 16 deadline is missed — extension becomes the base case rather than a contingency"
     },
     {
       date: "Aug 1",
@@ -658,8 +724,17 @@ const DATA = {
       status: "upcoming",
       icon: "📋",
       title: "Final Negotiating Round Opens",
-      desc: "All outstanding issues must be on the table: enrichment level/duration, IAEA full access, HEU downblend timeline, frozen assets full release, Lebanon/Hezbollah framework, US Gulf force posture. Expected 2-3 week intensive negotiating sprint.",
-      stake: "Position of parties at Aug 1 will determine if Aug 16 deal is feasible or extension is needed"
+      desc: "All outstanding issues on the table: enrichment level/duration, IAEA full-site access, HEU downblend timeline, frozen assets second tranche, Lebanon/Hezbollah framework, US Gulf force posture, snapback mechanism. Expected 2-week intensive sprint to Aug 16.",
+      stake: "Parties' position at Aug 1 determines if Aug 16 deal is feasible. Any unresolved clause from the Day 35 round effectively forces extension"
+    },
+    {
+      date: "~Aug 8–10",
+      day: 52,
+      status: "upcoming",
+      icon: "🏛️",
+      title: "US-Iran Ministerial — Final Positions",
+      desc: "Expected direct US Secretary of State / Iran FM session in a neutral capital (Oman/Qatar/Turkey) to close remaining gaps before the Aug 16 deadline. Enrichment duration, snapback mechanism, and Lebanon status the three blocking issues. Leadership-level commitment required.",
+      stake: "If this meeting produces an agreed framework → deal likely by Aug 16. No meeting or failed meeting → extension invoked"
     },
     {
       date: "Aug 16",
@@ -687,6 +762,121 @@ const DATA = {
       title: "Day 120 — Second Extension (If Triggered)",
       desc: "If first extension reached and deal not yet closed, parties may agree to second 30-60 day extension. Iran's domestic political calendar becomes a constraint (hardliner pressure mounts). US November midterms (Nov 3, 2026) create political urgency for Trump to close a deal.",
       stake: "Beyond Day 120 the deal becomes politically very difficult to sustain. This is effectively the outer limit"
+    }
+  ],
+
+  mouClauses: [
+    {
+      num: 1, title: "All-Fronts Ceasefire", mouRef: "Clause 1",
+      status: "violated", statusLabel: "VIOLATED — ISRAEL",
+      summary: "Immediate cessation of hostilities across all fronts — including Lebanon — as a condition of the MOU's entry into force.",
+      us:    { interp: "US-Iran bilateral ceasefire; Lebanon 'included to the extent US can influence Israel' — a critical ambiguity from the US side.", verdict: "leverage", note: "US is using Lebanon ambiguity as leverage to avoid committing to enforcing the clause against its ally." },
+      iran:  { interp: "Unconditional, all-fronts. Lebanon is explicitly included. Israel's non-signatory status is irrelevant — the US signed Clause 1 and is responsible for its ally's compliance.", verdict: "redline", note: "Iran has already invoked Clause 1 once to close Hormuz (Jun 20). The second invocation will likely be permanent and MOU-voiding." },
+      israel:{ pos: "Not a signatory. Netanyahu stated publicly Israel is not bound by the MOU and retains 'freedom of operation' in Lebanon. IDF has struck Beirut multiple times since Jun 17.", action: "Collapse mechanism: continued Lebanon operations past Iran's Hormuz threshold. Israel can terminate the deal without being at the table or making any formal announcement." }
+    },
+    {
+      num: 2, title: "Hormuz Strait Reopening", mouRef: "Clause 2",
+      status: "done", statusLabel: "IMPLEMENTED",
+      summary: "Iran reopened Hormuz to full commercial traffic on Day 0. Iran had closed it in response to the US naval blockade imposed in early 2026.",
+      us:    { interp: "Commercial shipping normalized. US Navy retains right of passage for its own vessels. Reopening is conditional on MOU compliance.", verdict: "active", note: "US views any re-closure as automatic MOU termination trigger and casus belli." },
+      iran:  { interp: "Hormuz is Iranian sovereign territory. Reopening was Iran's goodwill gesture. Re-closure is explicitly available as a response to Clause 1 violation — and Iran has signaled this.", verdict: "leverage", note: "Hormuz re-closure is Iran's primary escalation tool. It is leverage, not a red line Iran wants to cross — the economic pain is mutual." },
+      israel:{ pos: "No direct stake in Hormuz per se. Israel benefits from global oil stability. Privately concerned that Iran retaining Hormuz closure capability gives it permanent coercive leverage.", action: "If Iran closes Hormuz in response to Israeli Lebanon operations, Israel becomes directly responsible for a global oil shock — significant domestic and US political cost for Netanyahu." }
+    },
+    {
+      num: 3, title: "US Naval Blockade Removal", mouRef: "Clause 3",
+      status: "active", statusLabel: "IN PROGRESS — DUE DAY 30",
+      summary: "US committed to fully lifting its naval blockade of Iranian shipping within 30 days. The blockade was imposed in early 2026 as part of the maximum-pressure campaign preceding the MOU.",
+      us:    { interp: "Phased removal; some vessels withdrawing but full removal tied to Iranian compliance on IAEA access. The US reads 'fully lifted' as contingent on Iran's good faith.", verdict: "leverage", note: "US is using blockade removal schedule as leverage over IAEA compliance. This is not in the MOU text — it is a US interpretive move." },
+      iran:  { interp: "Unconditional and time-bound. 'Within 30 days' is explicit. Any conditioning of blockade removal on IAEA compliance is a US violation of the agreement's plain text.", verdict: "redline", note: "If blockade is not 100% lifted by Jul 17 (Day 30), Iran will formally invoke Clause 3 breach — compounding the Clause 1 Lebanon dispute." },
+      israel:{ pos: "Strongly opposed to blockade removal. The blockade was a key economic pressure tool. Israel has privately lobbied the US to condition removal on IAEA access to all sites including conflict-damaged facilities.", action: "Israeli lobbying may delay or condition US blockade removal, which would trigger a second Iranian clause-breach claim and substantially raise collapse probability." }
+    },
+    {
+      num: 4, title: "Iran Oil Export Authorization", mouRef: "Clause 4",
+      status: "done", statusLabel: "IMPLEMENTED",
+      summary: "Iran authorized to sell oil freely on global markets from Day 0. US sanctions waiver issued. This was Iran's primary economic incentive for signing the MOU.",
+      us:    { interp: "Goodwill gesture and incentive for Iranian compliance. Sanctions waiver is revocable if Iran violates other clauses. Not a permanent right under US law.", verdict: "leverage", note: "The oil export authorization can be revoked — giving the US the ability to walk back an economic incentive if talks break down." },
+      iran:  { interp: "Restoration of a pre-blockade right, not a concession. The sanctions were illegal under international law. Iran treats this as a floor, not a ceiling — and any reimposition as evidence of US bad faith.", verdict: "redline", note: "Reimposition of oil sanctions during active negotiations would be treated by Iran as a declaration that the MOU is void. Iran would close Hormuz and restart enrichment immediately." },
+      israel:{ pos: "Strongly opposed. Iranian oil revenue ($30-50B/yr at scale) funds the IRGC and proxy network. Israel views every barrel of Iranian oil sold as funding Hezbollah.", action: "Israel is lobbying the US Congress to pass legislation blocking the oil sanctions waiver — if successful, it would trigger Iranian walkout without any Israeli formal action." }
+    },
+    {
+      num: 5, title: "IAEA Supervision", mouRef: "Clause 5",
+      status: "disputed", statusLabel: "DISPUTED — SCOPE UNRESOLVED",
+      summary: "IAEA to 'supervise' the downblending and monitoring of Iran's enrichment facilities. The word 'supervise' is the center of the current dispute — what it covers is interpreted differently by each party.",
+      us:    { interp: "Full access to all enrichment-related facilities including sites damaged or destroyed in the February 2026 joint US-Israeli strikes. The MOU text is read as overriding sovereignty objections.", verdict: "redline", note: "Vance has stated IAEA access is non-negotiable. However, the US position on bombed sites is partially a negotiating stance — some flexibility on sequencing likely." },
+      iran:  { interp: "Active, declared enrichment facilities only. Bombed sites are destroyed infrastructure — inspecting rubble for compliance rewrites the cause of the damage. IAEA has never had access to military strike sites in any prior agreement.", verdict: "redline", note: "Iran's sovereignty argument on bombed sites has legal weight. This is a genuine red line — not leverage. A workaround (e.g., third-party assessment of bombed sites) may be the exit ramp." },
+      israel:{ pos: "Wants maximum IAEA access including all military-adjacent sites. Supports US position publicly. Privately concerned that IAEA access to bombed sites would expose the full scale of the February 2026 destruction.", action: "Israel benefits if IAEA scope dispute blocks the deal — it slows Iran's reconstitution of nuclear capability without requiring a formal agreement Israel opposes. Israeli intelligence may selectively brief IAEA on what was destroyed." }
+    },
+    {
+      num: 6, title: "Uranium Enrichment Cap", mouRef: "Clause 6",
+      status: "pending", statusLabel: "PENDING — CORE NEGOTIATION",
+      summary: "The central unresolved issue: what level of uranium enrichment Iran may maintain, for how long, and under what reversibility conditions. Iran currently enriches to 60%; the MOU commits Iran to freeze, not eliminate, during the 60-day window.",
+      us:    { interp: "Zero enrichment preferred; JCPOA level (3.67%) as compromise floor. 20-year duration minimum. Enrichment pause must be 'practically irreversible' with IAEA monitoring.", verdict: "leverage", note: "Zero enrichment is a negotiating opener, not a red line. The US accepted 3.67% in JCPOA (2015) and will again. Duration (20yr) is more genuinely contested." },
+      iran:  { interp: "NPT Article IV explicitly protects Iran's right to civilian enrichment. Maximum pause is 10 years — longer is not credible given US JCPOA withdrawal in 2018. Enrichment level cannot go to zero without permanent NPT rights surrender.", verdict: "redline", note: "The 'no enrichment' demand is Iran's definitive red line. Iran will accept a cap and duration, but the capability itself cannot be permanently eliminated. Likely compromise zone: 3.67% for 12-15 years." },
+      israel:{ pos: "Permanent, verifiable, irreversible elimination of all enrichment capability. No sunset clause. No NPT Article IV carve-out. Netanyahu has called this his 'life mission'.", action: "If any deal preserves Iranian enrichment capability at any level, Israel may conduct unilateral strikes on reconstituting Iranian nuclear infrastructure — regardless of a US-Iran agreement." }
+    },
+    {
+      num: 7, title: "HEU Stockpile Downblend", mouRef: "Clause 7",
+      status: "pending", statusLabel: "PENDING",
+      summary: "Iran's stockpile of highly-enriched uranium (up to 60%) must be downblended to civilian-grade under IAEA supervision. The dispute: should it be shipped out of Iran or downblended in-country?",
+      us:    { interp: "In-country downblend acceptable if IAEA has full chain-of-custody supervision. HEU must be reduced to below 5% and verified as irreversible. The US prefers shipment out of Iran (as in 2015) but will accept in-country.", verdict: "leverage", note: "Location of downblend is a US leverage point — not a red line. The US extracted this concession in JCPOA negotiations and will trade it for duration or level gains." },
+      iran:  { interp: "In-country downblend under IAEA supervision only. Shipping HEU out of Iran (as demanded by some US voices) is a sovereignty violation and practically irreversible — Iran will not do this given 2018 US JCPOA withdrawal as precedent.", verdict: "redline", note: "Shipment out of Iran is a genuine red line. In-country downblend is Iran's firm position but the timeline and monitoring modality are negotiable." },
+      israel:{ pos: "HEU must leave Iran entirely, shipped to a third country (Russia or Kazakhstan as in 2015 JCPOA). In-country downblend is not sufficiently verifiable and could be reversed.", action: "Israeli intelligence can provide the US with evidence of Iranian downblend capacity and timeline to argue in-country approach is insufficient — used as diplomatic pressure on the US negotiating team." }
+    },
+    {
+      num: 8, title: "Frozen Asset Release", mouRef: "Clause 8",
+      status: "pending", statusLabel: "PENDING — DUE MECHANISM BY DAY 30",
+      summary: "Release mechanism for $7B+ in Iranian assets frozen under US sanctions to be agreed by Day 30 (Jul 17). First tranche expected ~$3.5B. Full release tied to permanent deal.",
+      us:    { interp: "Phased release tied to verified IAEA compliance milestones. Each tranche unlocked only after Iran meets a specific obligation. Not a goodwill gesture — it is a performance-based mechanism.", verdict: "leverage", note: "Phasing is genuine leverage. The US held this tool effectively in JCPOA negotiations. Iran's economic need is real." },
+      iran:  { interp: "Full release at deal signing — the assets are Iran's sovereign property illegally frozen. Phasing conditions assets on Iranian compliance while not conditioning US compliance on anything equivalent.", verdict: "leverage", note: "Iran's stated position (full immediate release) is leverage. Iran will accept phasing if the first tranche is large enough (~$3.5B) and the mechanism is written into the binding deal." },
+      israel:{ pos: "No asset release before a permanent, verified deal. Even then, assets should be held in escrow with automatic clawback if Iran violates. $7B+ directly funds IRGC and proxy operations.", action: "Israeli lobbying of US Congress to block asset release (as happened in 2015) is the primary tool. If legislation passes, it creates a US domestic constraint that could prevent the deal regardless of Trump's position." }
+    },
+    {
+      num: 9, title: "Iran-Backed Forces Stand-Down", mouRef: "Clause 9",
+      status: "partial", statusLabel: "PARTIAL COMPLIANCE",
+      summary: "Iran-backed forces in Iraq, Syria, and Yemen to cease attacks on US personnel and assets. Houthis, PMF (Popular Mobilization Forces), and other Iran-linked groups covered.",
+      us:    { interp: "All Iran-backed attacks on US forces must cease immediately and verifiably. Iran must formally communicate stand-down orders to its network.", verdict: "redline", note: "A US soldier killed by an Iran-backed group during active MOU negotiations would be politically impossible for the Trump administration. This is a genuine US red line regardless of Iran's claim of proxy independence." },
+      iran:  { interp: "Iran has influence over but does not command these groups — they are sovereign actors with their own political interests. Iran can signal restraint but cannot guarantee compliance or issue formal orders without admitting command relationships it legally denies.", verdict: "leverage", note: "Iran's denial of command authority is partially genuine (the groups do have autonomy) and partially leverage. Iran can turn down the temperature but won't publicly take responsibility for doing so." },
+      israel:{ pos: "Full, verifiable disarmament of Hezbollah, not just stand-down. PMF in Iraq should be designated and sanctioned regardless of MOU. Houthi threat to Red Sea shipping is separate from Iran-US deal and must be addressed independently.", action: "Israel conducts its own strikes on Hezbollah and Iran-backed forces — independent of MOU framework. An Israeli strike that triggers Hezbollah retaliation during the MOU window could create a Clause 9 breach Iran blames on Israel." }
+    },
+    {
+      num: 10, title: "Prisoner / Detainee Exchange", mouRef: "Clause 10",
+      status: "pending", statusLabel: "PENDING",
+      summary: "Release of US and Western citizens held in Iranian detention, and Iranian nationals held by the US. Linked to asset release mechanism in negotiations.",
+      us:    { interp: "US citizens must be released before or simultaneously with any asset release. This was the sequencing in 2023 ($6B Qatar deal) and is the stated US position.", verdict: "leverage", note: "Prisoner release is a domestic political necessity for Trump. He will use it as a visible win. Iran knows this — it is leverage." },
+      iran:  { interp: "Prisoner exchange must be simultaneous and symmetrical. Iran will not release US detainees without guaranteed asset release — the 2023 $6B Qatar deal was partially reversed by the Biden administration, setting precedent Iran won't forget.", verdict: "leverage", note: "Iran's refusal to sequence (prisoners first, assets later) is leverage grounded in demonstrated US bad faith in 2023. Both sides will trade here." },
+      israel:{ pos: "No direct stake, but Israel wants Israeli-American dual nationals held by Iran or Iran-backed groups included in any exchange. Opposes using prisoner exchange as pretext to accelerate asset release.", action: "Israel may push dual-national cases into the negotiations, complicating the exchange list and potentially delaying agreement." }
+    },
+    {
+      num: 11, title: "US Gulf Force Posture", mouRef: "Clause 11",
+      status: "partial", statusLabel: "PARTIAL — DRAWDOWN INITIATED",
+      summary: "US to reduce forward military posture in the Gulf from maximum-pressure levels. Carrier battle groups and strike assets positioned for Iran strike options to be reduced or redeployed.",
+      us:    { interp: "Modest reduction from maximum-pressure posture. One carrier group drawdown. Remaining presence is 'normal Gulf operations,' not a coercive posture. No commitment to remove all forces.", verdict: "leverage", note: "US is offering symbolic drawdown. It retains all capability to re-escalate immediately — this is leverage, traded against Iranian compliance." },
+      iran:  { interp: "Meaningful force reduction required — not cosmetic. Iranian public and IRGC interpret continued US carrier presence as maintained strike threat. Full deal will require US to commit to not using Gulf bases for Iran strike planning.", verdict: "leverage", note: "Iran's position on force drawdown is leverage — Iran will trade this against enrichment duration. It is not a red line." },
+      israel:{ pos: "Wants US forces to remain at strike-ready posture throughout the negotiation window and beyond. The threat of US military action is Israel's best guarantee against Iranian nuclear breakout.", action: "Israeli lobbying of CENTCOM and Congress to resist Gulf drawdown. If US significantly reduces force posture, Israel may increase its own readiness for unilateral strikes as a compensating signal." }
+    },
+    {
+      num: 12, title: "Lebanon / Hezbollah Framework", mouRef: "Clause 12",
+      status: "pending", statusLabel: "PENDING — LINKED TO CLAUSE 1",
+      summary: "Long-term framework for Lebanon, including Hezbollah's military status and IDF presence in south Lebanon. Explicitly linked to Clause 1 ceasefire — Iran will not discuss this until Clause 1 is enforced.",
+      us:    { interp: "Lebanon stabilization is desired but secondary to nuclear deal. US prefers Hezbollah to transition to purely political role. IDF presence in Lebanon is an Israeli decision the US has limited influence over.", verdict: "leverage", note: "The US has more influence over Lebanon's government than it does over IDF operations. Lebanon framework is a US-Iran talking point to manage Iran's Clause 1 concerns." },
+      iran:  { interp: "Hezbollah is a legitimate Lebanese political party and resistance movement. Disarmament is not on the table — it is a Lebanese sovereign question. Iran's red line: Lebanon framework cannot be a condition of the nuclear deal.", verdict: "redline", note: "Hezbollah disarmament is Iran's hardest red line in this section — harder even than enrichment. Iran views Hezbollah as its forward deterrent against Israel." },
+      israel:{ pos: "Full Hezbollah disarmament south of the Litani. IDF buffer zone in south Lebanon maintained. Any deal leaving Hezbollah armed and Iran-linked is rejected regardless of enrichment terms.", action: "Israel's ongoing Lebanon operations are partly designed to degrade Hezbollah before any US-Iran deal could freeze the status quo with Hezbollah intact. Every IDF strike advances Israel's military position independent of negotiations." }
+    },
+    {
+      num: 13, title: "Sanctions Snapback Mechanism", mouRef: "Clause 13",
+      status: "pending", statusLabel: "PENDING — BLOCKING ISSUE",
+      summary: "What triggers automatic reimposition of sanctions if Iran violates the deal. This was the JCPOA's most contested legacy issue — the US withdrew from JCPOA in 2018 invoking its snapback right unilaterally.",
+      us:    { interp: "US must retain unilateral snapback authority — any breach triggers automatic sanctions reimposition without UN Security Council involvement. This is a domestic legal and political requirement.", verdict: "redline", note: "Unilateral snapback is a genuine US red line — it is impossible to pass a nuclear deal through a hostile US Senate without a robust snapback mechanism." },
+      iran:  { interp: "Snapback must go through UN Security Council with a deliberation period — otherwise the US can collapse any deal on a pretext, as it did in 2018. Unilateral snapback is why Iran would not trust a deal in the first place.", verdict: "redline", note: "Iran's objection to unilateral snapback is grounded in demonstrated US behavior. This is a genuine red line, not leverage — no Iranian government can politically sign an agreement with a unilateral US exit ramp." },
+      israel:{ pos: "Automatic, rapid snapback with zero dispute period. The more hair-trigger the mechanism, the harder it is for Iran to cheat. Supports US position.", action: "Israel benefits from a hair-trigger snapback — it creates maximum pressure on Iranian compliance and reduces the deal's practical durability, leaving open the option for future confrontation." }
+    },
+    {
+      num: 14, title: "60-Day Window + Extension Clause", mouRef: "Clause 14",
+      status: "active", statusLabel: "ACTIVE — DAY 7 OF 60",
+      summary: "The MOU establishes a 60-day negotiating window (to Aug 16) with an extension clause requiring mutual agreement. The window is currently active. Extension is the most likely outcome.",
+      us:    { interp: "60 days is the target. Extension is available but not preferred — Trump wants a visible deal before political calendar pressures mount (UNGA September, midterms November).", verdict: "leverage", note: "The US is more motivated than Iran to meet the Aug 16 deadline — Trump needs the win. Iran can afford to extend if the economic benefits (oil sales, blockade lifted) continue." },
+      iran:  { interp: "60 days is a framework, not a binding deadline if extension is agreed. Iran has more leverage on extension terms — it can threaten to void the MOU rather than extend on unfavorable conditions.", verdict: "leverage", note: "Iran's extension leverage is significant. If the US needs extension more than Iran, Iran can extract concessions on asset release or enrichment terms as the price of agreeing to extend." },
+      israel:{ pos: "Opposed to extension — more time allows Iran to normalize economically and build international opposition to a military option. Israel prefers the MOU collapse (resetting to maximum pressure) over an indefinite extension.", action: "Israel has incentive to escalate Lebanon operations precisely when extension is being discussed — triggering an Iranian walkout before extension terms are agreed, which collapses the deal and resets to conflict, which Israel views as preferable to an imperfect deal." }
     }
   ],
 
@@ -729,6 +919,7 @@ function init() {
   renderParties();
   renderCards();
   renderDates();
+  renderClauses();
   renderHistory();
   document.getElementById('footer').textContent =
     'Sources: ' + DATA.meta.dataSource +
@@ -1140,6 +1331,64 @@ function renderDates() {
         <div class="date-stake">↳ Stake: ${kd.stake}</div>
       </div>`;
     list.appendChild(row);
+  });
+}
+
+function renderClauses() {
+  const verdictLabels = { redline: '⬛ TRUE RED LINE', leverage: '◆ LEVERAGE — LIKELY TRADEABLE', active: '● IMPLEMENTATION IN PROGRESS' };
+  const verdictClass  = { redline: 'cv-redline', leverage: 'cv-leverage', active: 'cv-active' };
+  const statusClass   = { done:'cs-done', active:'cs-active', partial:'cs-partial', disputed:'cs-disputed', violated:'cs-violated', pending:'cs-pending' };
+
+  const container = document.getElementById('clauses-sec');
+
+  DATA.mouClauses.forEach(cl => {
+    const card = document.createElement('div');
+    card.className = 'clause-card';
+
+    const usVerdict   = `<span class="cp-verdict ${verdictClass[cl.us.verdict]}">${verdictLabels[cl.us.verdict]}</span>`;
+    const iranVerdict = `<span class="cp-verdict ${verdictClass[cl.iran.verdict]}">${verdictLabels[cl.iran.verdict]}</span>`;
+
+    card.innerHTML =
+      `<div class="clause-hdr" onclick="this.parentElement.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">` +
+        `<span class="clause-num">${String(cl.num).padStart(2,'0')}</span>` +
+        `<span class="clause-title">${cl.title}</span>` +
+        `<span class="clause-ref">${cl.mouRef}</span>` +
+        `<span class="clause-status ${statusClass[cl.status]}">${cl.statusLabel}</span>` +
+        `<span class="clause-chevron">▼</span>` +
+      `</div>` +
+      `<div class="clause-body">` +
+        `<div class="clause-summary">${cl.summary}</div>` +
+        `<div class="clause-parties">` +
+          // US
+          `<div class="clause-party" style="border-top:2px solid #3b82f6">` +
+            `<div class="cp-hdr"><span class="cp-flag">🇺🇸</span><span class="cp-name" style="color:#3b82f6">United States</span><span class="cp-tag">signatory</span></div>` +
+            `<div class="cp-body">` +
+              `<div class="cp-interp">${cl.us.interp}</div>` +
+              `${usVerdict}` +
+              `<div class="cp-note">${cl.us.note}</div>` +
+            `</div>` +
+          `</div>` +
+          // Iran
+          `<div class="clause-party" style="border-top:2px solid #10b981">` +
+            `<div class="cp-hdr"><span class="cp-flag">🇮🇷</span><span class="cp-name" style="color:#10b981">Iran</span><span class="cp-tag">signatory</span></div>` +
+            `<div class="cp-body">` +
+              `<div class="cp-interp">${cl.iran.interp}</div>` +
+              `${iranVerdict}` +
+              `<div class="cp-note">${cl.iran.note}</div>` +
+            `</div>` +
+          `</div>` +
+          // Israel
+          `<div class="clause-party" style="border-top:2px solid #f59e0b">` +
+            `<div class="cp-hdr"><span class="cp-flag">🇮🇱</span><span class="cp-name" style="color:#f59e0b">Israel</span><span class="cp-tag">non-signatory · external veto</span></div>` +
+            `<div class="cp-body">` +
+              `<div class="cp-pos">${cl.israel.pos}</div>` +
+              `<div class="cp-action">${cl.israel.action}</div>` +
+            `</div>` +
+          `</div>` +
+        `</div>` +
+      `</div>`;
+
+    container.appendChild(card);
   });
 }
 
