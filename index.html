@@ -35,6 +35,9 @@
     .upd .v{color:var(--grn)}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
     .live{width:6px;height:6px;border-radius:50%;background:var(--grn);display:inline-block;margin-left:5px;animation:pulse 2.2s infinite}
+    .update-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.35);border-radius:5px;color:var(--amb2);font-size:11px;font-weight:600;letter-spacing:.5px;text-decoration:none;transition:background .2s,border-color .2s;cursor:pointer;white-space:nowrap}
+    .update-btn:hover{background:rgba(217,119,6,.22);border-color:rgba(217,119,6,.6)}
+    .update-btn .spin{display:inline-block;font-size:13px;line-height:1}
 
     /* ── LAYOUT ── */
     .main{max-width:1400px;margin:0 auto;padding:18px 26px}
@@ -344,6 +347,7 @@
   <div class="hdr-r">
     <div class="mou-badge">MOU Day <span id="mou-day-num"></span>/60 · Deadline <span id="mou-deadline"></span></div>
     <div class="upd">Updated: <span class="v" id="upd"></span><span class="live"></span></div>
+    <a class="update-btn" href="https://github.com/cyber-6us/iran-conflict-monitor/actions/workflows/update.yml" target="_blank" rel="noopener"><span class="spin">↻</span> Live Update</a>
   </div>
 </header>
 
