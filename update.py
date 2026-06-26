@@ -188,13 +188,21 @@ def fetch_update(today: str, mou_day: int, data_block: str) -> str:
 
     text = "".join(b.text for b in response.content if hasattr(b, "text")).strip()
 
-    # Strip accidental markdown fences
+    # Strip markdown fences if present
     text = re.sub(r'^```(?:javascript|js)?\s*\n?', '', text)
     text = re.sub(r'\n?```\s*$', '', text)
     text = text.strip()
 
-    if not text.startswith("const DATA"):
-        raise ValueError(f"Unexpected response — does not start with 'const DATA'.\nGot: {text[:300]}")
+    # Claude sometimes adds a preamble before the block — find it wherever it starts
+    marker = text.find("const DATA")
+    if marker == -1:
+        raise ValueError(f"No 'const DATA' found in response.\nGot: {text[:300]}")
+    text = text[marker:]
+
+    # Also strip anything after the closing }; (e.g. trailing explanation)
+    end = text.rfind("};")
+    if end != -1:
+        text = text[:end + 2]
 
     return text
 
