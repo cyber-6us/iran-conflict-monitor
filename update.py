@@ -105,6 +105,12 @@ belong in summary.divergences[].
 - scenarios[*].banks / .trades — if banking/sanctions dynamics changed
 - summary.drivers[] — if key variables shifted
 - keyDates[] — mark past dates done, add new announced dates
+  IMPORTANT: Only MOU process milestones belong in keyDates[] (talks, IAEA visits,
+  asset tranches, deadlines, framework signings). External conflict events
+  (IRGC strikes, US/Israeli military actions, congressional votes, GCC incidents)
+  are NOT MOU milestones — tag them with type: "event" so they display separately.
+  Example: { date:"Jun 27", day:10, status:"done", type:"event", title:"...", desc:"...", stake:"..." }
+  MOU milestones have no type field (or type: "mou").
 - mouClauses[] — update status/notes as MOU implementation evolves
 
 ### Hard constraints:

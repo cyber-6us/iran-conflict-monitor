@@ -72,6 +72,12 @@
     .mou-ms-badge.active{background:rgba(217,119,6,.12);color:var(--amb2);border:1px solid rgba(217,119,6,.28)}
     .mou-ms-badge.upcoming{background:rgba(148,163,184,.08);color:var(--txt3);border:1px solid rgba(148,163,184,.18)}
     .mou-ms-badge.critical{background:rgba(239,68,68,.1);color:var(--red2);border:1px solid rgba(239,68,68,.25)}
+    /* disruption/conflict events — shown below milestone grid in separate format */
+    .mou-ev-hd{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orn);margin-top:14px;margin-bottom:6px;padding-left:2px}
+    .mou-events{display:flex;flex-direction:column;gap:5px}
+    .mou-ev{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;background:rgba(249,115,22,.05);border:1px solid rgba(249,115,22,.2);border-left:3px solid var(--orn);border-radius:6px}
+    .mou-ev-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);white-space:nowrap;padding-top:2px;flex-shrink:0}
+    .mou-ev-title{font-size:12px;color:var(--yel2);font-weight:500;line-height:1.35}
     /* extension zone */
     .mou-ext-zone{margin-top:10px;padding:6px 10px;background:rgba(99,102,241,.05);border:1px dashed rgba(99,102,241,.2);border-radius:6px;display:flex;gap:20px;align-items:flex-start}
     .mou-ext-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ind2);white-space:nowrap;margin-top:1px;flex-shrink:0}
@@ -361,6 +367,7 @@
       <div class="mou-now-dot" id="mou-now-dot"></div>
     </div>
     <div class="mou-milestones" id="mou-milestones"></div>
+    <div id="mou-events"></div>
     <div class="mou-ext-zone" id="mou-ext-zone" style="display:none">
       <div class="mou-ext-lbl">If Extended ⟶</div>
       <div class="mou-ext-items" id="mou-ext-items"></div>
@@ -835,6 +842,7 @@ const DATA = {
       day: 3,
       status: "done",
       icon: "🚨",
+      type: "event",
       title: "IRGC Closes Hormuz — Mini-Crisis Resolved",
       desc: "Iran's IRGC military command declared Hormuz closed Jun 20, citing Israeli Lebanon strikes as a 'blatant breach' of Clause 1. Iran's foreign ministry contradicted the IRGC within hours, saying shipping was 'operating normally.' VP Vance confirmed the straits were open. Jun 21: 16 million barrels transited Hormuz in a single day — a record. The IRGC closure declaration was a leverage signal, not a sustained operation. The IRGC/foreign ministry split on Jun 20 prefigured the Jun 25 vessel strike and Jun 26 US retaliation.",
       stake: "IRGC demonstrated on Day 3 it will use Hormuz leverage independently of the civilian diplomatic track. This pattern escalated through Jun 25–26."
@@ -853,6 +861,7 @@ const DATA = {
       day: 8,
       status: "done",
       icon: "🚢",
+      type: "event",
       title: "Iran Drone Strike on Vessel — Hormuz Routing Enforcement",
       desc: "Iran's IRGC struck a vessel in the Gulf of Oman via drone on Jun 25, hours after warning ships against unauthorized routing through Hormuz. UN IMO paused evacuation of 600+ stranded ships. Iran has not claimed responsibility. The ship was on a route not approved by Iran's PGSA. The US confirmed an Iranian drone attack. Iran's PGSA warned: 'The consequences of traveling on unauthorized routes will be the responsibility of the owner, operator, and commander of the vessel.' This is the first confirmed Iranian kinetic action against a vessel since MOU signing.",
       stake: "IRGC demonstrated Hormuz routing enforcement is operational, not rhetorical. The civilian foreign ministry has not claimed or denied the strike. This IRGC/foreign ministry split is the most dangerous structural feature of Iran's MOU compliance posture."
@@ -862,6 +871,7 @@ const DATA = {
       day: 8,
       status: "done",
       icon: "💰",
+      type: "event",
       title: "US $87.6B Iran War Supplemental Sent to Congress",
       desc: "Trump administration sent Congress an $87.6B war supplemental dominated by $67B for the Pentagon ($21B munitions, $17.3B operational, $12.1B classified). Faces immediate Democratic rejection and Republican fractures — 8 Republicans backed war powers limits. Senate rejected further war powers limitation resolution advancement 50-47. Democrats calling it funding for an 'illegal war.' The supplemental creates a Nov 3 midterm deadline that incentivizes Trump to show a deal outcome rather than a war funding fight.",
       stake: "If Congress attaches deal-hostile conditions (Cotton/Graham amendments on assets or IAEA scope) to the supplemental, Trump faces a choice between domestic political survival and deal flexibility. The supplemental also signals the US is simultaneously spending for war continuation while negotiating for peace — Iran will read this as a signal the US military option remains live."
@@ -880,6 +890,7 @@ const DATA = {
       day: 10,
       status: "done",
       icon: "🚨",
+      type: "event",
       title: "Second IRGC Strike (M/T Kiku) + US Broader Retaliatory Strikes + Iran Attacks GCC",
       desc: "Three sequential escalations in 24 hours. (1) IRGC struck Panama-flagged M/T Kiku (2M+ barrels crude) via one-way attack drone in Strait of Hormuz — second post-MOU tanker attack. (2) US launched second retaliatory strikes on Iran — broader target set than Jun 26: military surveillance infrastructure, communication systems, air defense sites, drone storage facilities, and minelayer capabilities. (3) Iran's IRGC launched joint missile and drone attacks on US military sites in Kuwait and Bahrain — first direct IRGC attack on GCC member states during the MOU period. Bahrain hosts the US 5th Fleet. GCC Ministerial Council condemned attacks as 'treacherous' and 'blatant aggression against sovereignty of states.' Iran formally invoked MOU breach for the first time: Rezaei (IRGC adviser to Supreme Leader) cited Articles 1 and 5; IRGC statement threatened 'complete halt of all diplomatic processes.' Trump (Truth Social): 'There may come a point when we are no longer able to be reasonable, and will be forced to militarily complete the job... Iran will no longer exist.' IRGC appeared to rebuff US Strait of Hormuz hotline. Trump simultaneously said talks continuing at 'rapid pace.' Netanyahu (Jun 27): 'Israel created conditions for Iranian regime's collapse.'",
       stake: "Qualitative escalation: Iran attacked GCC sovereign states (not just Hormuz vessels), formally invoked MOU breach (not just rhetoric), and IRGC rebuffed the US hotline (removing a de-escalation mechanism). Collapse probability +13pp to 25%. Round 2 (Jun 29-30) opens under formal breach citation."
@@ -1179,20 +1190,20 @@ function renderMouTimeline() {
 
   const badgeLabels = { done: '✓ done', active: '● now', upcoming: '○ upcoming', critical: '⚠ deadline' };
 
-  // Subtle tick marks on bar at each milestone position
+  // Subtle tick marks on bar at each MOU process milestone position (not external events)
   const barWrap = document.getElementById('mou-bar-wrap');
   DATA.keyDates
-    .filter(kd => kd.day > 0 && kd.day <= DATA.meta.mouDays)
+    .filter(kd => kd.day > 0 && kd.day <= DATA.meta.mouDays && kd.type !== 'event')
     .forEach(kd => {
       const tick = document.createElement('div');
       tick.style.cssText = `position:absolute;top:0;bottom:0;left:${(kd.day/DATA.meta.mouDays)*100}%;width:1px;background:rgba(255,255,255,0.2);pointer-events:none`;
       barWrap.appendChild(tick);
     });
 
-  // 2-column milestone grid below the bar
+  // 2-column milestone grid — MOU process items only (not external conflict events)
   const wrap = document.getElementById('mou-milestones');
   DATA.keyDates
-    .filter(kd => kd.day <= DATA.meta.mouDays)
+    .filter(kd => kd.day <= DATA.meta.mouDays && kd.type !== 'event')
     .forEach(kd => {
       const el = document.createElement('div');
       el.className = 'mou-ms';
@@ -1206,6 +1217,28 @@ function renderMouTimeline() {
         `</div>`;
       wrap.appendChild(el);
     });
+
+  // Disruption events — external military/political events rendered separately below the grid
+  const evWrap = document.getElementById('mou-events');
+  const events = DATA.keyDates.filter(kd => kd.type === 'event');
+  if (events.length) {
+    const hd = document.createElement('div');
+    hd.className = 'mou-ev-hd';
+    hd.textContent = '⚡ Conflict Events';
+    evWrap.appendChild(hd);
+    const list = document.createElement('div');
+    list.className = 'mou-events';
+    events.forEach(ev => {
+      const el = document.createElement('div');
+      el.className = 'mou-ev';
+      const shortTitle = ev.title.replace(' (Contested)', '');
+      el.innerHTML =
+        `<div class="mou-ev-date">${ev.date} · Day ${ev.day}</div>` +
+        `<div class="mou-ev-title">${shortTitle}</div>`;
+      list.appendChild(el);
+    });
+    evWrap.appendChild(list);
+  }
 
   // Extension zone: items beyond mouDays
   const extended = DATA.keyDates.filter(kd => kd.day > DATA.meta.mouDays);
