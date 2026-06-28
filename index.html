@@ -236,10 +236,9 @@
     /* ── CURRENT DISCUSSION TOPIC ── */
     .topic-box{background:linear-gradient(135deg,#091a2e,#0e1d2e);border:1px solid var(--bdr2);border-left:3px solid var(--ind);border-radius:11px;padding:16px 20px;margin-bottom:16px}
     .topic-lbl{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--ind2);margin-bottom:3px}
-    .topic-hd-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .topic-title{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:4px}
-    .topic-clause{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ind2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:4px;padding:2px 7px}
-    .topic-next-lbl{font-size:12px;color:var(--txt3);white-space:nowrap;margin-top:2px;font-family:'JetBrains Mono',monospace}
+    .topic-title{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:6px}
+    .topic-clause{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ind2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:4px;padding:2px 7px;margin-bottom:8px}
+    .topic-next-lbl{font-size:12px;color:var(--txt3);margin-bottom:10px;font-family:'JetBrains Mono',monospace;line-height:1.5}
     .topic-overview{font-size:13px;color:var(--txt2);line-height:1.65;margin-bottom:14px;padding:10px 12px;background:rgba(99,102,241,.04);border-radius:7px;border:1px solid rgba(99,102,241,.12)}
     .topic-parties{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
     .topic-party{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;overflow:hidden}
@@ -386,13 +385,9 @@
   <!-- CURRENT DISCUSSION TOPIC -->
   <div class="topic-box">
     <div class="topic-lbl">Current / Next Discussion Point — MOU Negotiation</div>
-    <div class="topic-hd-row">
-      <div>
-        <div class="topic-title" id="topic-title"></div>
-        <div class="topic-clause" id="topic-clause"></div>
-      </div>
-      <div class="topic-next-lbl" id="topic-next"></div>
-    </div>
+    <div class="topic-title" id="topic-title"></div>
+    <div class="topic-clause" id="topic-clause"></div>
+    <div class="topic-next-lbl" id="topic-next"></div>
     <div class="topic-overview" id="topic-overview"></div>
     <div class="topic-parties" id="topic-parties"></div>
   </div>
@@ -1361,22 +1356,35 @@ function renderTree() {
   svg.style.display = 'block';
   svg.removeAttribute('height');
 
+  // Derive all probabilities from DATA.scenarios so the tree always matches the dashboard
+  const _sp = {};
+  DATA.scenarios.forEach(s => { _sp[s.id] = s.prob; });
+  const _collapse   = _sp.collapse      || 0;
+  const _ontime     = _sp.deal_ontime   || 0;
+  const _extended   = _sp.deal_extended || 0;
+  const _limbo      = _sp.limbo         || 0;
+  const _lebYes     = 100 - _collapse;
+  const _extSplit   = _extended / 2;
+  // iaea_ok handles ontime + half of extended; iaea_no handles limbo + other half
+  const _iaeaOkPct  = _lebYes > 0 ? Math.round((_ontime + _extSplit) / _lebYes * 100) : 50;
+  const _iaeaNoPct  = 100 - _iaeaOkPct;
+
   // 3-level tree. All 4 terminals at the same y.
   // Right branch: leb_no → COLLAPSE terminal directly (no intermediate node).
   const nodes = [
     // Root
     { id:'root',    x:480, y:18,  w:230, h:56, label:'MOU Active',        sub:'Day '+DATA.meta.mouDay+' / 60', color:'#6366f1', pct:null },
     // Level 1 — Lebanon ceasefire gate
-    { id:'leb_yes', x:235, y:134, w:205, h:56, label:'Lebanon Holds',     sub:'Ceasefire durability',          color:'#10b981', pct:'70%' },
-    { id:'leb_no',  x:755, y:134, w:205, h:56, label:'Lebanon Collapses', sub:'Clause 1 violated',             color:'#ef4444', pct:'30%' },
+    { id:'leb_yes', x:235, y:134, w:205, h:56, label:'Lebanon Holds',     sub:'Ceasefire durability',          color:'#10b981', pct:_lebYes+'%' },
+    { id:'leb_no',  x:755, y:134, w:205, h:56, label:'Lebanon Collapses', sub:'Clause 1 violated',             color:'#ef4444', pct:_collapse+'%' },
     // Level 2 — IAEA gate (left branch only)
-    { id:'iaea_ok', x:110, y:264, w:190, h:56, label:'IAEA Access',       sub:'Inspections agreed',            color:'#3b82f6', pct:'65%' },
-    { id:'iaea_no', x:365, y:264, w:190, h:56, label:'IAEA Deadlock',     sub:'Enrichment dispute',            color:'#f59e0b', pct:'35%' },
-    // Level 3 — terminal outcomes (all at same y)
-    { id:'deal',    x:65,  y:382, w:128, h:0,  label:'FULL DEAL', pct:'20%', color:'#10b981', terminal:true },
-    { id:'ext',     x:230, y:382, w:128, h:0,  label:'EXTENDED',  pct:'54%', color:'#3b82f6', terminal:true },
-    { id:'limbo',   x:405, y:382, w:128, h:0,  label:'LIMBO',     pct:'16%', color:'#f59e0b', terminal:true },
-    { id:'conf',    x:755, y:382, w:205, h:0,  label:'COLLAPSE',  pct:'10%', color:'#ef4444', terminal:true }
+    { id:'iaea_ok', x:110, y:264, w:190, h:56, label:'IAEA Access',       sub:'Inspections agreed',            color:'#3b82f6', pct:_iaeaOkPct+'%' },
+    { id:'iaea_no', x:365, y:264, w:190, h:56, label:'IAEA Deadlock',     sub:'Enrichment dispute',            color:'#f59e0b', pct:_iaeaNoPct+'%' },
+    // Level 3 — terminal outcomes, read from DATA.scenarios
+    { id:'deal',    x:65,  y:382, w:128, h:0,  label:'FULL DEAL', pct:_ontime+'%',   color:'#10b981', terminal:true },
+    { id:'ext',     x:230, y:382, w:128, h:0,  label:'EXTENDED',  pct:_extended+'%', color:'#3b82f6', terminal:true },
+    { id:'limbo',   x:405, y:382, w:128, h:0,  label:'LIMBO',     pct:_limbo+'%',    color:'#f59e0b', terminal:true },
+    { id:'conf',    x:755, y:382, w:205, h:0,  label:'COLLAPSE',  pct:_collapse+'%', color:'#ef4444', terminal:true }
   ];
   // Terminal height: two text lines
   const TH = 36;
@@ -1452,10 +1460,10 @@ function renderTree() {
   const DL=N('deal'), EX=N('ext'), LB=N('limbo'), CF=N('conf');
 
   // Edges first (nodes drawn on top)
-  drawEdge(R.x,   R.y+R.h,   LY.x, LY.y,  '70%', '#10b981');
-  drawEdge(R.x,   R.y+R.h,   LN.x, LN.y,  '30%', '#ef4444');
-  drawEdge(LY.x,  LY.y+LY.h, IY.x, IY.y,  '65%', '#3b82f6');
-  drawEdge(LY.x,  LY.y+LY.h, ID.x, ID.y,  '35%', '#f59e0b');
+  drawEdge(R.x,   R.y+R.h,   LY.x, LY.y,  _lebYes+'%',   '#10b981');
+  drawEdge(R.x,   R.y+R.h,   LN.x, LN.y,  _collapse+'%', '#ef4444');
+  drawEdge(LY.x,  LY.y+LY.h, IY.x, IY.y,  _iaeaOkPct+'%', '#3b82f6');
+  drawEdge(LY.x,  LY.y+LY.h, ID.x, ID.y,  _iaeaNoPct+'%', '#f59e0b');
   // Right branch: Lebanon collapse → directly to COLLAPSE terminal (skips level 2)
   drawEdge(LN.x,  LN.y+LN.h, CF.x, CF.y,  '',    '#ef4444');
   // Left level 2 → terminals
