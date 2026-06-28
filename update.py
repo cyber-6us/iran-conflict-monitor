@@ -155,6 +155,39 @@ def extract_data_block(html: str) -> tuple[str, int, int]:
     raise ValueError("Could not find end of DATA block in index.html")
 
 
+def validate_data_block(text: str) -> None:
+    """Raise ValueError if the DATA block has unbalanced braces (truncation check)."""
+    BACKSLASH = chr(92)
+    marker = text.find("const DATA = {")
+    if marker == -1:
+        raise ValueError("No 'const DATA = {' found in block")
+    depth = 0
+    i = marker
+    in_string = False
+    string_char = None
+    while i < len(text):
+        c = text[i]
+        if in_string:
+            if c == BACKSLASH:
+                i += 2
+                continue
+            if c == string_char:
+                in_string = False
+        else:
+            if c in ('"', "'", '`'):
+                in_string = True
+                string_char = c
+            elif c == '{':
+                depth += 1
+            elif c == '}':
+                depth -= 1
+                if depth == 0:
+                    return  # balanced
+        i += 1
+    raise ValueError(f"DATA block braces not balanced — truncated output (depth={depth} at end). "
+                     "Refusing to write broken HTML.")
+
+
 def fetch_update(today: str, mou_day: int, data_block: str) -> str:
     client = anthropic.Anthropic()
     tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": 16}]
@@ -166,7 +199,7 @@ def fetch_update(today: str, mou_day: int, data_block: str) -> str:
     for attempt in range(24):
         response = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=16000,
+            max_tokens=32000,
             system=SYSTEM,
             tools=tools,
             messages=messages,
@@ -179,7 +212,8 @@ def fetch_update(today: str, mou_day: int, data_block: str) -> str:
             messages.append({"role": "assistant", "content": response.content})
             tool_results = [
                 {"type": "tool_result", "tool_use_id": b.id, "content": ""}
-                for b in response.content if b.type == "tool_use"
+                for b in response.content
+                if b.type in ("tool_use", "server_tool_use")
             ]
             if tool_results:
                 messages.append({"role": "user", "content": tool_results})
@@ -214,7 +248,8 @@ def main():
     with open("index.html", encoding="utf-8") as f:
         html = f.read()
 
-    if f'lastUpdated: "{today}"' in html:
+    # Use regex to handle variable whitespace between key and value
+    if re.search(r'lastUpdated:\s+"' + re.escape(today) + r'"', html):
         print(f"Already up to date for {today}. Nothing to do.")
         sys.exit(0)
 
@@ -224,6 +259,14 @@ def main():
 
     new_data_block = fetch_update(today, mou_day, data_block)
     print(f"Updated DATA block: {len(new_data_block)} chars")
+
+    # Refuse to write a truncated or malformed DATA block
+    validate_data_block(new_data_block)
+    if len(new_data_block) < len(data_block) * 0.7:
+        raise ValueError(
+            f"New DATA block ({len(new_data_block)} chars) is more than 30% smaller than "
+            f"original ({len(data_block)} chars) — likely truncated. Refusing to overwrite."
+        )
 
     html = html[:start_idx] + new_data_block + html[end_idx:]
 
