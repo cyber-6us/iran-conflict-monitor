@@ -51,20 +51,18 @@
     .mou-bar-wrap{position:relative;height:20px;background:var(--bg4);border-radius:10px;overflow:visible;margin-bottom:0;border:1px solid var(--bdr)}
     .mou-bar-fill{height:100%;border-radius:10px 0 0 10px;background:linear-gradient(90deg,var(--grn),var(--amb2));transition:width .3s}
     .mou-now-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:var(--amb2);border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px var(--amb2);animation:pulse 2s infinite}
-    /* milestone track */
-    .mou-milestones{position:relative;min-height:84px;margin-top:0}
-    .mou-ms{position:absolute;top:0;display:flex;flex-direction:column;align-items:center;transform:translateX(-50%)}
-    .mou-ms.edge-start{transform:none}
-    .mou-ms.edge-end{transform:translateX(-100%)}
-    .mou-ms-stem{width:1px;height:8px;background:var(--bdr2);flex-shrink:0}
-    .mou-ms-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;border:2px solid var(--bdr2);background:var(--bg4)}
+    /* milestone track — 2-column grid below the bar */
+    .mou-milestones{display:grid;grid-template-columns:1fr 1fr;gap:5px 24px;margin-top:12px}
+    .mou-ms{display:flex;align-items:flex-start;gap:8px}
+    .mou-ms-stem{display:none}
+    .mou-ms-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px;border:2px solid var(--bdr2);background:var(--bg4)}
     .mou-ms-dot.done{background:var(--grn);border-color:var(--grn)}
     .mou-ms-dot.active{background:var(--amb2);border-color:var(--amb2);box-shadow:0 0 5px var(--amb2)}
     .mou-ms-dot.upcoming{background:var(--bg4);border-color:var(--bdr2)}
     .mou-ms-dot.critical{background:var(--red);border-color:var(--red)}
-    .mou-ms-info{margin-top:4px;text-align:center;max-width:86px}
-    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--txt3);margin-bottom:1px;white-space:nowrap}
-    .mou-ms-lbl{font-size:10.5px;line-height:1.3;word-break:break-word}
+    .mou-ms-info{flex:1;min-width:0}
+    .mou-ms-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--txt3);margin-bottom:1px}
+    .mou-ms-lbl{font-size:12px;line-height:1.35}
     .mou-ms-lbl.done{color:var(--grn)}
     .mou-ms-lbl.active{color:var(--amb2);font-weight:600}
     .mou-ms-lbl.upcoming{color:var(--txt2)}
@@ -328,7 +326,7 @@
       .parties-grid{grid-template-columns:1fr}
       .sum-grid{grid-template-columns:1fr}
       .party-strip-grid{grid-template-columns:1fr}
-      .mou-milestones{min-height:60px}
+      .mou-milestones{grid-template-columns:1fr}
       .main{padding:12px}
       .topic-parties{grid-template-columns:1fr}
     }
@@ -1186,22 +1184,25 @@ function renderMouTimeline() {
 
   const badgeLabels = { done: '✓ done', active: '● now', upcoming: '○ upcoming', critical: '⚠ deadline' };
 
-  // Items within the 60-day window
+  // Subtle tick marks on bar at each milestone position
+  const barWrap = document.getElementById('mou-bar-wrap');
+  DATA.keyDates
+    .filter(kd => kd.day > 0 && kd.day <= DATA.meta.mouDays)
+    .forEach(kd => {
+      const tick = document.createElement('div');
+      tick.style.cssText = `position:absolute;top:0;bottom:0;left:${(kd.day/DATA.meta.mouDays)*100}%;width:1px;background:rgba(255,255,255,0.2);pointer-events:none`;
+      barWrap.appendChild(tick);
+    });
+
+  // 2-column milestone grid below the bar
   const wrap = document.getElementById('mou-milestones');
   DATA.keyDates
     .filter(kd => kd.day <= DATA.meta.mouDays)
     .forEach(kd => {
-      const leftPct = (kd.day / DATA.meta.mouDays) * 100;
       const el = document.createElement('div');
-      const edgeCls = kd.day === 0 ? ' edge-start' : kd.day === DATA.meta.mouDays ? ' edge-end' : '';
-      el.className = 'mou-ms' + edgeCls;
-      el.style.left = leftPct + '%';
-
-      // Shorten title: split on ' — ' and take first part, then clip
+      el.className = 'mou-ms';
       const shortTitle = kd.title.split(' — ')[0].replace(' (Contested)', '');
-
       el.innerHTML =
-        `<div class="mou-ms-stem"></div>` +
         `<div class="mou-ms-dot ${kd.status}"></div>` +
         `<div class="mou-ms-info">` +
           `<div class="mou-ms-date">${kd.date} · Day ${kd.day}</div>` +
